@@ -18,13 +18,15 @@ RUN npm install
 COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV NEXT_CPU_NUM=1
 ENV NODE_ENV=production
 ENV NODE_OPTIONS="--max-old-space-size=2048"
 
 # Ensure directories exist
 RUN mkdir -p data public/uploads
 
-RUN npm run build
+# Run build with single worker to prevent SIGSEGV on VPS shared CPU
+RUN NEXT_CPU_NUM=1 npm run build
 
 # ==========================================
 # 2. Production Runner Stage (Minimal Lightweight)
