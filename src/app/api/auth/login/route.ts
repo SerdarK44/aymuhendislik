@@ -63,12 +63,14 @@ export async function POST(request: Request) {
 
     const token = signAdminToken({ id: admin.id, username: admin.username, name: admin.name });
     
+    const isHttps = request.url.startsWith("https://") || request.headers.get("x-forwarded-proto") === "https";
+
     const response = NextResponse.json({ success: true, user: { username: admin.username, name: admin.name } });
     response.cookies.set({
       name: AUTH_COOKIE_NAME,
       value: token,
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: isHttps,
       path: "/",
       sameSite: "lax",
       maxAge: 60 * 60 * 24 * 7 // 7 days
