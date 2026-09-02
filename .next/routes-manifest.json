@@ -92,6 +92,14 @@
         "nxtPslug": "nxtPslug"
       },
       "namedRegex": "^/projeler/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/uploads/[...file]",
+      "regex": "^/uploads/(.+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPfile": "nxtPfile"
+      },
+      "namedRegex": "^/uploads/(?<nxtPfile>.+?)(?:/)?$"
     }
   ],
   "staticRoutes": [

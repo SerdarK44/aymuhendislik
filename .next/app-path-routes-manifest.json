@@ -47,5 +47,6 @@
   "/projeler/page": "/projeler",
   "/robots.txt/route": "/robots.txt",
   "/sartlar-ve-kosullar/page": "/sartlar-ve-kosullar",
-  "/sitemap.xml/route": "/sitemap.xml"
+  "/sitemap.xml/route": "/sitemap.xml",
+  "/uploads/[...file]/route": "/uploads/[...file]"
 }

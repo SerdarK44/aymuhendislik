@@ -47,5 +47,6 @@
   "/projeler/page": "app/projeler/page.js",
   "/robots.txt/route": "app/robots.txt/route.js",
   "/sartlar-ve-kosullar/page": "app/sartlar-ve-kosullar/page.js",
-  "/sitemap.xml/route": "app/sitemap.xml/route.js"
+  "/sitemap.xml/route": "app/sitemap.xml/route.js",
+  "/uploads/[...file]/route": "app/uploads/[...file]/route.js"
 }
