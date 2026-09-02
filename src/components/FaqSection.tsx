@@ -38,8 +38,9 @@ export const FAQ_DATA = [
   },
 ];
 
-export default function FaqSection({ onOpenQuote }: { onOpenQuote?: () => void }) {
+export default function FaqSection({ onOpenQuote, phone = "0 (216) 456 78 90" }: { onOpenQuote?: () => void; phone?: string }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const cleanPhone = phone.replace(/\s+/g, "").replace(/[()]/g, "");
 
   const toggleFaq = (idx: number) => {
     setOpenIndex(openIndex === idx ? null : idx);
@@ -148,11 +149,11 @@ export default function FaqSection({ onOpenQuote }: { onOpenQuote?: () => void }
                 <ArrowRight className="w-4 h-4" />
               </button>
               <a
-                href="tel:02164567890"
+                href={`tel:${cleanPhone}`}
                 className="px-6 py-3.5 rounded-xl bg-[#162032] hover:bg-[#1f2d44] text-white font-bold text-sm border border-stone-700 transition-colors flex items-center justify-center gap-2"
               >
                 <Phone className="w-4 h-4 text-brand-400" />
-                <span>0 (216) 456 78 90</span>
+                <span>{phone}</span>
               </a>
             </div>
           </div>

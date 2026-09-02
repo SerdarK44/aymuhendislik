@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Send, CheckCircle2, MessageSquare, Phone, Sparkles } from "lucide-react";
 
-export default function ContactForm() {
+export default function ContactForm({ whatsapp = "905329998877" }: { whatsapp?: string }) {
   const [formData, setFormData] = useState({ name: "", phone: "", email: "", message: "" });
   const [lastSubmittedName, setLastSubmittedName] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -31,7 +31,7 @@ export default function ContactForm() {
   };
 
   const whatsappText = encodeURIComponent(
-    `Merhaba Ay Mühendislik, web sitenizden ${lastSubmittedName} olarak iletişim formu gönderdim. Proje detaylarını ve fotoğrafları buradan da iletmek istiyorum.`
+    `Merhaba, ben ${lastSubmittedName || "web sitesi ziyaretçisi"}. Sitenizden iletişim formu gönderdim, detaylı bilgi ve teklif almak istiyorum.`
   );
 
   if (success) {
@@ -58,7 +58,7 @@ export default function ContactForm() {
             Dilerseniz tesisinizin veya kazan dairenizin fotoğraflarını doğrudan WhatsApp üzerinden gönderebilirsiniz.
           </p>
           <a
-            href={`https://wa.me/905329998877?text=${whatsappText}`}
+            href={`https://wa.me/${whatsapp}?text=${whatsappText}`}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full py-3 px-4 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 shadow-md shadow-[#25D366]/20"

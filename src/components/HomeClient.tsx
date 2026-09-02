@@ -48,7 +48,7 @@ export default function HomeClient({ settings, services, projects, blogPosts, te
         <ProjectsSection projects={projects} />
         <TestimonialsSection testimonials={testimonials} />
         <BlogSection posts={blogPosts} />
-        <FaqSection onOpenQuote={() => setIsQuoteOpen(true)} />
+        <FaqSection onOpenQuote={() => setIsQuoteOpen(true)} phone={phone} />
 
         {/* CTA Banner — Premium gradient design */}
         <section className="py-20 sm:py-32 relative overflow-hidden noise-overlay">
@@ -111,7 +111,7 @@ export default function HomeClient({ settings, services, projects, blogPosts, te
       <Footer settings={settings} services={services} />
 
       {/* Interactive Global Modal */}
-      <LeadModal isOpen={isQuoteOpen} onClose={() => setIsQuoteOpen(false)} />
+      <LeadModal isOpen={isQuoteOpen} onClose={() => setIsQuoteOpen(false)} settings={settings} />
     </div>
   );
 }

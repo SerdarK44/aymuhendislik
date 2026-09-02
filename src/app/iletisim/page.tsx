@@ -66,7 +66,7 @@ export default function ContactPage() {
               <div className="bg-white rounded-3xl p-8 sm:p-10 border border-stone-200/80 shadow-sm h-full">
                 <h2 className="text-2xl font-bold text-ink-900 mb-2">Mesaj Gönderin & Teklif İsteyin</h2>
                 <p className="text-xs sm:text-sm text-stone-500 mb-8">Yetkili makine mühendislerimiz en kısa sürede size geri dönüş yapacaktır.</p>
-                <ContactForm />
+                <ContactForm whatsapp={settings.whatsapp} />
               </div>
             </FadeIn>
 

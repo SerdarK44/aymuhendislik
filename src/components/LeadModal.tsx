@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { 
   X, CheckCircle2, Building2, Ruler, Phone, User, Send, 
   Building, Factory, Home, Coffee, ShieldCheck, Clock, Flame, 
@@ -8,10 +8,12 @@ import {
   HelpCircle, Landmark, UtensilsCrossed, Layers, Check
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { SiteSettings } from "@/lib/types";
 
 interface LeadModalProps {
   isOpen: boolean;
   onClose: () => void;
+  settings?: SiteSettings;
 }
 
 const serviceOptions = [
@@ -34,7 +36,8 @@ const buildingTypes = [
   { id: "Diğer Yapı Türü", icon: HelpCircle, label: "Diğer Özel Yapılar" },
 ];
 
-export default function LeadModal({ isOpen, onClose }: LeadModalProps) {
+export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps) {
+  const [modalSettings, setModalSettings] = useState<SiteSettings | null>(settings || null);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [serviceType, setServiceType] = useState("Endüstriyel Doğalgaz & RMS");
@@ -45,6 +48,23 @@ export default function LeadModal({ isOpen, onClose }: LeadModalProps) {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (settings) {
+      setModalSettings(settings);
+    } else if (isOpen && !modalSettings) {
+      fetch("/api/settings")
+        .then((res) => res.json())
+        .then((data) => {
+          if (data && data.phone) setModalSettings(data);
+        })
+        .catch((err) => console.error("Error fetching modal settings:", err));
+    }
+  }, [isOpen, settings, modalSettings]);
+
+  const phoneDisplay = modalSettings?.phone || "0 (216) 456 78 90";
+  const phoneTel = phoneDisplay.replace(/\s+/g, "").replace(/[()]/g, "");
+  const whatsappNum = modalSettings?.whatsapp || "905329998877";
 
   const finalServiceType = serviceType === "Diğer / Özel Mühendislik" && customService.trim()
     ? `Diğer: ${customService.trim()}`
@@ -96,7 +116,7 @@ export default function LeadModal({ isOpen, onClose }: LeadModalProps) {
   };
 
   const whatsappMessage = encodeURIComponent(
-    `Merhaba Ay Mühendislik, web sitenizden ${name} olarak "${finalServiceType}" (${finalBuildingType}) için teklif formu doldurdum. Projemizin fotoğraflarını ve mimari planını buradan iletiyorum.`
+    `Merhaba ${modalSettings?.companyName || "Ay Mühendislik"}, web sitenizden ${name} olarak "${finalServiceType}" (${finalBuildingType}) için teklif formu doldurdum. Projemizin fotoğraflarını ve mimari planını buradan iletiyorum.`
   );
 
   return (
@@ -173,8 +193,8 @@ export default function LeadModal({ isOpen, onClose }: LeadModalProps) {
               <div className="relative z-10 pt-5 mt-6 border-t border-white/10 flex items-center justify-between">
                 <div>
                   <span className="block text-[10px] uppercase font-bold text-ink-400 tracking-wider">Acil Keşif & Danışma</span>
-                  <a href="tel:02164567890" className="text-sm font-bold text-white hover:text-brand-400 transition-colors">
-                    0 (216) 456 78 90
+                  <a href={`tel:${phoneTel}`} className="text-sm font-bold text-white hover:text-brand-400 transition-colors">
+                    {phoneDisplay}
                   </a>
                 </div>
                 <div className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
@@ -209,7 +229,7 @@ export default function LeadModal({ isOpen, onClose }: LeadModalProps) {
                       Projenizin, şantiyenizin veya kazan dairenizin fotoğraflarını WhatsApp üzerinden ileterek anında ön inceleme yaptırabilirsiniz.
                     </p>
                     <a
-                      href={`https://wa.me/905329998877?text=${whatsappMessage}`}
+                      href={`https://wa.me/${whatsappNum}?text=${whatsappMessage}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-full py-3 px-4 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 shadow-md shadow-[#25D366]/25"
@@ -250,22 +270,22 @@ export default function LeadModal({ isOpen, onClose }: LeadModalProps) {
                         const isSelected = serviceType === srv.id;
                         return (
                           <button
-                            type="button"
                             key={srv.id}
+                            type="button"
                             onClick={() => setServiceType(srv.id)}
-                            className={`p-2.5 rounded-2xl border text-left transition-all flex flex-col justify-between ${
+                            className={`p-3 rounded-2xl text-left border transition-all flex flex-col justify-between cursor-pointer ${
                               isSelected
-                                ? "bg-brand-500 text-white border-brand-500 shadow-md shadow-brand-500/20 scale-[1.02]"
-                                : "bg-stone-50/70 hover:bg-stone-100 border-stone-200/80 text-ink-900"
+                                ? "bg-brand-600 text-white border-brand-600 shadow-md shadow-brand-600/20"
+                                : "bg-stone-50 hover:bg-stone-100/80 text-stone-700 border-stone-200/80"
                             }`}
                           >
-                            <div className="flex items-center justify-between mb-1.5">
-                              <Icon className={`w-4 h-4 ${isSelected ? "text-white" : "text-brand-600"}`} />
-                              {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-white" />}
+                            <div className="flex items-center justify-between w-full mb-2">
+                              <Icon className={`w-5 h-5 ${isSelected ? "text-white" : "text-brand-600"}`} />
+                              {isSelected && <Check className="w-4 h-4 text-white" />}
                             </div>
                             <div>
-                              <div className="font-bold text-xs leading-tight">{srv.id}</div>
-                              <div className={`text-[10px] mt-0.5 truncate ${isSelected ? "text-white/80" : "text-stone-500"}`}>
+                              <div className="font-bold text-xs leading-tight mb-0.5">{srv.id}</div>
+                              <div className={`text-[10px] line-clamp-1 ${isSelected ? "text-white/80" : "text-stone-400"}`}>
                                 {srv.desc}
                               </div>
                             </div>
@@ -274,144 +294,143 @@ export default function LeadModal({ isOpen, onClose }: LeadModalProps) {
                       })}
                     </div>
 
-                    {/* Custom Service Input if "Diğer" is chosen */}
+                    {/* Custom Service Input */}
                     {serviceType === "Diğer / Özel Mühendislik" && (
-                      <div className="mt-2.5 animate-in fade-in slide-in-from-top-1 duration-200">
+                      <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} className="mt-2.5">
                         <input
                           type="text"
+                          required
                           value={customService}
                           onChange={(e) => setCustomService(e.target.value)}
-                          placeholder="Lütfen talep ettiğiniz hizmeti kısaca belirtin..."
-                          className="w-full px-4 py-2.5 rounded-xl border border-brand-300 bg-brand-50/40 text-xs text-ink-900 placeholder-stone-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500"
+                          placeholder="Lütfen ihtiyacınız olan özel mühendislik hizmetini yazın..."
+                          className="w-full px-4 py-2.5 rounded-xl border border-brand-300 bg-brand-50/40 text-xs font-semibold text-ink-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500"
                         />
-                      </div>
+                      </motion.div>
                     )}
                   </div>
 
-                  {/* 2. Building Type */}
+                  {/* 2. Building / Property Type */}
                   <div>
                     <label className="block text-xs font-bold text-ink-900 uppercase tracking-wider mb-2.5">
                       2. Yapı / Tesis Türü
                     </label>
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                      {buildingTypes.map((bld) => {
-                        const Icon = bld.icon;
-                        const isSelected = buildingType === bld.id;
+                      {buildingTypes.map((b) => {
+                        const Icon = b.icon;
+                        const isSelected = buildingType === b.id;
                         return (
                           <button
+                            key={b.id}
                             type="button"
-                            key={bld.id}
-                            onClick={() => setBuildingType(bld.id)}
-                            className={`p-2.5 rounded-2xl border text-left transition-all flex items-start gap-2.5 ${
+                            onClick={() => setBuildingType(b.id)}
+                            className={`p-2.5 rounded-xl text-left border transition-all flex items-center gap-2.5 cursor-pointer ${
                               isSelected
-                                ? "bg-ink-900 text-white border-ink-900 shadow-md scale-[1.02]"
-                                : "bg-stone-50/70 hover:bg-stone-100 border-stone-200/80 text-ink-900"
+                                ? "bg-ink-900 text-white border-ink-900 shadow-xs"
+                                : "bg-stone-50 hover:bg-stone-100 text-stone-700 border-stone-200/80"
                             }`}
                           >
-                            <Icon className={`w-4 h-4 shrink-0 mt-0.5 ${isSelected ? "text-brand-400" : "text-stone-500"}`} />
-                            <div className="min-w-0">
-                              <div className="font-bold text-xs leading-tight">{bld.id}</div>
-                              <div className={`text-[10px] mt-0.5 truncate ${isSelected ? "text-stone-300" : "text-stone-500"}`}>
-                                {bld.label}
-                              </div>
-                            </div>
+                            <Icon className={`w-4 h-4 shrink-0 ${isSelected ? "text-brand-400" : "text-stone-500"}`} />
+                            <span className="text-xs font-bold truncate">{b.label}</span>
                           </button>
                         );
                       })}
                     </div>
 
-                    {/* Custom Building Input if "Diğer" is chosen */}
+                    {/* Custom Building Input */}
                     {buildingType === "Diğer Yapı Türü" && (
-                      <div className="mt-2.5 animate-in fade-in slide-in-from-top-1 duration-200">
+                      <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} className="mt-2.5">
                         <input
                           type="text"
+                          required
                           value={customBuilding}
                           onChange={(e) => setCustomBuilding(e.target.value)}
-                          placeholder="Lütfen tesis / bina türünüzü belirtin (Örn: Çiftlik, Depolama, Fırın)..."
-                          className="w-full px-4 py-2.5 rounded-xl border border-stone-300 bg-stone-50 text-xs text-ink-900 placeholder-stone-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500"
+                          placeholder="Lütfen yapı / bina türünü belirtin (örn: Sera, Spor Tesisi vb.)..."
+                          className="w-full px-4 py-2.5 rounded-xl border border-stone-300 bg-stone-50 text-xs font-semibold text-ink-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500"
                         />
-                      </div>
+                      </motion.div>
                     )}
                   </div>
 
-                  {/* 3. Contact Inputs */}
-                  <div>
-                    <label className="block text-xs font-bold text-ink-900 uppercase tracking-wider mb-2.5">
-                      3. İletişim Bilgileriniz
-                    </label>
-                    <div className="space-y-3">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {/* Name Input */}
-                        <div className="relative">
-                          <input
-                            type="text"
-                            required
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            placeholder="Ad Soyad / Firma Adı *"
-                            className="w-full pl-10 pr-4 py-3 rounded-xl border border-stone-200 bg-stone-50/70 text-sm text-ink-900 placeholder-stone-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
-                          />
-                          <User className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                        </div>
-
-                        {/* Phone Input */}
-                        <div className="relative">
-                          <input
-                            type="tel"
-                            required
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
-                            placeholder="Telefon Numaranız (05xx) *"
-                            className="w-full pl-10 pr-4 py-3 rounded-xl border border-stone-200 bg-stone-50/70 text-sm text-ink-900 placeholder-stone-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
-                          />
-                          <Phone className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                        </div>
+                  {/* 3. Contact & Area Info */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div className="sm:col-span-1">
+                      <label className="block text-xs font-bold text-ink-900 uppercase tracking-wider mb-1.5">
+                        Adınız Soyadınız *
+                      </label>
+                      <div className="relative">
+                        <User className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                        <input
+                          type="text"
+                          required
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          placeholder="Ad Soyad"
+                          className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-stone-200 bg-stone-50 text-xs text-ink-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500"
+                        />
                       </div>
+                    </div>
 
-                      {/* Square Meters & Message */}
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        <div className="sm:col-span-1 relative">
-                          <input
-                            type="text"
-                            value={squareMeters}
-                            onChange={(e) => setSquareMeters(e.target.value)}
-                            placeholder="Metrekare (m²)"
-                            className="w-full pl-10 pr-4 py-3 rounded-xl border border-stone-200 bg-stone-50/70 text-sm text-ink-900 placeholder-stone-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
-                          />
-                          <Ruler className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                        </div>
+                    <div className="sm:col-span-1">
+                      <label className="block text-xs font-bold text-ink-900 uppercase tracking-wider mb-1.5">
+                        Telefon Numaranız *
+                      </label>
+                      <div className="relative">
+                        <Phone className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                        <input
+                          type="tel"
+                          required
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          placeholder="05XX XXX XX XX"
+                          className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-stone-200 bg-stone-50 text-xs text-ink-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 font-mono"
+                        />
+                      </div>
+                    </div>
 
-                        <div className="sm:col-span-2 relative">
-                          <input
-                            type="text"
-                            value={message}
-                            onChange={(e) => setMessage(e.target.value)}
-                            placeholder="Proje konumu veya özel notunuz..."
-                            className="w-full pl-10 pr-4 py-3 rounded-xl border border-stone-200 bg-stone-50/70 text-sm text-ink-900 placeholder-stone-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all"
-                          />
-                          <MessageSquare className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                        </div>
+                    <div className="sm:col-span-1">
+                      <label className="block text-xs font-bold text-ink-900 uppercase tracking-wider mb-1.5">
+                        Yaklaşık Alan (m²)
+                      </label>
+                      <div className="relative">
+                        <Ruler className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                        <input
+                          type="text"
+                          value={squareMeters}
+                          onChange={(e) => setSquareMeters(e.target.value)}
+                          placeholder="Örn: 450 m²"
+                          className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-stone-200 bg-stone-50 text-xs text-ink-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500"
+                        />
                       </div>
                     </div>
                   </div>
 
+                  {/* 4. Message / Note */}
+                  <div>
+                    <label className="block text-xs font-bold text-ink-900 uppercase tracking-wider mb-1.5">
+                      Proje Notu / Özel İstekleriniz (Opsiyonel)
+                    </label>
+                    <textarea
+                      rows={2}
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      placeholder="Şantiye konumu, mevcut cihazlar, keşif için uygun saatleriniz vb..."
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 bg-stone-50 text-xs text-ink-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 leading-relaxed"
+                    />
+                  </div>
+
                   {/* Submit Button */}
-                  <div className="pt-2">
+                  <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-stone-100">
+                    <span className="text-[11px] text-stone-400">
+                      * Bilgileriniz KVKK kapsamında korunur ve 3. şahıslarla paylaşılmaz.
+                    </span>
                     <button
                       type="submit"
-                      disabled={loading}
-                      className="w-full group relative overflow-hidden bg-brand-600 hover:bg-brand-500 text-white font-bold py-4 px-6 rounded-2xl shadow-xl shadow-brand-600/25 transition-all flex items-center justify-center gap-3 disabled:opacity-60 text-sm cursor-pointer"
+                      disabled={loading || !name || !phone}
+                      className="w-full sm:w-auto px-8 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-brand-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                     >
-                      <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
-                      <span className="relative z-10">
-                        {loading ? "Talebiniz Gönderiliyor..." : "Ücretsiz Keşif & Teklif Talebini Gönder"}
-                      </span>
-                      <ArrowRight className="w-4 h-4 relative z-10 group-hover:translate-x-1 transition-transform" />
+                      <Send className="w-4 h-4" />
+                      <span>{loading ? "Gönderiliyor..." : "Ücretsiz Keşif Talebi Gönder"}</span>
                     </button>
-
-                    <p className="text-center text-[10px] text-stone-400 mt-2.5">
-                      🔒 Bilgileriniz 6698 sayılı KVKK kapsamında güvendedir ve 3. şahıslarla paylaşılmaz.
-                    </p>
                   </div>
                 </form>
               )}

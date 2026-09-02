@@ -146,6 +146,7 @@ export default function Navbar({ settings, onOpenQuote }: NavbarProps) {
       <LeadModal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
+        settings={settings}
       />
     </>
   );
