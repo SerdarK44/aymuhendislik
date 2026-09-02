@@ -410,13 +410,13 @@ export function saveLead(lead: Omit<LeadItem, "id" | "createdAt" | "status" | "i
 
 export const createLead = saveLead;
 
-export function updateLeadStatus(id: string, status: LeadItem["status"]): boolean {
+export function updateLeadStatus(id: string, status?: LeadItem["status"], isRead?: boolean): boolean {
   const db = getDb();
   if (!db.leads) return false;
   const lead = db.leads.find((l) => l.id === id);
   if (lead) {
-    lead.status = status;
-    lead.isRead = true;
+    if (status) lead.status = status;
+    if (isRead !== undefined) lead.isRead = isRead;
     writeDb(db);
     return true;
   }

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getLeads, saveLead } from "@/lib/db";
+import { updateLeadStatus, deleteLead } from "@/lib/db";
 import { getSessionAdmin } from "@/lib/auth";
 
 export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
@@ -8,14 +8,20 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
 
   const { id } = await params;
   const body = await req.json();
-  const leads = getLeads();
-  const lead = leads.find(l => l.id === id);
+  
+  const success = updateLeadStatus(id, body.status, body.isRead);
+  if (!success) return NextResponse.json({ error: "Talep bulunamadı" }, { status: 404 });
 
-  if (!lead) return NextResponse.json({ error: "Not found" }, { status: 404 });
+  return NextResponse.json({ success: true });
+}
 
-  if (body.status) lead.status = body.status;
-  if (body.isRead !== undefined) lead.isRead = body.isRead;
+export async function DELETE(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const admin = await getSessionAdmin();
+  if (!admin) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  saveLead(lead);
-  return NextResponse.json(lead);
+  const { id } = await params;
+  const success = deleteLead(id);
+  if (!success) return NextResponse.json({ error: "Talep bulunamadı veya silinemedi" }, { status: 404 });
+
+  return NextResponse.json({ success: true });
 }
