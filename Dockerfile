@@ -1,10 +1,10 @@
 # ==========================================
-# 1. Base Dependencies Stage
+# 1. Builder Stage (Compiles Native Addons & Next.js)
 # ==========================================
-FROM node:20-slim AS deps
+FROM node:20-slim AS builder
 WORKDIR /app
 
-# Install build tools needed for native C++ addons (better-sqlite3 & sharp)
+# Install native build tools for better-sqlite3 and sharp
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 \
     make \
@@ -13,24 +13,21 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 COPY package.json package-lock.json* ./
-RUN npm ci
+RUN npm install
 
-# ==========================================
-# 2. Builder Stage
-# ==========================================
-FROM node:20-slim AS builder
-WORKDIR /app
-
-COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
+ENV NODE_OPTIONS="--max-old-space-size=2048"
+
+# Ensure directories exist
+RUN mkdir -p data public/uploads
 
 RUN npm run build
 
 # ==========================================
-# 3. Production Runner Stage
+# 2. Production Runner Stage (Minimal Lightweight)
 # ==========================================
 FROM node:20-slim AS runner
 WORKDIR /app
@@ -45,29 +42,26 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Create non-root user
+# Non-root secure user
 RUN groupadd --system --gid 1001 nodejs && \
     useradd --system --uid 1001 nextjs
 
-# Set up data directories
+# Set up data directories with write permissions
 RUN mkdir -p /app/data /app/public/uploads && \
     chown -R nextjs:nodejs /app/data /app/public/uploads
 
-# Copy public static assets and built standalone server
+# Copy compiled standalone bundle and assets
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-# Ensure better-sqlite3 native bindings are present in standalone runner
 COPY --from=builder --chown=nextjs:nodejs /app/node_modules/better-sqlite3 ./node_modules/better-sqlite3
-COPY --from=builder --chown=nextjs:nodejs /app/node_modules/bindings ./node_modules/bindings
-COPY --from=builder --chown=nextjs:nodejs /app/node_modules/file-uri-to-path ./node_modules/file-uri-to-path
+COPY --from=builder --chown=nextjs:nodejs /app/data ./data
 
 USER nextjs
 
 EXPOSE 3000
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:3000/api/auth/me || exit 1
+  CMD curl -f http://localhost:3000 || exit 1
 
 CMD ["node", "server.js"]
