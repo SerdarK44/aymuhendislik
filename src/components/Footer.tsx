@@ -131,10 +131,19 @@ export default function Footer({ settings, services }: { settings?: SiteSettings
         </div>
 
         <div className="mt-12 pt-8 border-t border-ink-800 flex flex-col md:flex-row items-center justify-between text-xs text-ink-400 gap-4">
-          <div className="flex flex-wrap items-center gap-4 text-center md:text-left">
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 text-center md:text-left">
             <p>© {year} Ay Mühendislik. Tüm hakları saklıdır.</p>
-            <span className="hidden md:inline">•</span>
+            <span className="hidden md:inline text-ink-700">•</span>
             <p className="text-brand-400 font-semibold">EPDK & İGDAŞ Yetkili Mühendislik Firması</p>
+            <span className="hidden md:inline text-ink-700">•</span>
+            <a
+              href="https://www.linkedin.com/in/serdar-kulek/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-stone-300 hover:text-brand-400 transition-colors inline-flex items-center gap-1 font-medium group"
+            >
+              <span>Serdar KÜLEK tarafından geliştirildi</span>
+            </a>
           </div>
           <div className="flex items-center gap-4">
             <Link href="/gizlilik-politikasi" className="hover:text-ink-200 transition-colors">KVKK</Link>
