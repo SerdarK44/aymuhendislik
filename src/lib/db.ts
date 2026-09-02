@@ -1,623 +1,576 @@
+import fs from "fs";
+import path from "path";
 import bcrypt from "bcryptjs";
-import { getSqliteDb } from "./sqlite";
 import { 
   SiteSettings, ServiceItem, ProjectItem, BlogPost, 
   LeadItem, TestimonialItem, SliderItem, ReferenceItem, 
-  MediaItem, MailItem, AdminUser 
+  MediaItem, MailItem, AdminUser, DatabaseSchema 
 } from "./types";
+
+const DB_DIR = path.join(process.cwd(), "data");
+const DB_FILE = path.join(DB_DIR, "db.json");
+
+function ensureDbFile(): DatabaseSchema {
+  if (!fs.existsSync(DB_DIR)) {
+    fs.mkdirSync(DB_DIR, { recursive: true });
+  }
+
+  if (!fs.existsSync(DB_FILE)) {
+    const initialData: DatabaseSchema = {
+      settings: {
+        companyName: "Ay Mühendislik",
+        slogan: "Endüstriyel & Bireysel Doğalgaz Mühendislik Çözümleri",
+        heroBadge: "EPDK & Gaz Dağıtım Yetkili Mühendislik Firması",
+        heroTitle: "Güvenli Enerji, Kusursuz Doğalgaz Mühendisliği",
+        heroSubtitle: "Tüm Türkiye genelinde endüstriyel tesisler, OSB fabrikaları, toplu konutlar ve ticari yapılar için onaylı projelendirme, taahhüt ve anahtar teslim doğalgaz tesisat hizmetleri.",
+        phone: "0 (216) 456 78 90",
+        emergencyPhone: "0 (532) 999 88 77",
+        whatsapp: "905329998877",
+        email: "info@aymuhendislik.com.tr",
+        address: "Tekstilkent Ticaret Merkezi G1 Blok No: 9 Esenler / İstanbul",
+        city: "İstanbul (Tüm Türkiye)",
+        workingHours: "Pzt - Cmt: 08:30 - 19:00 (7/24 Acil Müdahale Hattı Aktif)",
+        licenseNo: "EPDK-MÜH-2024-8842 / İGDAŞ YETKİ NO: 34-10492",
+        aboutShort: "Ay Mühendislik; 16 yılı aşkın tecrübesi, yetkili uzman makine mühendisleri ve mobil teknik kadrosuyla İstanbul Tekstilkent merkezli olarak Tüm Türkiye genelinde büyük sanayi tesislerinden konutlara kadar her ölçekte anahtar teslim doğalgaz mühendisliği sunar.",
+        aboutFull: "Ay Mühendislik olarak kurulduğumuz günden bu yana doğalgazın güvenli, verimli ve yasal standartlara %100 uygun şekilde kullanılmasını sağlıyoruz. Merkezimiz İstanbul Esenler Tekstilkent'te bulunmakta olup Türkiye'nin 81 ilinde en prestijli sanayi kuruluşlarına, fabrikalarına, organize sanayi bölgelerine (OSB) ve binlerce konut/ticari yapıya mühendislik taahhüt hizmeti verdik. Tüm süreçlerimizde EPDK, TSE ve yerel gaz dağıtım şirketlerinin en katı güvenlik standartlarına uygun çalışıyoruz. Büyük endüstriyel fabrika dönüşümlerinden bireysel projelere kadar anahtar teslim hizmet sunuyoruz.",
+        yearsExperience: 16,
+        completedProjects: 1450,
+        happyClients: 3200,
+        certifiedStaff: 24,
+        googleMapsUrl: "https://maps.app.goo.gl/bpbn5Dzx6ezDK5mD9",
+        facebookUrl: "https://facebook.com/aymuhendislik",
+        instagramUrl: "https://instagram.com/aymuhendislik",
+        linkedinUrl: "https://linkedin.com/company/aymuhendislik"
+      },
+      services: [],
+      projects: [],
+      blogPosts: [],
+      testimonials: [],
+      sliders: [],
+      references: [],
+      media: [],
+      leads: [],
+      mails: [],
+      adminUser: {
+        id: "u-1",
+        username: "admin",
+        name: "Sistem Yöneticisi",
+        passwordHash: bcrypt.hashSync("admin123", 10),
+        role: "admin",
+        createdAt: new Date().toISOString().split("T")[0]
+      },
+      adminUsers: [
+        {
+          id: "u-1",
+          username: "admin",
+          name: "Sistem Yöneticisi",
+          passwordHash: bcrypt.hashSync("admin123", 10),
+          role: "admin",
+          createdAt: new Date().toISOString().split("T")[0]
+        }
+      ]
+    };
+    fs.writeFileSync(DB_FILE, JSON.stringify(initialData, null, 2), "utf-8");
+    return initialData;
+  }
+
+  try {
+    const raw = fs.readFileSync(DB_FILE, "utf-8");
+    const parsed = JSON.parse(raw);
+    if (!parsed.adminUsers && parsed.users) {
+      parsed.adminUsers = parsed.users;
+    }
+    if (!parsed.adminUsers || parsed.adminUsers.length === 0) {
+      parsed.adminUsers = [
+        {
+          id: "u-1",
+          username: "admin",
+          name: "Sistem Yöneticisi",
+          passwordHash: bcrypt.hashSync("admin123", 10),
+          role: "admin",
+          createdAt: new Date().toISOString().split("T")[0]
+        }
+      ];
+    }
+    if (!parsed.adminUser) {
+      parsed.adminUser = parsed.adminUsers[0];
+    }
+    if (!parsed.services) parsed.services = [];
+    if (!parsed.projects) parsed.projects = [];
+    if (!parsed.blogPosts) parsed.blogPosts = [];
+    if (!parsed.testimonials) parsed.testimonials = [];
+    if (!parsed.sliders) parsed.sliders = [];
+    if (!parsed.references) parsed.references = [];
+    if (!parsed.media) parsed.media = [];
+    if (!parsed.leads) parsed.leads = [];
+    if (!parsed.mails) parsed.mails = [];
+    return parsed;
+  } catch (err) {
+    console.error("Error reading db.json:", err);
+    return {} as DatabaseSchema;
+  }
+}
+
+export function getDb(): DatabaseSchema {
+  return ensureDbFile();
+}
+
+function writeDb(data: DatabaseSchema) {
+  try {
+    fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), "utf-8");
+  } catch (err) {
+    console.error("Error writing db.json:", err);
+  }
+}
 
 // ==========================================
 // 1. SETTINGS
 // ==========================================
 export function getSettings(): SiteSettings {
-  const db = getSqliteDb();
-  const row = db.prepare("SELECT data_json FROM settings WHERE id = 'main'").get() as { data_json: string } | undefined;
-  if (!row) {
-    return {
-      companyName: "Ay Mühendislik",
-      slogan: "Endüstriyel & Bireysel Doğalgaz Mühendislik Çözümleri",
-      heroBadge: "EPDK & Gaz Dağıtım Yetkili Mühendislik Firması",
-      heroTitle: "Güvenli Enerji, Kusursuz Doğalgaz Mühendisliği",
-      heroSubtitle: "Tüm Türkiye genelinde endüstriyel tesisler, OSB fabrikaları, toplu konutlar ve ticari yapılar için onaylı projelendirme, taahhüt ve anahtar teslim doğalgaz tesisat hizmetleri.",
-      phone: "0 (216) 456 78 90",
-      emergencyPhone: "0 (532) 999 88 77",
-      whatsapp: "905329998877",
-      email: "info@aymuhendislik.com.tr",
-      address: "Tekstilkent Ticaret Merkezi G1 Blok No: 9 Esenler / İstanbul",
-      city: "İstanbul (Tüm Türkiye)",
-      workingHours: "Pzt - Cmt: 08:30 - 19:00 (7/24 Acil Müdahale Hattı Aktif)",
-      licenseNo: "EPDK-MÜH-2024-8842 / İGDAŞ YETKİ NO: 34-10492",
-      aboutShort: "Ay Mühendislik; 16 yılı aşkın tecrübesi, yetkili uzman makine mühendisleri ve mobil teknik kadrosuyla İstanbul Tekstilkent merkezli olarak Tüm Türkiye genelinde büyük sanayi tesislerinden konutlara kadar her ölçekte anahtar teslim doğalgaz mühendisliği sunar.",
-      aboutFull: "Ay Mühendislik olarak kurulduğumuz günden bu yana doğalgazın güvenli, verimli ve yasal standartlara %100 uygun şekilde kullanılmasını sağlıyoruz. Merkezimiz İstanbul Esenler Tekstilkent'te bulunmakta olup Türkiye'nin 81 ilinde en prestijli sanayi kuruluşlarına, fabrikalarına, organize sanayi bölgelerine (OSB) ve binlerce konut/ticari yapıya mühendislik taahhüt hizmeti verdik. Tüm süreçlerimizde EPDK, TSE ve yerel gaz dağıtım şirketlerinin en katı güvenlik standartlarına uygun çalışıyoruz. Büyük endüstriyel fabrika dönüşümlerinden bireysel projelere kadar anahtar teslim hizmet sunuyoruz.",
-      yearsExperience: 16,
-      completedProjects: 1450,
-      happyClients: 3200,
-      certifiedStaff: 24,
-      googleMapsUrl: "https://maps.app.goo.gl/bpbn5Dzx6ezDK5mD9",
-      facebookUrl: "https://facebook.com/aymuhendislik",
-      instagramUrl: "https://instagram.com/aymuhendislik",
-      linkedinUrl: "https://linkedin.com/company/aymuhendislik"
-    };
-  }
-  return JSON.parse(row.data_json);
+  const db = getDb();
+  return db.settings || {};
 }
 
 export function updateSettings(newSettings: Partial<SiteSettings>): SiteSettings {
-  const db = getSqliteDb();
-  const current = getSettings();
-  const updated = { ...current, ...newSettings };
-  db.prepare("INSERT OR REPLACE INTO settings (id, data_json) VALUES ('main', ?)").run(
-    JSON.stringify(updated)
-  );
-  return updated;
+  const db = getDb();
+  db.settings = { ...db.settings, ...newSettings };
+  writeDb(db);
+  return db.settings;
 }
 
 // ==========================================
 // 2. SLIDERS
 // ==========================================
 export function getSliders(): SliderItem[] {
-  const db = getSqliteDb();
-  const rows = db.prepare("SELECT * FROM sliders ORDER BY slide_order ASC").all() as any[];
-  return rows.map(r => ({
-    id: r.id,
-    image: r.image,
-    label: r.label,
-    headline: r.headline,
-    sub: r.sub,
-    order: r.slide_order
-  }));
+  const db = getDb();
+  return (db.sliders || []).sort((a, b) => (a.order || 0) - (b.order || 0));
 }
 
 export function saveSlider(slide: SliderItem): SliderItem {
-  const db = getSqliteDb();
-  db.prepare(`
-    INSERT OR REPLACE INTO sliders (id, image, label, headline, sub, slide_order)
-    VALUES (?, ?, ?, ?, ?, ?)
-  `).run(
-    slide.id, slide.image, slide.label || "", slide.headline, slide.sub || "", slide.order || 1
-  );
+  const db = getDb();
+  if (!db.sliders) db.sliders = [];
+  const index = db.sliders.findIndex((s) => s.id === slide.id);
+  if (index >= 0) {
+    db.sliders[index] = slide;
+  } else {
+    db.sliders.push(slide);
+  }
+  writeDb(db);
   return slide;
 }
 
 export function deleteSlider(id: string): boolean {
-  const db = getSqliteDb();
-  const info = db.prepare("DELETE FROM sliders WHERE id = ?").run(id);
-  return info.changes > 0;
+  const db = getDb();
+  if (!db.sliders) return false;
+  const initialLen = db.sliders.length;
+  db.sliders = db.sliders.filter((s) => s.id !== id);
+  writeDb(db);
+  return db.sliders.length < initialLen;
 }
 
 // ==========================================
 // 3. REFERENCES
 // ==========================================
 export function getReferences(): ReferenceItem[] {
-  const db = getSqliteDb();
-  const rows = db.prepare("SELECT * FROM references_table ORDER BY ref_order ASC").all() as any[];
-  return rows.map(r => ({
-    id: r.id,
-    name: r.name,
-    logo: r.logo,
-    order: r.ref_order
-  }));
+  const db = getDb();
+  return (db.references || []).sort((a, b) => (a.order || 0) - (b.order || 0));
 }
 
 export function saveReference(ref: ReferenceItem): ReferenceItem {
-  const db = getSqliteDb();
-  db.prepare(`
-    INSERT OR REPLACE INTO references_table (id, name, logo, ref_order)
-    VALUES (?, ?, ?, ?)
-  `).run(
-    ref.id, ref.name, ref.logo, ref.order || 1
-  );
+  const db = getDb();
+  if (!db.references) db.references = [];
+  const index = db.references.findIndex((r) => r.id === ref.id);
+  if (index >= 0) {
+    db.references[index] = ref;
+  } else {
+    db.references.push(ref);
+  }
+  writeDb(db);
   return ref;
 }
 
 export function deleteReference(id: string): boolean {
-  const db = getSqliteDb();
-  const info = db.prepare("DELETE FROM references_table WHERE id = ?").run(id);
-  return info.changes > 0;
+  const db = getDb();
+  if (!db.references) return false;
+  const initialLen = db.references.length;
+  db.references = db.references.filter((r) => r.id !== id);
+  writeDb(db);
+  return db.references.length < initialLen;
 }
 
 // ==========================================
 // 4. MEDIA
 // ==========================================
 export function getMedia(): MediaItem[] {
-  const db = getSqliteDb();
-  const rows = db.prepare("SELECT * FROM media ORDER BY created_at DESC").all() as any[];
-  return rows.map(r => ({
-    id: r.id,
-    title: r.title,
-    url: r.url,
-    filename: r.filename,
-    folder: r.folder,
-    size: r.size,
-    mimeType: r.mime_type,
-    createdAt: r.created_at
-  }));
+  const db = getDb();
+  return (db.media || []).sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 }
 
-export function saveMedia(item: MediaItem): MediaItem {
-  const db = getSqliteDb();
-  db.prepare(`
-    INSERT OR REPLACE INTO media (id, title, url, filename, folder, size, mime_type, created_at)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-  `).run(
-    item.id, item.title, item.url, item.filename, item.folder || "genel",
-    item.size || "", item.mimeType || "", item.createdAt || new Date().toISOString().split("T")[0]
-  );
-  return item;
+export function addMedia(item: Omit<MediaItem, "id" | "createdAt">): MediaItem {
+  const db = getDb();
+  const newMedia: MediaItem = {
+    ...item,
+    id: `media-${Date.now()}`,
+    createdAt: new Date().toISOString().split("T")[0]
+  };
+  if (!db.media) db.media = [];
+  db.media.unshift(newMedia);
+  writeDb(db);
+  return newMedia;
 }
+
+export const saveMedia = addMedia;
 
 export function deleteMedia(id: string): boolean {
-  const db = getSqliteDb();
-  const info = db.prepare("DELETE FROM media WHERE id = ?").run(id);
-  return info.changes > 0;
+  const db = getDb();
+  if (!db.media) return false;
+  const initialLen = db.media.length;
+  db.media = db.media.filter((m) => m.id !== id);
+  writeDb(db);
+  return db.media.length < initialLen;
 }
 
 // ==========================================
 // 5. SERVICES
 // ==========================================
 export function getServices(): ServiceItem[] {
-  const db = getSqliteDb();
-  const rows = db.prepare("SELECT * FROM services ORDER BY service_order ASC").all() as any[];
-  return rows.map(r => ({
-    id: r.id,
-    slug: r.slug,
-    title: r.title,
-    shortDesc: r.short_desc,
-    description: r.description,
-    icon: r.icon,
-    image: r.image,
-    features: JSON.parse(r.features_json || "[]"),
-    isFeatured: r.is_featured === 1,
-    order: r.service_order
-  }));
+  const db = getDb();
+  return (db.services || []).sort((a, b) => (a.order || 0) - (b.order || 0));
 }
 
 export function getServiceBySlug(slug: string): ServiceItem | undefined {
-  const db = getSqliteDb();
-  const r = db.prepare("SELECT * FROM services WHERE slug = ?").get(slug) as any;
-  if (!r) return undefined;
-  return {
-    id: r.id,
-    slug: r.slug,
-    title: r.title,
-    shortDesc: r.short_desc,
-    description: r.description,
-    icon: r.icon,
-    image: r.image,
-    features: JSON.parse(r.features_json || "[]"),
-    isFeatured: r.is_featured === 1,
-    order: r.service_order
-  };
+  const db = getDb();
+  return (db.services || []).find((s) => s.slug === slug);
+}
+
+export function getServiceById(id: string): ServiceItem | undefined {
+  const db = getDb();
+  return (db.services || []).find((s) => s.id === id);
 }
 
 export function saveService(service: ServiceItem): ServiceItem {
-  const db = getSqliteDb();
-  db.prepare(`
-    INSERT OR REPLACE INTO services (id, slug, title, short_desc, description, icon, image, features_json, is_featured, service_order)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `).run(
-    service.id, service.slug, service.title, service.shortDesc || "", service.description || "",
-    service.icon || "Wrench", service.image || "/images/1.png",
-    JSON.stringify(service.features || []),
-    service.isFeatured ? 1 : 0,
-    service.order || 1
-  );
+  const db = getDb();
+  if (!db.services) db.services = [];
+  const index = db.services.findIndex((s) => s.id === service.id);
+  if (index >= 0) {
+    db.services[index] = service;
+  } else {
+    db.services.push(service);
+  }
+  writeDb(db);
   return service;
 }
 
 export function deleteService(id: string): boolean {
-  const db = getSqliteDb();
-  const info = db.prepare("DELETE FROM services WHERE id = ?").run(id);
-  return info.changes > 0;
+  const db = getDb();
+  if (!db.services) return false;
+  const initialLen = db.services.length;
+  db.services = db.services.filter((s) => s.id !== id);
+  writeDb(db);
+  return db.services.length < initialLen;
 }
 
 // ==========================================
 // 6. PROJECTS
 // ==========================================
 export function getProjects(): ProjectItem[] {
-  const db = getSqliteDb();
-  const rows = db.prepare("SELECT * FROM projects ORDER BY project_order ASC").all() as any[];
-  return rows.map(r => ({
-    id: r.id,
-    slug: r.slug,
-    title: r.title,
-    category: r.category,
-    location: r.location,
-    completionDate: r.completion_date,
-    description: r.description,
-    client: r.client,
-    image: r.image,
-    isFeatured: r.is_featured === 1,
-    order: r.project_order
-  }));
+  const db = getDb();
+  return (db.projects || []).sort((a, b) => (a.order || 0) - (b.order || 0));
 }
 
 export function getProjectBySlug(slug: string): ProjectItem | undefined {
-  const db = getSqliteDb();
-  const r = db.prepare("SELECT * FROM projects WHERE slug = ?").get(slug) as any;
-  if (!r) return undefined;
-  return {
-    id: r.id,
-    slug: r.slug,
-    title: r.title,
-    category: r.category,
-    location: r.location,
-    completionDate: r.completion_date,
-    description: r.description,
-    client: r.client,
-    image: r.image,
-    isFeatured: r.is_featured === 1,
-    order: r.project_order
-  };
+  const db = getDb();
+  return (db.projects || []).find((p) => p.slug === slug);
+}
+
+export function getProjectById(id: string): ProjectItem | undefined {
+  const db = getDb();
+  return (db.projects || []).find((p) => p.id === id);
 }
 
 export function saveProject(project: ProjectItem): ProjectItem {
-  const db = getSqliteDb();
-  db.prepare(`
-    INSERT OR REPLACE INTO projects (id, slug, title, category, location, completion_date, description, client, image, is_featured, project_order)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `).run(
-    project.id, project.slug, project.title, project.category || "", project.location || "",
-    project.completionDate || "", project.description || "", project.client || "",
-    project.image || "/images/1.png", project.isFeatured ? 1 : 0, project.order || 1
-  );
+  const db = getDb();
+  if (!db.projects) db.projects = [];
+  const index = db.projects.findIndex((p) => p.id === project.id);
+  if (index >= 0) {
+    db.projects[index] = project;
+  } else {
+    db.projects.push(project);
+  }
+  writeDb(db);
   return project;
 }
 
 export function deleteProject(id: string): boolean {
-  const db = getSqliteDb();
-  const info = db.prepare("DELETE FROM projects WHERE id = ?").run(id);
-  return info.changes > 0;
+  const db = getDb();
+  if (!db.projects) return false;
+  const initialLen = db.projects.length;
+  db.projects = db.projects.filter((p) => p.id !== id);
+  writeDb(db);
+  return db.projects.length < initialLen;
 }
 
 // ==========================================
 // 7. BLOG POSTS
 // ==========================================
 export function getBlogPosts(): BlogPost[] {
-  const db = getSqliteDb();
-  const rows = db.prepare("SELECT * FROM blog_posts WHERE is_published = 1 ORDER BY publish_date DESC").all() as any[];
-  return rows.map(r => ({
-    id: r.id,
-    slug: r.slug,
-    title: r.title,
-    excerpt: r.excerpt,
-    content: r.content,
-    author: r.author,
-    publishDate: r.publish_date,
-    readTime: r.read_time,
-    coverImage: r.cover_image,
-    tags: JSON.parse(r.tags_json || "[]"),
-    isPublished: r.is_published === 1
-  }));
+  const db = getDb();
+  return (db.blogPosts || []).filter(b => b.isPublished).sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime());
 }
 
 export function getAllBlogPostsAdmin(): BlogPost[] {
-  const db = getSqliteDb();
-  const rows = db.prepare("SELECT * FROM blog_posts ORDER BY publish_date DESC").all() as any[];
-  return rows.map(r => ({
-    id: r.id,
-    slug: r.slug,
-    title: r.title,
-    excerpt: r.excerpt,
-    content: r.content,
-    author: r.author,
-    publishDate: r.publish_date,
-    readTime: r.read_time,
-    coverImage: r.cover_image,
-    tags: JSON.parse(r.tags_json || "[]"),
-    isPublished: r.is_published === 1
-  }));
+  const db = getDb();
+  return db.blogPosts || [];
 }
 
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
-  const db = getSqliteDb();
-  const r = db.prepare("SELECT * FROM blog_posts WHERE slug = ?").get(slug) as any;
-  if (!r) return undefined;
-  return {
-    id: r.id,
-    slug: r.slug,
-    title: r.title,
-    excerpt: r.excerpt,
-    content: r.content,
-    author: r.author,
-    publishDate: r.publish_date,
-    readTime: r.read_time,
-    coverImage: r.cover_image,
-    tags: JSON.parse(r.tags_json || "[]"),
-    isPublished: r.is_published === 1
-  };
+  const db = getDb();
+  return (db.blogPosts || []).find((p) => p.slug === slug);
+}
+
+export function getBlogPostById(id: string): BlogPost | undefined {
+  const db = getDb();
+  return (db.blogPosts || []).find((p) => p.id === id);
 }
 
 export function saveBlogPost(post: BlogPost): BlogPost {
-  const db = getSqliteDb();
-  db.prepare(`
-    INSERT OR REPLACE INTO blog_posts (id, slug, title, excerpt, content, author, publish_date, read_time, cover_image, tags_json, is_published)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `).run(
-    post.id, post.slug, post.title, post.excerpt || "", post.content || "",
-    post.author || "Müh. Serdar Ay", post.publishDate || "", post.readTime || "5 dk okuma",
-    post.coverImage || "/images/2.png", JSON.stringify(post.tags || []),
-    post.isPublished ? 1 : 0
-  );
+  const db = getDb();
+  if (!db.blogPosts) db.blogPosts = [];
+  const index = db.blogPosts.findIndex((p) => p.id === post.id);
+  if (index >= 0) {
+    db.blogPosts[index] = post;
+  } else {
+    db.blogPosts.push(post);
+  }
+  writeDb(db);
   return post;
 }
 
 export function deleteBlogPost(id: string): boolean {
-  const db = getSqliteDb();
-  const info = db.prepare("DELETE FROM blog_posts WHERE id = ?").run(id);
-  return info.changes > 0;
+  const db = getDb();
+  if (!db.blogPosts) return false;
+  const initialLen = db.blogPosts.length;
+  db.blogPosts = db.blogPosts.filter((p) => p.id !== id);
+  writeDb(db);
+  return db.blogPosts.length < initialLen;
 }
 
 // ==========================================
-// 8. LEADS
+// 8. TESTIMONIALS
+// ==========================================
+export function getTestimonials(): TestimonialItem[] {
+  const db = getDb();
+  return db.testimonials || [];
+}
+
+export function saveTestimonial(testimonial: TestimonialItem): TestimonialItem {
+  const db = getDb();
+  if (!db.testimonials) db.testimonials = [];
+  const index = db.testimonials.findIndex((t) => t.id === testimonial.id);
+  if (index >= 0) {
+    db.testimonials[index] = testimonial;
+  } else {
+    db.testimonials.push(testimonial);
+  }
+  writeDb(db);
+  return testimonial;
+}
+
+export function deleteTestimonial(id: string): boolean {
+  const db = getDb();
+  if (!db.testimonials) return false;
+  const initialLen = db.testimonials.length;
+  db.testimonials = db.testimonials.filter((t) => t.id !== id);
+  writeDb(db);
+  return db.testimonials.length < initialLen;
+}
+
+// ==========================================
+// 9. LEADS
 // ==========================================
 export function getLeads(): LeadItem[] {
-  const db = getSqliteDb();
-  const rows = db.prepare("SELECT * FROM leads ORDER BY created_at DESC").all() as any[];
-  return rows.map(r => ({
-    id: r.id,
-    name: r.name,
-    phone: r.phone,
-    email: r.email,
-    serviceType: r.service_type,
-    buildingType: r.building_type,
-    squareMeters: r.square_meters,
-    message: r.message,
-    status: r.status,
-    createdAt: r.created_at,
-    isRead: r.is_read === 1
-  }));
+  const db = getDb();
+  return (db.leads || []).sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 }
 
-export function createLead(lead: Omit<LeadItem, "id" | "status" | "createdAt">): LeadItem {
-  const db = getSqliteDb();
+export function saveLead(lead: Omit<LeadItem, "id" | "createdAt" | "status" | "isRead">): LeadItem {
+  const db = getDb();
   const newLead: LeadItem = {
     ...lead,
-    id: "lead-" + Date.now(),
+    id: `lead-${Date.now()}`,
     status: "new",
     createdAt: new Date().toISOString(),
     isRead: false
   };
-
-  db.prepare(`
-    INSERT INTO leads (id, name, phone, email, service_type, building_type, square_meters, message, status, created_at, is_read)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `).run(
-    newLead.id, newLead.name, newLead.phone, newLead.email || "",
-    newLead.serviceType, newLead.buildingType || "", newLead.squareMeters || "",
-    newLead.message || "", newLead.status, newLead.createdAt, 0
-  );
-
+  if (!db.leads) db.leads = [];
+  db.leads.unshift(newLead);
+  writeDb(db);
   return newLead;
 }
 
-export function saveLead(lead: LeadItem): LeadItem {
-  const db = getSqliteDb();
-  db.prepare(`
-    INSERT OR REPLACE INTO leads (id, name, phone, email, service_type, building_type, square_meters, message, status, created_at, is_read)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `).run(
-    lead.id, lead.name, lead.phone, lead.email || "",
-    lead.serviceType, lead.buildingType || "", lead.squareMeters || "",
-    lead.message || "", lead.status, lead.createdAt || new Date().toISOString(),
-    lead.isRead ? 1 : 0
-  );
-  return lead;
-}
-
-export function getDb() {
-  const users = getUsers();
-  const adminUser = getUserById(users[0]?.id || "admin-1") || {
-    id: "admin-1",
-    username: "admin",
-    name: "Ay Mühendislik Yönetici",
-    passwordHash: "",
-    role: "admin",
-    createdAt: "2026-08-20"
-  };
-
-  return {
-    settings: getSettings(),
-    services: getServices(),
-    projects: getProjects(),
-    blogPosts: getAllBlogPostsAdmin(),
-    leads: getLeads(),
-    testimonials: getTestimonials(),
-    sliders: getSliders(),
-    references: getReferences(),
-    media: getMedia(),
-    mails: getMails(),
-    adminUser,
-    adminUsers: users
-  };
-}
+export const createLead = saveLead;
 
 export function updateLeadStatus(id: string, status: LeadItem["status"]): boolean {
-  const db = getSqliteDb();
-  const info = db.prepare("UPDATE leads SET status = ? WHERE id = ?").run(status, id);
-  return info.changes > 0;
+  const db = getDb();
+  if (!db.leads) return false;
+  const lead = db.leads.find((l) => l.id === id);
+  if (lead) {
+    lead.status = status;
+    lead.isRead = true;
+    writeDb(db);
+    return true;
+  }
+  return false;
 }
 
 export function deleteLead(id: string): boolean {
-  const db = getSqliteDb();
-  const info = db.prepare("DELETE FROM leads WHERE id = ?").run(id);
-  return info.changes > 0;
-}
-
-// ==========================================
-// 9. TESTIMONIALS
-// ==========================================
-export function getTestimonials(): TestimonialItem[] {
-  const db = getSqliteDb();
-  const rows = db.prepare("SELECT * FROM testimonials ORDER BY date DESC").all() as any[];
-  return rows.map(r => ({
-    id: r.id,
-    clientName: r.client_name,
-    companyOrBuilding: r.company_or_building,
-    rating: r.rating,
-    comment: r.comment,
-    projectType: r.project_type,
-    date: r.date
-  }));
-}
-
-export function saveTestimonial(t: TestimonialItem): TestimonialItem {
-  const db = getSqliteDb();
-  db.prepare(`
-    INSERT OR REPLACE INTO testimonials (id, client_name, company_or_building, rating, comment, project_type, date)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
-  `).run(
-    t.id, t.clientName, t.companyOrBuilding || "", t.rating || 5,
-    t.comment, t.projectType || "", t.date || ""
-  );
-  return t;
-}
-
-export function deleteTestimonial(id: string): boolean {
-  const db = getSqliteDb();
-  const info = db.prepare("DELETE FROM testimonials WHERE id = ?").run(id);
-  return info.changes > 0;
+  const db = getDb();
+  if (!db.leads) return false;
+  const initialLen = db.leads.length;
+  db.leads = db.leads.filter((l) => l.id !== id);
+  writeDb(db);
+  return db.leads.length < initialLen;
 }
 
 // ==========================================
 // 10. MAILS
 // ==========================================
 export function getMails(): MailItem[] {
-  const db = getSqliteDb();
-  const rows = db.prepare("SELECT * FROM mails ORDER BY date DESC").all() as any[];
-  return rows.map(r => ({
-    id: r.id,
-    sender: r.sender,
-    senderEmail: r.sender_email,
-    subject: r.subject,
-    body: r.body,
-    date: r.date,
-    isRead: r.is_read === 1,
-    folder: r.folder,
-    attachments: JSON.parse(r.attachments_json || "[]")
-  }));
+  const db = getDb();
+  return (db.mails || []).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
-export function saveMail(mail: MailItem): MailItem {
-  const db = getSqliteDb();
-  db.prepare(`
-    INSERT OR REPLACE INTO mails (id, sender, sender_email, subject, body, date, is_read, folder, attachments_json)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `).run(
-    mail.id, mail.sender, mail.senderEmail, mail.subject, mail.body,
-    mail.date, mail.isRead ? 1 : 0, mail.folder, JSON.stringify(mail.attachments || [])
-  );
-  return mail;
+export function saveMail(mail: Omit<MailItem, "id" | "date" | "isRead" | "folder">): MailItem {
+  const db = getDb();
+  const newMail: MailItem = {
+    ...mail,
+    id: `mail-${Date.now()}`,
+    date: new Date().toISOString(),
+    isRead: false,
+    folder: "inbox"
+  };
+  if (!db.mails) db.mails = [];
+  db.mails.unshift(newMail);
+  writeDb(db);
+  return newMail;
+}
+
+export function updateMailStatus(id: string, folder: MailItem["folder"]): boolean {
+  const db = getDb();
+  if (!db.mails) return false;
+  const mail = db.mails.find((m) => m.id === id);
+  if (mail) {
+    mail.folder = folder;
+    writeDb(db);
+    return true;
+  }
+  return false;
+}
+
+export function markMailAsRead(id: string): boolean {
+  const db = getDb();
+  if (!db.mails) return false;
+  const mail = db.mails.find((m) => m.id === id);
+  if (mail) {
+    mail.isRead = true;
+    writeDb(db);
+    return true;
+  }
+  return false;
 }
 
 export function deleteMail(id: string): boolean {
-  const db = getSqliteDb();
-  const info = db.prepare("DELETE FROM mails WHERE id = ?").run(id);
-  return info.changes > 0;
+  const db = getDb();
+  if (!db.mails) return false;
+  const initialLen = db.mails.length;
+  db.mails = db.mails.filter((m) => m.id !== id);
+  writeDb(db);
+  return db.mails.length < initialLen;
 }
 
 // ==========================================
-// 11. USERS & ROLES (KULLANICI YÖNETİMİ)
+// 11. USERS & AUTH
 // ==========================================
-export function getUsers(): Omit<AdminUser, "passwordHash">[] {
-  const db = getSqliteDb();
-  const rows = db.prepare("SELECT id, username, name, role, created_at FROM users ORDER BY created_at ASC").all() as any[];
-  return rows.map(r => ({
-    id: r.id,
-    username: r.username,
-    name: r.name,
-    role: (r.role || "admin") as 'admin' | 'editor',
-    createdAt: r.created_at
-  }));
+export function getUsers(): AdminUser[] {
+  const db = getDb();
+  return db.adminUsers || [db.adminUser];
 }
 
-export function getUserById(id: string): AdminUser | null {
-  const db = getSqliteDb();
-  const r = db.prepare("SELECT * FROM users WHERE id = ?").get(id) as any;
-  if (!r) return null;
-  return {
-    id: r.id,
-    username: r.username,
-    name: r.name,
-    passwordHash: r.password_hash,
-    role: r.role || "admin",
-    createdAt: r.created_at
-  };
+export function getUserByUsername(username: string): AdminUser | undefined {
+  const db = getDb();
+  const users = db.adminUsers || [db.adminUser];
+  return users.find((u) => u.username.toLowerCase() === username.toLowerCase());
+}
+
+export function getUserById(id: string): AdminUser | undefined {
+  const db = getDb();
+  const users = db.adminUsers || [db.adminUser];
+  return users.find((u) => u.id === id);
+}
+
+export function verifyAdminCredentials(username: string, passwordPlain: string): AdminUser | null {
+  const user = getUserByUsername(username);
+  if (!user) return null;
+  const isValid = bcrypt.compareSync(passwordPlain, user.passwordHash);
+  if (!isValid) return null;
+  return user;
 }
 
 export function createUser(data: { username: string; name: string; passwordPlain: string; role?: 'admin' | 'editor' }): AdminUser {
-  const db = getSqliteDb();
-  const salt = bcrypt.genSaltSync(10);
-  const passwordHash = bcrypt.hashSync(data.passwordPlain, salt);
-  const id = "usr-" + Date.now();
-  const createdAt = new Date().toISOString().split("T")[0];
-  const role = data.role || "admin";
-
-  db.prepare(`
-    INSERT INTO users (id, username, name, password_hash, role, created_at)
-    VALUES (?, ?, ?, ?, ?, ?)
-  `).run(id, data.username.toLowerCase().trim(), data.name.trim(), passwordHash, role, createdAt);
-
-  return {
-    id,
-    username: data.username.toLowerCase().trim(),
-    name: data.name.trim(),
-    passwordHash,
-    role,
-    createdAt
-  };
-}
-
-export function updateUser(id: string, data: { username?: string; name?: string; role?: 'admin' | 'editor'; newPasswordPlain?: string }): boolean {
-  const db = getSqliteDb();
-  const user = getUserById(id);
-  if (!user) return false;
-
-  const username = data.username ? data.username.toLowerCase().trim() : user.username;
-  const name = data.name ? data.name.trim() : user.name;
-  const role = data.role || user.role || "admin";
-  let passwordHash = user.passwordHash;
-
-  if (data.newPasswordPlain && data.newPasswordPlain.trim().length >= 6) {
-    const salt = bcrypt.genSaltSync(10);
-    passwordHash = bcrypt.hashSync(data.newPasswordPlain.trim(), salt);
+  const db = getDb();
+  if (!db.adminUsers) db.adminUsers = [db.adminUser];
+  
+  const existing = db.adminUsers.find(u => u.username.toLowerCase() === data.username.toLowerCase());
+  if (existing) {
+    throw new Error("UNIQUE constraint failed: username already exists");
   }
 
-  const info = db.prepare(`
-    UPDATE users 
-    SET username = ?, name = ?, role = ?, password_hash = ?
-    WHERE id = ?
-  `).run(username, name, role, passwordHash, id);
+  const newUser: AdminUser = {
+    id: `user-${Date.now()}`,
+    username: data.username,
+    name: data.name,
+    passwordHash: bcrypt.hashSync(data.passwordPlain, 10),
+    role: data.role || "admin",
+    createdAt: new Date().toISOString().split("T")[0]
+  };
 
-  return info.changes > 0;
+  db.adminUsers.push(newUser);
+  writeDb(db);
+  return newUser;
+}
+
+export function updateUser(id: string, updates: { username?: string; name?: string; role?: 'admin' | 'editor'; newPasswordPlain?: string }): AdminUser | undefined {
+  const db = getDb();
+  if (!db.adminUsers) db.adminUsers = [db.adminUser];
+  
+  const index = db.adminUsers.findIndex((u) => u.id === id);
+  if (index >= 0) {
+    const current = db.adminUsers[index];
+    const updatedUser: AdminUser = {
+      ...current,
+      username: updates.username || current.username,
+      name: updates.name || current.name,
+      role: updates.role || current.role,
+      passwordHash: updates.newPasswordPlain ? bcrypt.hashSync(updates.newPasswordPlain, 10) : current.passwordHash
+    };
+    db.adminUsers[index] = updatedUser;
+    if (db.adminUser.id === id) {
+      db.adminUser = updatedUser;
+    }
+    writeDb(db);
+    return updatedUser;
+  }
+  return undefined;
 }
 
 export function deleteUser(id: string): { success: boolean; error?: string } {
-  const db = getSqliteDb();
-  const count = db.prepare("SELECT COUNT(*) as count FROM users").get() as { count: number };
-  if (count.count <= 1) {
-    return { success: false, error: "Sistemde en az bir yönetici kalmalıdır." };
+  const db = getDb();
+  if (!db.adminUsers) return { success: false, error: "Kullanıcı bulunamadı" };
+  if (db.adminUsers.length <= 1) {
+    return { success: false, error: "Sistemde en az bir yönetici bulunmalıdır." };
   }
-
-  const info = db.prepare("DELETE FROM users WHERE id = ?").run(id);
-  return { success: info.changes > 0 };
-}
-
-export function verifyAdminCredentials(username: string, plainPassword: string): AdminUser | null {
-  const db = getSqliteDb();
-  const user = db.prepare("SELECT * FROM users WHERE username = ?").get(username.toLowerCase().trim()) as any;
-  if (!user) return null;
-
-  const isValid = bcrypt.compareSync(plainPassword, user.password_hash);
-  if (isValid) {
-    return {
-      id: user.id,
-      username: user.username,
-      name: user.name,
-      passwordHash: user.password_hash,
-      role: user.role || "admin",
-      createdAt: user.created_at
-    };
-  }
-  return null;
+  const initialLen = db.adminUsers.length;
+  db.adminUsers = db.adminUsers.filter((u) => u.id !== id);
+  writeDb(db);
+  return { success: db.adminUsers.length < initialLen };
 }

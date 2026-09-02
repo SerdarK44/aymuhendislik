@@ -325,8 +325,7 @@ self.__SERVER_FILES_MANIFEST={
     "turbopack": {
       "root": "C:\\Users\\serda\\Desktop\\aymuhendislik"
     },
-    "distDirRoot": ".next",
-    "supportsImmutableAssets": false
+    "distDirRoot": ".next"
   },
   "appDir": "C:\\Users\\serda\\Desktop\\aymuhendislik",
   "relativeAppDir": "",
@@ -339,8 +338,6 @@ self.__SERVER_FILES_MANIFEST={
     ".next\\server\\functions-config-manifest.json",
     ".next\\server\\middleware-manifest.json",
     ".next\\server\\middleware-build-manifest.js",
-    ".next\\server\\middleware-react-loadable-manifest.js",
-    ".next\\react-loadable-manifest.json",
     ".next\\server\\app-paths-manifest.json",
     ".next\\app-path-routes-manifest.json",
     ".next\\server\\server-reference-manifest.js",
