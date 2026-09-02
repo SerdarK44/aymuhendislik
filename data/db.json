@@ -1,0 +1,426 @@
+{
+  "settings": {
+    "companyName": "Ay Mühendislik",
+    "slogan": "Endüstriyel & Bireysel Doğalgaz Mühendislik Çözümleri",
+    "heroBadge": "EPDK & Gaz Dağıtım Yetkili Mühendislik Firması",
+    "heroTitle": "Güvenli Enerji, Kusursuz Doğalgaz Mühendisliği",
+    "heroSubtitle": "Tüm Türkiye genelinde endüstriyel tesisler, OSB fabrikaları, toplu konutlar ve ticari yapılar için onaylı projelendirme, taahhüt ve anahtar teslim doğalgaz tesisat hizmetleri.",
+    "phone": "0 (216) 456 78 90",
+    "emergencyPhone": "0 (532) 999 88 77",
+    "whatsapp": "905329998877",
+    "email": "info@aymuhendislik.com.tr",
+    "address": "Tekstilkent Ticaret Merkezi G1 Blok No: 9 Esenler / İstanbul",
+    "city": "İstanbul (Tüm Türkiye)",
+    "workingHours": "Pzt - Cmt: 08:30 - 19:00 (7/24 Acil Müdahale Hattı Aktif)",
+    "licenseNo": "EPDK-MÜH-2024-8842 / İGDAŞ YETKİ NO: 34-10492",
+    "aboutShort": "Ay Mühendislik; 16 yılı aşkın tecrübesi, yetkili uzman makine mühendisleri ve mobil teknik kadrosuyla İstanbul Tekstilkent merkezli olarak Tüm Türkiye genelinde büyük sanayi tesislerinden konutlara kadar her ölçekte anahtar teslim doğalgaz mühendisliği sunar.",
+    "aboutFull": "Ay Mühendislik olarak kurulduğumuz günden bu yana doğalgazın güvenli, verimli ve yasal standartlara %100 uygun şekilde kullanılmasını sağlıyoruz. Merkezimiz İstanbul Esenler Tekstilkent'te bulunmakta olup Türkiye'nin 81 ilinde en prestijli sanayi kuruluşlarına, fabrikalarına, organize sanayi bölgelerine (OSB) ve binlerce konut/ticari yapıya mühendislik taahhüt hizmeti verdik. Tüm süreçlerimizde EPDK, TSE ve yerel gaz dağıtım şirketlerinin en katı güvenlik standartlarına uygun çalışıyoruz. Büyük endüstriyel fabrika dönüşümlerinden bireysel projelere kadar anahtar teslim hizmet sunuyoruz.",
+    "yearsExperience": 16,
+    "completedProjects": 1450,
+    "happyClients": 3200,
+    "certifiedStaff": 24,
+    "googleMapsUrl": "https://maps.app.goo.gl/bpbn5Dzx6ezDK5mD9",
+    "facebookUrl": "https://facebook.com/aymuhendislik",
+    "instagramUrl": "https://instagram.com/aymuhendislik",
+    "linkedinUrl": "https://linkedin.com/company/aymuhendislik"
+  },
+  "services": [
+    {
+      "id": "srv-1",
+      "slug": "endustriyel-dogalgaz-tesisati",
+      "title": "Endüstriyel Doğalgaz Tesisatı & Dönüşümü",
+      "shortDesc": "Fabrika, atölye ve sanayi tesisleri için yüksek debili gaz hatları, RMS istasyonları ve fırın/ocak gaz dönüşüm mühendisliği.",
+      "description": "Sanayi tesisleri ve organize sanayi bölgelerindeki fabrikalar için yüksek basınçlı çelik hat montajı, gaz vanası grupları, RMS-B / RMS-C basınç düşürme ve ölçüm istasyonları montajı ile gaz dağıtım şirketinden onaylı anahtar teslim mühendislik.",
+      "icon": "Factory",
+      "image": "/images/1.png",
+      "features": [
+        "RMS-B / RMS-C Basınç Düşürme İstasyonu Kurulumu",
+        "Yüksek Basınçlı Çelik Boru Kaynaklı Hatlar (Radyografi Testli)",
+        "Endüstriyel Fırın, Buhar Kazanı & Boyler Brülör Dönüşümleri",
+        "Gaz Kaçak Algılama ve Otomatik Kesme Güvenlik Sistemleri",
+        "Gaz Dağıtım Kuruluşu Onay ve Kabul İşlemleri"
+      ],
+      "isFeatured": true,
+      "order": 1
+    },
+    {
+      "id": "srv-2",
+      "slug": "dogalgaz-projelendirme-ve-gaz-acma",
+      "title": "Doğalgaz Projelendirme & Gaz Açma",
+      "shortDesc": "Yetkili Makine Mühendislerimiz tarafından çizilen 3D/CAD onaylı dijital projeler ve hızlı gaz açım süreci.",
+      "description": "Mühendislik yetki belgemiz ile konut, ticari ve sanayi binalarının doğalgaz projelerini en güncel yönetmeliklere uygun şekilde dijital ortamda çizip ilgili gaz dağıtım idaresine onaylatıyoruz.",
+      "icon": "FileCheck",
+      "image": "/images/2.png",
+      "features": [
+        "Yetkili Makine Mühendisleri Tarafından Dijital Proje Çizimi",
+        "İdare Onayı ve Hızlı Randevu / Sayaç Açım Süreci",
+        "Tadilat ve Güç Artırımı Projeleri",
+        "Kazan Dairesi & Kolon Projelendirmesi",
+        "Resmi Uygunluk Belgesi (Sertifika) Teslimi"
+      ],
+      "isFeatured": true,
+      "order": 2
+    },
+    {
+      "id": "srv-3",
+      "slug": "merkezi-isitma-ve-kazan-dairesi",
+      "title": "Merkezi Isıtma & Kaskad Kazan Sistemleri",
+      "shortDesc": "Siteler, oteller, plazalar ve toplu konutlar için yüksek verimli kaskad yoğuşmalı kazan dairesi kurulumu ve revizyonu.",
+      "description": "Enerji maliyetlerini %35'e varan oranlarda düşüren tam modülasyonlu yoğuşmalı kaskad kazan daireleri, hidrolik denge kapları, genleşme tankları ve sirkülasyon otomasyon sistemleri tasarımı.",
+      "icon": "Flame",
+      "image": "/images/3jpg.jpg",
+      "features": [
+        "Duvar Tipi & Yer Tipi Yoğuşmalı Kaskad Sistemler",
+        "Kazan Dairesi Havalandırma ve Baca Sistemleri",
+        "Otomatik Eşanjör ve Hidrolik Dengeleme Hatları",
+        "Merkezi Sistem Pay Ölçer Entegrasyonu",
+        "Yıllık Periyodik Muayene ve Brülör Ayarları"
+      ],
+      "isFeatured": true,
+      "order": 3
+    },
+    {
+      "id": "srv-4",
+      "slug": "bireysel-kombi-ve-daire-ici-tesisat",
+      "title": "Bireysel Kombi & Daire İçi Tesisat",
+      "shortDesc": "Konutlar için estetik, güvenli, sertifikalı flex ve çelik/bakır borulu kombi ve radyatör montajı.",
+      "description": "Dairenizin mimari yapısını bozmayan gizli ve estetik borulama, A+ enerji sınıfı kombi montajı, radyatör hatları, ocak dönüşümü ve güvenlik alarm sistemleri.",
+      "icon": "Home",
+      "image": "/images/4.jpg",
+      "features": [
+        "A+++ Yoğuşmalı Kombi Montajı & Marka Seçenekleri",
+        "Panel Radyatör ve Yerden Isıtma Tesisatları",
+        "Sayaç Montajı ve Esnek Flex Bağlantıları",
+        "Ocak Gaz Bağlantısı ve Emniyet Ventili",
+        "1 Günde Hızlı Montaj ve Gaz Açma Garantisi"
+      ],
+      "isFeatured": true,
+      "order": 4
+    },
+    {
+      "id": "srv-5",
+      "slug": "radyant-isitma-sistemleri",
+      "title": "Fabrika & Cafe Radyant Isıtma",
+      "shortDesc": "Geniş hacimli hangarlar, kafeler, restoranlar ve fabrikalar için seramik ve borulu radyant ısıtma.",
+      "description": "Tavan yüksekliği fazla olan açık ve yarı açık mekanlarda havayı değil doğrudan insanları ve nesneleri ısıtarak maksimum tasarruf sağlayan yüksek teknolojili radyant sistemler.",
+      "icon": "SunMedium",
+      "image": "/images/5.jpg",
+      "features": [
+        "Borulu ve Seramik Plakalı Radyant Isıtıcılar",
+        "Uzaktan Kumandalı Kademeli Termostatik Kontrol",
+        "Kafe & Restoran Kış Bahçesi Isıtması",
+        "Fabrika ve Lojistik Depo Tavan Tipi Isıtma",
+        "Düşük Gaz Tüketimi & Anında Isıtma Performansı"
+      ],
+      "isFeatured": true,
+      "order": 5
+    },
+    {
+      "id": "srv-6",
+      "slug": "lng-cng-lpg-depolama-ve-buharlastirici",
+      "title": "LNG / LPG Sistemleri & Basınç Düşürme",
+      "shortDesc": "Şebeke hattının ulaşmadığı sanayi kuruluşları için dökme gaz, LNG kriyojenik tank ve buharlaştırıcı hatları.",
+      "description": "Doğalgaz boru hattının bulunmadığı kırsal ve sanayi bölgelerinde kesintisiz üretim için LNG/LPG depolama tank sahaları, evaporatörler ve otomatik transfer üniteleri.",
+      "icon": "ShieldAlert",
+      "image": "/images/1.png",
+      "features": [
+        "LNG Kriyojenik Tank ve Buharlaştırıcı Montajı",
+        "LPG Dökme Tank Sahası Yangın ve Güvenlik Altyapısı",
+        "Basınç ve Akış Kontrol Regülatör Grupları",
+        "ATEX Sertifikalı Ex-Proof Emniyet Ekipmanları",
+        "7/24 Teknik Servis ve Dolum Desteği"
+      ],
+      "isFeatured": false,
+      "order": 6
+    }
+  ],
+  "projects": [
+    {
+      "id": "prj-1",
+      "slug": "organize-sanayi-bolgesi-metal-isleme-fabrikasi",
+      "title": "OSB Metal Enjeksiyon & Isıl İşlem Fabrikası Gaz Hattı",
+      "category": "Endüstriyel",
+      "location": "Tuzla Kimyacılar OSB / İstanbul",
+      "completionDate": "2024",
+      "description": "2.500 m³ / saat tüketimli tavlama fırınları için RMS-B istasyonu, 4 bar çelik ana hat ve radyografik kaynaklı borulama tamamlanarak gaz arzı sağlandı.",
+      "client": "Akmetal Döküm A.Ş.",
+      "image": "/images/1.png",
+      "isFeatured": true
+    },
+    {
+      "id": "prj-2",
+      "slug": "mega-center-lojistik-depo-ve-idari-bina-radyant-kaskad",
+      "title": "Lojistik Merkezi 18.000 m² Radyant & Kaskad Isıtma",
+      "category": "Ticari & Fabrika",
+      "location": "Gebze / Kocaeli",
+      "completionDate": "2024",
+      "description": "24 adet tavan tipi borulu radyant ısıtıcı ve 800 kW gücünde kaskad kazan dairesi ile %40 enerji tasarruflu iklimlendirme altyapısı devreye alındı.",
+      "client": "TransLog Depoculuk Ltd.",
+      "image": "/images/2.png",
+      "isFeatured": true
+    },
+    {
+      "id": "prj-3",
+      "slug": "vadi-panaroma-konutlari-240-daire-kolon-ve-kombi",
+      "title": "Vadi Panorama Sitesi 240 Daire Doğalgaz Dönüşümü",
+      "category": "Konut & Toplu Konut",
+      "location": "Kartal / İstanbul",
+      "completionDate": "2023",
+      "description": "6 bloktan oluşan 240 bağımsız bölümün ana kolon hatları, daire içi kombi montajları ve dijital gaz açım işlemleri 15 günde tamamlandı.",
+      "client": "Panorama Site Yönetimi",
+      "image": "/images/3jpg.jpg",
+      "isFeatured": true
+    },
+    {
+      "id": "prj-4",
+      "slug": "gida-uretim-tesisi-buhar-kazani-brulor-donusumu",
+      "title": "Gıda Üretim Tesisi Doğalgaz Buhar Kazanı Dönüşümü",
+      "category": "Endüstriyel",
+      "location": "Dilovası İMES OSB",
+      "completionDate": "2023",
+      "description": "Fuel-oil yakıtlı 5 ton/saat buhar kazanlarının modülasyonlu çift yakıtlı doğalgaz brülörlerine dönüşümü ve gaz dağıtım kabulü yapıldı.",
+      "client": "Bereket Gıda San. A.Ş.",
+      "image": "/images/4.jpg",
+      "isFeatured": true
+    },
+    {
+      "id": "prj-5",
+      "slug": "avm-restoranlar-kosesi-toplu-gaz-altyapisi",
+      "title": "AVM Restoranlar Alanı Güvenlikli Gaz Tesisatı",
+      "category": "Ticari & Fabrika",
+      "location": "Maltepe / İstanbul",
+      "completionDate": "2024",
+      "description": "14 adet ticari mutfak için ex-proof selenoid vanalar, gaz alarm santrali ve bağımsız sayaç grupları kurulumu.",
+      "client": "Grand Plaza AVM İşletmesi",
+      "image": "/images/5.jpg",
+      "isFeatured": false
+    }
+  ],
+  "blogPosts": [
+    {
+      "id": "blg-1",
+      "slug": "dogalgaz-projesi-nasil-cizilir-ve-gaz-acma-sureci-nasil-isler",
+      "title": "Doğalgaz Projesi Nasıl Çizilir? Gaz Açma Aşamaları ve İstenen Belgeler (2025 Rehberi)",
+      "excerpt": "Yetkili mühendislik firması tarafından çizilen doğalgaz projelerinin idare onay süreçleri, randevu alma ve gaz açımında dikkat edilmesi gereken kritik kurallar.",
+      "content": "<h2>Doğalgaz Projesi Nedir ve Kimler Tarafından Çizilebilir?</h2>\n<p>Doğalgaz tesisatı yapılmadan veya mevcut tesisatta bir değişiklik yapılmadan önce resmi olarak yetkilendirilmiş bir makine mühendisi tarafından bilgisayar destekli CAD programları (örneğin ZetaCAD vb.) ile çizilen mühendislik planına <strong>Doğalgaz Projesi</strong> denir.</p>\n<p>Proje olmadan doğalgaz tesisatı döşemek veya hatta müdahale etmek hem hayati tehlike yaratır hem de yasal olarak gaz kesintisine ve ağır para cezalarına neden olur.</p>\n\n<h3>Doğalgaz Projesi ve Gaz Açım Aşamaları:</h3>\n<ol>\n  <li><strong>Keşif ve Rölöve Alımı:</strong> Yetkili mühendisimiz binanıza gelerek cihaz yerleri, boru güzergahı ve baca çıkışlarını lazer metre ile ölçer.</li>\n  <li><strong>Dijital Proje Çizimi:</strong> Yerel gaz dağıtım şirketinin (İGDAŞ, İZGAZ vb.) teknik şartnamesine uygun olarak 3 boyutlu izometrik hesaplamalar yapılır.</li>\n  <li><strong>Online Onay Başvurusu:</strong> Çizilen proje dijital imza ile gaz dağıtım şirketinin onay sistemine gönderilir. Ortalama 24-48 saat içinde onaylanır.</li>\n  <li><strong>Tesisat Montajı & Test:</strong> Sertifikalı kaynak ve montaj ustalarımız projeye birebir sadık kalarak hattı çeker ve sızdırmazlık testlerini uygular.</li>\n  <li><strong>Gaz Açma Randevusu ve Sayaç Takımı:</strong> İdarenin yetkili mühendisi ile Ay Mühendislik mühendisimiz sahada buluşur, gaz kaçak cihazı ile test eder ve <em>Gaz Açım Uygunluk Belgesi</em> verilerek sayaç mühürlenir.</li>\n</ol>\n\n<blockquote><strong>Önemli Tavsiye:</strong> Yetkisiz tesisatçılar tarafından çizimsiz yapılan işlerde gaz açımı onaylanmaz ve tüm masraf heba olabilir. Mutlaka EPDK ve İdare yetki belgesini sorgulayınız.</blockquote>",
+      "author": "Müh. Serdar Ay (Makine Mühendisi)",
+      "publishDate": "2025-01-15",
+      "readTime": "5 dk okuma",
+      "coverImage": "/images/2.png",
+      "tags": [
+        "Doğalgaz Projesi",
+        "Mühendislik",
+        "Gaz Açma",
+        "İGDAŞ Yetki"
+      ],
+      "isPublished": true
+    },
+    {
+      "id": "blg-2",
+      "slug": "endustriyel-tesislerde-rms-istasyonu-ve-gaz-guvenligi",
+      "title": "Fabrikalarda Endüstriyel Doğalgaz Güvenliği ve RMS İstasyonu Seçimi",
+      "excerpt": "Yüksek tüketimli sanayi tesislerinde basınç düşürme istasyonlarının önemi, periyodik kontroller ve ATEX standartlarına uygun gaz güvenlik protokolleri.",
+      "content": "<h2>Endüstriyel Tesislerde Doğalgaz Dönüşümünün Temel Esasları</h2>\n<p>Sanayi tesislerinde doğalgaz, üretim maliyetlerini en aza indiren en verimli enerji kaynağıdır. Ancak yüksek debi ve basınç altında çalışıldığı için endüstriyel tesisat, konut tesisatına göre çok daha kapsamlı mühendislik hesapları ve güvenlik önlemleri gerektirir.</p>\n\n<h3>RMS-B ve RMS-C İstasyonu Nedir?</h3>\n<p>Şebekeden 12-19 bar basınçla gelen doğalgazın fabrikadaki cihazların çalışma basıncına (genellikle 300 mbar veya 21 mbar) düşürülmesini, filtrelenmesini ve anlık olarak ölçülmesini sağlayan ünitelere <strong>RMS (Regulating and Metering Station)</strong> denir.</p>\n\n<h3>Endüstriyel Güvenlikte Olmazsa Olmaz 4 Unsur:</h3>\n<ul>\n  <li><strong>Ex-Proof Selenoid Vana:</strong> Olası bir sarsıntı veya gaz kaçağında elektriksel kıvılcım üretmeden gazı ana girişten keser.</li>\n  <li><strong>Sismik Deprem Sensörleri:</strong> Belirli ivmedeki sarsıntılarda hattı otomatik olarak kilitler.</li>\n  <li><strong>Radyografik (Röntgen) Kaynak Kontrolü:</strong> Çelik boruların kaynak dikişleri X-ray ile taranarak mikro çatlaklar tespit edilir.</li>\n  <li><strong>Havalandırma ve Gaz Dedektör Matrisi:</strong> Tavan ve zemin seviyelerine yerleştirilen dedektörler merkezi otomasyona bağlı çalışır.</li>\n</ul>",
+      "author": "Müh. Ay Mühendislik Teknik Ekibi",
+      "publishDate": "2025-02-02",
+      "readTime": "7 dk okuma",
+      "coverImage": "/images/1.png",
+      "tags": [
+        "Endüstriyel Doğalgaz",
+        "RMS İstasyonu",
+        "Fabrika Güvenliği",
+        "İş Güvenliği"
+      ],
+      "isPublished": true
+    },
+    {
+      "id": "blg-3",
+      "slug": "merkezi-kaskad-kazan-mi-bireysel-kombi-mi",
+      "title": "Kaskad Kazan Sistemi mi, Bireysel Kombi mi? Hangisi Daha Tasarruflu?",
+      "excerpt": "Toplu konutlarda ve sitelerde kaskad yoğuşmalı merkezi sistemlerin avantajları, pay ölçer sistemi ve enerji tasarrufu karşılaştırma analizi.",
+      "content": "<h2>Siteler ve Çok Katlı Binalar İçin Isıtma Karşılaştırması</h2>\n<p>Bina yöneticilerinin ve müteahhitlerin en çok ikilemde kaldığı konulardan biri: <em>Merkezi kaskad sistem mi yoksa her daireye ayrı kombi mi?</em> Mühendislik hesaplamaları ve işletme maliyetleri açısından iki sistemi karşılaştırdık.</p>\n\n<h3>Kaskad Sistemin Avantajları:</h3>\n<ul>\n  <li><strong>Daha Düşük İlk Yatırım Maliyeti:</strong> 40 daireli bir binada 40 adet ayrı kombi ve 40 adet baca yerine 2 veya 3 adet kaskad kazan ile tüm bina ısıtılabilir.</li>\n  <li><strong>Tam Modülasyon & Yüksek Verim:</strong> Dış hava sıcaklığına göre kazanlar sırayla devreye girer (%109'a varan verimlilik).</li>\n  <li><strong>Güvenlik:</strong> Dairelerin içine doğalgaz borusu girmeden kazan dairesinden sıcak su dağıtılır.</li>\n</ul>\n\n<h3>Bireysel Kombinin Avantajları:</h3>\n<p>Bireysel kullanımda her daire faturasını doğrudan öder ve istediği sıcaklıkta yakar. Ancak yalıtımsız binalarda alt/üst komşu yakmadığında ısı kayıpları yaşanabilir.</p>",
+      "author": "Müh. Serdar Ay",
+      "publishDate": "2025-02-18",
+      "readTime": "4 dk okuma",
+      "coverImage": "/images/3jpg.jpg",
+      "tags": [
+        "Kaskad Sistem",
+        "Kombi Karşılaştırma",
+        "Enerji Tasarrufu",
+        "Kazan Dairesi"
+      ],
+      "isPublished": true
+    },
+    {
+      "id": "blg-4",
+      "slug": "organize-sanayi-bolgeleri-endustriyel-dogalgaz-tesisati-ve-guvenlik-standartlari",
+      "title": "Organize Sanayi Bölgelerinde (OSB) Endüstriyel Doğalgaz Tesisatı ve 2026 Güvenlik Standartları",
+      "excerpt": "Tuzla Deri OSB, Dudullu OSB, İMES ve Gebze OSB gibi sanayi havzalarında fabrika doğalgaz hatlarında zorunlu olan güvenlik donanımları, testler ve yasal kabul şartnameleri.",
+      "content": "<h2>OSB'lerde Endüstriyel Gaz Altyapısının Önemi</h2>\n<p>Organize Sanayi Bölgelerinde faaliyet gösteren döküm, gıda, tekstil, kimya ve metal işleme fabrikaları için kesintisiz ve yüksek debili doğalgaz tedariği üretimin can damarıdır. Ancak yüksek tüketim noktalarında gaz emniyetinin en üst düzeyde tutulması yasal bir zorunluluktur.</p>\n\n<h3>OSB Doğalgaz Projelendirmesinde Zorunlu Standartlar:</h3>\n<ul>\n  <li><strong>Çelik Boru Hatları ve Röntgen Testi:</strong> Sanayi içi gaz borularının kaynak birleşimleri %100 tahribatsız muayene (NDT/Radyografik Test) ile taranmalı ve raporlanmalıdır.</li>\n  <li><strong>RMS Basınç Düşürme ve Ölçüm İstasyonları:</strong> Şebeke hattından gelen basınç, fabrika girişindeki RMS-B veya RMS-C istasyonunda hassas regülatörlerle dengelenmelidir.</li>\n  <li><strong>Ex-Proof Selenoid ve Sismik Emniyet:</strong> Deprem sensörleri ve tavan/taban gaz algılama dedektörleri acil durumda gaz akışını 1 saniyenin altında otomatik kesmelidir.</li>\n</ul>\n\n<p>Ay Mühendislik; İstanbul ve Kocaeli'deki tüm organize sanayi bölgelerinde yetkili makine mühendisleri ile anahtar teslim endüstriyel doğalgaz taahhüt hizmeti sunmaktadır.</p>",
+      "author": "Müh. Serdar Ay (Makine Mühendisi)",
+      "publishDate": "2025-03-01",
+      "readTime": "6 dk okuma",
+      "coverImage": "/images/1.png",
+      "tags": [
+        "OSB Doğalgaz",
+        "Endüstriyel Tesisat",
+        "Sanayi Güvenliği",
+        "RMS İstasyonu",
+        "İMES OSB"
+      ],
+      "isPublished": true
+    },
+    {
+      "id": "blg-5",
+      "slug": "buhar-kazani-ve-sanayi-firini-dogalgaz-brulor-donusumu-rehberi",
+      "title": "Buhar Kazanı ve Sanayi Fırınlarında Doğalgaz Brülör Dönüşümü: Maliyet & Verim Rehberi",
+      "excerpt": "Fuel-oil, LPG veya katı yakıttan doğalgaza geçen sanayi tesislerinde brülör seçimi, yanma verimi optimizasyonu ve karbon salınımı kazanımları.",
+      "content": "<h2>Sanayide Doğalgaz Dönüşümünün Ekonomik Getirisi</h2>\n<p>Sıvı veya katı yakıt kullanan endüstriyel tesisler, doğalgaza geçiş yaptıklarında yakıt giderlerinde %30 ila %45 arasında net tasarruf elde ederler. Doğalgaz; kül, kurum ve depolama maliyetlerini ortadan kaldırarak brülör yanma verimini %98 seviyesine taşır.</p>\n\n<h3>Dönüşüm Sürecinde Uygulanan Mühendislik Adımları:</h3>\n<ol>\n  <li><strong>Kazan ve Fırın Kapasite Analizi:</strong> Mevcut yanma hücresi geometrisi ve termal yük hesaplanarak uygun oransal gaz brülörü belirlenir.</li>\n  <li><strong>Gaz Yolu Armatür Grubu Montajı:</strong> Filtre, çift kademeli emniyet ventili, gaz basınç presostatları ve sızdırmazlık kontrol ünitesi monte edilir.</li>\n  <li><strong>Baca ve Havalandırma Uygunluğu:</strong> Yanma havası ihtiyacı ve baca çekiş hesabı yapılarak paslanmaz çelik baca montajı gerçekleştirilir.</li>\n  <li><strong>Baca Gazı Emisyon Ölçümü:</strong> Yanma analizi cihazı ile O2, CO ve CO2 değerleri optimize edilerek minimum yakıtla maksimum buhar/ısı üretimi sağlanır.</li>\n</ol>",
+      "author": "Müh. Ay Mühendislik Teknik Ekibi",
+      "publishDate": "2025-03-10",
+      "readTime": "5 dk okuma",
+      "coverImage": "/images/4.jpg",
+      "tags": [
+        "Brülör Dönüşümü",
+        "Buhar Kazanı",
+        "Sanayi Fırını",
+        "Enerji Verimliliği",
+        "Fabrika Tesisatı"
+      ],
+      "isPublished": true
+    }
+  ],
+  "leads": [
+    {
+      "name": "Serdar KÜLEK",
+      "phone": "5318335969",
+      "email": "skulek44@gmail.com",
+      "serviceType": "İletişim Formu",
+      "buildingType": "",
+      "squareMeters": "",
+      "message": "500 m^2 bir evim var oraya bir teklif istiyorum",
+      "id": "lead-1787958320414",
+      "status": "new",
+      "createdAt": "2026-08-28T23:05:20.414Z",
+      "isRead": true
+    },
+    {
+      "id": "lead-1",
+      "name": "Ahmet Yılmaz",
+      "phone": "0533 111 22 33",
+      "email": "ahmet@yilmaztekstil.com",
+      "serviceType": "Endüstriyel Doğalgaz Tesisatı & Dönüşümü",
+      "buildingType": "Fabrika / Sanayi Tesisi",
+      "squareMeters": "3200",
+      "message": "Fabrikamızın boyler ve buhar kazanı için doğalgaz hattı çekilmesi ve RMS istasyonu montajı için acil keşif ve fiyat teklifi rica ediyoruz.",
+      "status": "contacted",
+      "createdAt": "2026-08-28T21:44:26.937Z"
+    },
+    {
+      "id": "lead-2",
+      "name": "Murat Demir (Site Yöneticisi)",
+      "phone": "0542 222 33 44",
+      "email": "demirsite@gmail.com",
+      "serviceType": "Merkezi Isıtma & Kaskad Kazan Sistemleri",
+      "buildingType": "Toplu Konut / Site (48 Daire)",
+      "squareMeters": "4500",
+      "message": "Mevcut kömürlü kazanımızı doğalgazlı kaskad yoğuşmalı sisteme dönüştürmek istiyoruz.",
+      "status": "new",
+      "createdAt": "2026-08-27T21:44:26.937Z",
+      "isRead": true
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "tst-1",
+      "clientName": "Erkan Tekin",
+      "companyOrBuilding": "Tekinler Alüminyum Döküm A.Ş. - Genel Müdür",
+      "rating": 5,
+      "comment": "Fabrikamızın yüksek debili doğalgaz çelik borulama ve RMS istasyonu projesini Ay Mühendislik üstlendi. 10 günde tüm kaynak testlerini ve idare onaylarını sorunsuz tamamladılar. Kesinlikle bölgenin en yetkin mühendislik ekibi.",
+      "projectType": "Endüstriyel Tesisat & RMS",
+      "date": "2024-11-10"
+    },
+    {
+      "id": "tst-2",
+      "clientName": "Bülent Candan",
+      "companyOrBuilding": "Yeşilvadi Konakları Site Yönetim Kurulu Başkanı",
+      "rating": 5,
+      "comment": "72 dairelik sitemizin merkezi kaskad kazan dairesi yenilemesini yaptırdık. Yakıt giderlerimiz anında %30 oranında düştü. Projelendirmeden gaz açımına kadar her an bilgilendirildik.",
+      "projectType": "Kaskad Kazan Dairesi",
+      "date": "2024-12-04"
+    },
+    {
+      "id": "tst-3",
+      "clientName": "Canan Korkmaz",
+      "companyOrBuilding": "Boutique Cafe & Restaurant",
+      "rating": 5,
+      "comment": "Kış bahçemiz için borulu radyant ısıtma projesini çizip uyguladılar. Müşterilerimiz kışın bile sıcacık oturabiliyor, tüketim de beklediğimizden çok daha ekonomik.",
+      "projectType": "Radyant Isıtma",
+      "date": "2025-01-20"
+    }
+  ],
+  "sliders": [
+    {
+      "id": "s1",
+      "image": "/images/1.png",
+      "label": "Endüstriyel Tesisat",
+      "headline": "Fabrikalar ve\nSanayi Tesisleri",
+      "sub": "RMS istasyonları, yüksek basınçlı çelik hatlar ve anahtar teslim endüstriyel dönüşüm.",
+      "order": 1
+    },
+    {
+      "id": "s2",
+      "image": "/images/2.png",
+      "label": "Projelendirme",
+      "headline": "Yetkili CAD\nProje Çizimi",
+      "sub": "EPDK ve gaz dağıtım idaresi onaylı dijital projelendirme ve gaz açma hizmeti.",
+      "order": 2
+    },
+    {
+      "id": "s3",
+      "image": "/images/4.jpg",
+      "label": "Konut Tesisatı",
+      "headline": "Bireysel Kombi\nve Daire Tesisatı",
+      "sub": "Konforlu ve güvenli bireysel doğalgaz bağlantısı, hızlı montaj ve gaz açımı.",
+      "order": 3
+    }
+  ],
+  "references": [
+    {
+      "id": "ref-1",
+      "name": "Ağaoğlu",
+      "logo": "/images/referanslar/agaoglu_logo.svg",
+      "order": 1
+    },
+    {
+      "id": "ref-2",
+      "name": "İGDAŞ",
+      "logo": "/images/referanslar/d.png",
+      "order": 2
+    },
+    {
+      "id": "ref-3",
+      "name": "RAMS Global",
+      "logo": "/images/referanslar/fsd.jpg",
+      "order": 3
+    },
+    {
+      "id": "ref-4",
+      "name": "Torunlar GYO",
+      "logo": "/images/referanslar/images.jpg",
+      "order": 4
+    },
+    {
+      "id": "ref-5",
+      "name": "Nef İnşaat",
+      "logo": "/images/referanslar/nef.png",
+      "order": 5
+    }
+  ],
+  "adminUser": {
+    "id": "admin-1",
+    "username": "admin",
+    "name": "Ay Mühendislik Yönetici",
+    "passwordHash": "$2b$10$DDyKOSgfIQuPvuZNyz/CnelaFZi8SKrYGVj.D6ql6mR7G6NDCatzO"
+  }
+}
