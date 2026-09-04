@@ -32,9 +32,9 @@ export const FAQ_DATA = [
     tag: "Tüm Türkiye Hizmeti"
   },
   {
-    q: "Acil durumlar ve gaz kaçaklarında teknik müdahale sağlıyor musunuz?",
-    a: "Evet. Devreye aldığımız tüm endüstriyel tesisler ve konut projeleri için 7/24 acil teknik destek hattımız mevcuttur. Selenoid vana arızaları, regülatör basınç problemleri veya gaz alarm santrali kontrolleri uzman teknisyenlerimizce anında giderilir.",
-    tag: "7/24 Destek"
+    q: "Proje tamamlandıktan sonra periyodik bakım ve teknik servis desteği sağlıyor musunuz?",
+    a: "Evet. Ay Mühendislik olarak devreye aldığımız tüm endüstriyel tesisler, RMS istasyonları ve merkezi kazan sistemleri için periyodik muayene, sızdırmazlık testleri, brülör ayarları ve düzenli bakım hizmeti sunuyoruz.",
+    tag: "Bakım & Servis"
   },
 ];
 

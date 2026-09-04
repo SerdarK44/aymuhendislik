@@ -31,8 +31,8 @@ export default function WhyUs({ settings }: { settings?: Partial<SiteSettings> }
     },
     {
       icon: Clock,
-      title: isEn ? whyUsEn.items[3].title : (settings?.whyUsItem4Title || "7/24 Acil Müdahale"),
-      desc: isEn ? whyUsEn.items[3].desc : (settings?.whyUsItem4Desc || "Gaz kaçakları ve kritik arızalarda 7 gün 24 saat sahada hazır sertifikalı teknik ekip."),
+      title: isEn ? whyUsEn.items[3].title : (settings?.whyUsItem4Title || "Periyodik Bakım & Servis"),
+      desc: isEn ? whyUsEn.items[3].desc : (settings?.whyUsItem4Desc || "Projelerinizin devreye alınmasından sonra da periyodik kontrol ve teknik servis desteği sağlıyoruz."),
       number: "04"
     },
   ];

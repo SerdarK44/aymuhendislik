@@ -20,15 +20,15 @@ export default function ContactClient({ settings }: { settings: SiteSettings }) 
           <div className="text-center max-w-2xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 border border-brand-200/80 text-brand-700 text-xs font-bold font-mono mb-3">
               <Headphones className="w-3.5 h-3.5 text-brand-600" />
-              <span>{isEn ? "24/7 Rapid Response & Support" : "7/24 Kesintisiz Destek"}</span>
+              <span>{isEn ? "Authorized Engineering Support" : "Yetkili Mühendislik Desteği"}</span>
             </div>
             <h1 className="text-4xl sm:text-5xl font-extrabold text-ink-900 tracking-tight mb-4">
               {isEn ? "Get in Touch" : "Bize Ulaşın"}
             </h1>
             <p className="text-stone-600 text-base sm:text-lg leading-relaxed">
               {isEn
-                ? "Our certified mechanical engineers are at your service for on-site discovery, project estimation, and emergency support."
-                : "Projeleriniz, ücretsiz keşif talepleriniz veya acil teknik destek için mühendislik ekibimiz hizmetinizdedir."}
+                ? "Our certified mechanical engineers are at your service for on-site discovery, project estimation, and technical advisory."
+                : "Projeleriniz, ücretsiz keşif talepleriniz ve teknik danışmanlık için yetkili mühendislik ekibimiz hizmetinizdedir."}
             </p>
           </div>
         </FadeIn>
@@ -100,7 +100,7 @@ export default function ContactClient({ settings }: { settings: SiteSettings }) 
                           href={`tel:${settings.emergencyPhone.replace(/[^\d+]/g, "")}`}
                           className="block text-brand-600 text-xs font-bold hover:text-brand-700 transition-colors"
                         >
-                          {isEn ? "24/7 Emergency & Survey: " : "7/24 Acil & Keşif: "}
+                          {isEn ? "Direct Hotline: " : "Keşif & Danışmanlık: "}
                           {settings.emergencyPhone}
                         </a>
                       )}
@@ -163,7 +163,7 @@ export default function ContactClient({ settings }: { settings: SiteSettings }) 
                 </div>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/80">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  {isEn ? "Active Service" : "Hizmete Açık"}
+                  {isEn ? "Authorized Firm" : "Yetkili Firma"}
                 </span>
               </div>
 
@@ -176,13 +176,13 @@ export default function ContactClient({ settings }: { settings: SiteSettings }) 
                 </div>
 
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 pb-2 border-b border-stone-100">
-                  <span className="text-stone-500">{isEn ? "Sunday & Emergency:" : "Pazar & Acil Durumlar:"}</span>
-                  <span className="font-bold text-emerald-600 text-xs sm:text-sm">{isEn ? "24/7 Active Field Team" : "7/24 Nöbetçi Teknik Ekip"}</span>
+                  <span className="text-stone-500">{isEn ? "Sunday:" : "Pazar Günü:"}</span>
+                  <span className="font-bold text-stone-600 text-xs sm:text-sm">{isEn ? "Closed / By Appointment" : "Kapalı / Randevulu Keşif"}</span>
                 </div>
 
                 {settings.emergencyPhone && (
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 pt-1">
-                    <span className="text-stone-500">{isEn ? "Direct Hotline:" : "Santral / Acil Keşif:"}</span>
+                    <span className="text-stone-500">{isEn ? "Direct Line:" : "Santral / Keşif Hattı:"}</span>
                     <a
                       href={`tel:${settings.emergencyPhone.replace(/[^\d+]/g, "")}`}
                       className="font-bold text-brand-600 hover:text-brand-700 transition-colors flex items-center gap-1.5 text-xs sm:text-sm"

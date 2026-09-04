@@ -11,7 +11,7 @@
     "email": "info@aymuhendislik.com.tr",
     "address": "Tekstilkent Ticaret Merkezi G1 Blok No: 9 Esenler / İstanbul",
     "city": "İstanbul (Tüm Türkiye)",
-    "workingHours": "Pzt - Cmt: 08:30 - 19:00 (7/24 Acil Müdahale Hattı Aktif)",
+    "workingHours": "Pzt - Cmt: 08:30 - 19:00 (Pazar: Randevulu Keşif)",
     "licenseNo": "EPDK-MÜH-2024-8842 / İGDAŞ YETKİ NO: 34-10492",
     "aboutShort": "Ay Mühendislik; 16 yılı aşkın tecrübesi, yetkili uzman makine mühendisleri ve mobil teknik kadrosuyla İstanbul Tekstilkent merkezli olarak Tüm Türkiye genelinde büyük sanayi tesislerinden konutlara kadar her ölçekte anahtar teslim doğalgaz mühendisliği sunar.",
     "aboutFull": "Ay Mühendislik olarak kurulduğumuz günden bu yana doğalgazın güvenli, verimli ve yasal standartlara %100 uygun şekilde kullanılmasını sağlıyoruz. Merkezimiz İstanbul Esenler Tekstilkent'te bulunmakta olup Türkiye'nin 81 ilinde en prestijli sanayi kuruluşlarına, fabrikalarına, organize sanayi bölgelerine (OSB) ve binlerce konut/ticari yapıya mühendislik taahhüt hizmeti verdik. Tüm süreçlerimizde EPDK, TSE ve yerel gaz dağıtım şirketlerinin en katı güvenlik standartlarına uygun çalışıyoruz. Büyük endüstriyel fabrika dönüşümlerinden bireysel projelere kadar anahtar teslim hizmet sunuyoruz.",
@@ -31,8 +31,8 @@
     "whyUsItem2Desc": "Proje onayından gaz açma randevusuna kadar tüm süreci hızlandırılmış dijital takiple yönetiyoruz.",
     "whyUsItem3Title": "Yıllık Saha Deneyimi",
     "whyUsItem3Desc": "Türkiye'nin öncü sanayi kuruluşlarına ve binlerce konuta teslim ettiğimiz proje referansları.",
-    "whyUsItem4Title": "7/24 Acil Müdahale",
-    "whyUsItem4Desc": "Gaz kaçakları ve kritik arızalarda 7 gün 24 saat sahada hazır sertifikalı teknik ekip.",
+    "whyUsItem4Title": "Periyodik Bakım & Servis",
+    "whyUsItem4Desc": "Projelerinizin devreye alınmasından sonra da periyodik kontrol ve teknik servis desteği sağlıyoruz.",
     "faqCtaBadge": "Özel Proje Danışmanlığı",
     "faqCtaTitle": "Başka bir sorunuz veya özel bir projeniz mi var?",
     "faqCtaSubtitle": "Uzman makine mühendislerimiz projenizi yerinde inceleyip tüm teknik detayları ücretsiz yanıtlasın.",
@@ -71,9 +71,9 @@
       },
       {
         "id": "faq-6",
-        "q": "Acil durumlar ve gaz kaçaklarında teknik müdahale sağlıyor musunuz?",
-        "a": "Evet. Devreye aldığımız tüm endüstriyel tesisler ve konut projeleri için 7/24 acil teknik destek hattımız mevcuttur. Selenoid vana arızaları, regülatör basınç problemleri veya gaz alarm santrali kontrolleri uzman teknisyenlerimizce anında giderilir.",
-        "tag": "7/24 Destek"
+        "q": "Proje tamamlandıktan sonra periyodik bakım ve teknik servis desteği sağlıyor musunuz?",
+        "a": "Evet. Ay Mühendislik olarak devreye aldığımız tüm endüstriyel tesisler, RMS istasyonları ve merkezi kazan sistemleri için periyodik muayene, sızdırmazlık testleri, brülör ayarları ve düzenli bakım hizmeti sunuyoruz.",
+        "tag": "Bakım & Servis"
       }
     ]
   },

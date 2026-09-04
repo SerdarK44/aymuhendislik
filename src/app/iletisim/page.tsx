@@ -12,14 +12,14 @@ export async function generateMetadata(): Promise<Metadata> {
   const settings = getSettings();
   return buildSeoMetadata({
     title: `İletişim & Ücretsiz Keşif | ${settings.companyName}`,
-    description: "Ay Mühendislik iletişim bilgileri, adres, telefon, acil servis hattı ve ücretsiz yerinde keşif formu.",
+    description: "Ay Mühendislik iletişim bilgileri, adres, telefon, keşif hattı ve ücretsiz yerinde keşif formu.",
     path: "/iletisim",
     image: "/images/1.png",
     keywords: [
       "Ay Mühendislik iletişim",
       "doğalgaz keşif randevusu",
       "Tekstilkent mühendislik adres",
-      "doğalgaz acil telefon"
+      "doğalgaz mühendislik telefon"
     ]
   });
 }

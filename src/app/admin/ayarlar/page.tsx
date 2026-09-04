@@ -74,7 +74,7 @@ export default function AdminSettingsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 mb-8 border-b border-stone-200">
         <div>
           <h1 className="text-2xl font-black text-ink-900">Site & İletişim Ayarları (CMS)</h1>
-          <p className="text-xs text-stone-500 mt-1">Firma telefonları, acil hat, EPDK yetki no ve genel metinleri düzenleyin</p>
+          <p className="text-xs text-stone-500 mt-1">Firma telefonları, keşif & danışmanlık hattı, EPDK yetki no ve genel metinleri düzenleyin</p>
         </div>
         {saved && (
           <div className="px-4 py-2 rounded-lg bg-emerald-950 border border-emerald-800 text-emerald-400 text-xs font-bold flex items-center space-x-1.5">
@@ -167,7 +167,7 @@ export default function AdminSettingsPage() {
 
         {/* Contact info */}
         <div className="p-6 rounded-xl bg-white border border-stone-200 space-y-4">
-          <h3 className="text-sm font-bold text-ink-900 uppercase font-mono tracking-wider">İletişim & Acil Hatlar</h3>
+          <h3 className="text-sm font-bold text-ink-900 uppercase font-mono tracking-wider">İletişim & Santral Numaraları</h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
@@ -181,7 +181,7 @@ export default function AdminSettingsPage() {
             </div>
 
             <div>
-              <label className="block font-semibold text-ink-800 mb-1">7/24 Acil Müdahale Hattı</label>
+              <label className="block font-semibold text-ink-800 mb-1">Doğrudan Keşif & Danışmanlık Hattı</label>
               <input
                 type="text"
                 value={settings.emergencyPhone}
@@ -437,7 +437,7 @@ export default function AdminSettingsPage() {
                   type="text"
                   value={settings.whyUsItem4Title || ""}
                   onChange={(e) => setSettings({ ...settings, whyUsItem4Title: e.target.value })}
-                  placeholder="Madde Başlığı (Örn: 7/24 Acil Müdahale)"
+                  placeholder="Madde Başlığı (Örn: Periyodik Bakım & Servis)"
                   className="w-full px-2.5 py-1.5 rounded bg-white border border-stone-200 text-ink-900 font-semibold focus:outline-none focus:border-brand-500"
                 />
                 <textarea

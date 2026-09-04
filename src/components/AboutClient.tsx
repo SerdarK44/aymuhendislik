@@ -19,7 +19,7 @@ export default function AboutClient({
         { icon: ShieldCheck, title: "Safety Focused", desc: "Uncompromising safety standards adhering to national and international EPDK & EN norms." },
         { icon: Target, title: "Zero Error", desc: "Zero tolerance for error in CAD engineering calculations and field pipe installations." },
         { icon: Award, title: "Certified Expertise", desc: "Licensed professional mechanical engineers and certified orbital/gas welding teams." },
-        { icon: Users, title: "Client Satisfaction", desc: "Transparent process tracking, on-time project handover, and 24/7 post-delivery support." },
+        { icon: Users, title: "Client Satisfaction", desc: "Transparent process tracking, on-time project handover, and continuous engineering support." },
       ]
     : [
         { icon: ShieldCheck, title: "Güvenlik Odaklı", desc: "Tesisat projelerinde tavizsiz güvenlik ve EPDK standartları." },
@@ -32,13 +32,13 @@ export default function AboutClient({
     ? [
         "Certified Mechanical Engineering Staff (EPDK / Authority Authorized)",
         "Officially Certified & Tested Technical Welding Specialists",
-        "24/7 Emergency Rapid Intervention & Maintenance Network",
+        "Comprehensive Technical Field & Maintenance Network",
         "Industry-Leading Turnkey Conversion & EPC Contracting",
       ]
     : [
         "Uzman Makine Mühendisleri Kadrosu",
         "MYK Belgeli ve Sertifikalı Ustalar",
-        "7/24 Acil Müdahale ve Servis Ağı",
+        "Periyodik Bakım ve Teknik Servis Ağı",
         "Endüstriyel Dönüşümde Lider Çözümler",
       ];
 

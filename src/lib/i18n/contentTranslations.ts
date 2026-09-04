@@ -96,7 +96,7 @@ export const servicesEnMap: Record<string, ServiceContentTranslation> = {
       "Bulk LPG Storage Yards & Fire Suppression Infrastructure",
       "High-Flow Pressure Regulating Skids",
       "ATEX Certified Explosion-Proof Safety Valves",
-      "24/7 Technical Support & Filling Logistics Coordination"
+      "Comprehensive Engineering Support & Filling Logistics Coordination"
     ]
   }
 };
@@ -147,8 +147,8 @@ export const whyUsEn = {
       desc: "Distinguished references spanning heavy industrial manufacturers, logistics centers, and residential developments."
     },
     {
-      title: "24/7 Rapid Emergency Response",
-      desc: "Specialized technicians and engineers ready on the field 24/7 for critical incidents, inspections, and system maintenance."
+      title: "Maintenance & Technical Service",
+      desc: "Scheduled safety inspections, leak tests, and post-commissioning maintenance across all delivered systems."
     }
   ]
 };
@@ -180,8 +180,8 @@ export const faqsEn: FaqContentTranslation[] = [
     tag: "Nationwide Service"
   },
   {
-    q: "Do you provide emergency response and gas leak troubleshooting?",
-    a: "Yes. We maintain a dedicated 24/7 technical emergency line for all facilities we commission. Solenoid valve trips, regulator fluctuations, and gas alarm console issues are attended to promptly by certified technicians.",
-    tag: "24/7 Support"
+    q: "Do you provide periodic maintenance and technical service after project handover?",
+    a: "Yes. For all industrial facilities, RMS stations, and central boiler systems we commission, Ay Mühendislik provides periodic inspections, tightness tests, burner calibration, and scheduled preventative maintenance.",
+    tag: "Maintenance & Service"
   }
 ];

@@ -77,7 +77,7 @@ export default function PrivacyPolicyPage() {
                 <ul className="list-disc pl-6 space-y-1.5 text-stone-600">
                   <li>Doğalgaz projelendirme, tesisat keşfi ve fiyat tekliflerinin hazırlanması,</li>
                   <li>EPDK ve İGDAŞ yetkili doğalgaz proje onay süreçlerinin yürütülmesi,</li>
-                  <li>Müşteri iletişim taleplerine hızlı dönüş sağlanması ve acil müdahale organizasyonu,</li>
+                  <li>Müşteri iletişim taleplerine hızlı dönüş sağlanması ve teknik keşif organizasyonu,</li>
                   <li>Yasal yükümlülüklerin yerine getirilmesi amacıyla işlenmektedir.</li>
                 </ul>
               </section>

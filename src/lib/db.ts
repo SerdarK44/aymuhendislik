@@ -29,7 +29,7 @@ function ensureDbFile(): DatabaseSchema {
         email: "info@aymuhendislik.com.tr",
         address: "Tekstilkent Ticaret Merkezi G1 Blok No: 9 Esenler / İstanbul",
         city: "İstanbul (Tüm Türkiye)",
-        workingHours: "Pzt - Cmt: 08:30 - 19:00 (7/24 Acil Müdahale Hattı Aktif)",
+        workingHours: "Pzt - Cmt: 08:30 - 19:00 (Pazar: Randevulu Keşif)",
         licenseNo: "EPDK-MÜH-2024-8842 / İGDAŞ YETKİ NO: 34-10492",
         aboutShort: "Ay Mühendislik; 16 yılı aşkın tecrübesi, yetkili uzman makine mühendisleri ve mobil teknik kadrosuyla İstanbul Tekstilkent merkezli olarak Tüm Türkiye genelinde büyük sanayi tesislerinden konutlara kadar her ölçekte anahtar teslim doğalgaz mühendisliği sunar.",
         aboutFull: "Ay Mühendislik olarak kurulduğumuz günden bu yana doğalgazın güvenli, verimli ve yasal standartlara %100 uygun şekilde kullanılmasını sağlıyoruz. Merkezimiz İstanbul Esenler Tekstilkent'te bulunmakta olup Türkiye'nin 81 ilinde en prestijli sanayi kuruluşlarına, fabrikalarına, organize sanayi bölgelerine (OSB) ve binlerce konut/ticari yapıya mühendislik taahhüt hizmeti verdik. Tüm süreçlerimizde EPDK, TSE ve yerel gaz dağıtım şirketlerinin en katı güvenlik standartlarına uygun çalışıyoruz. Büyük endüstriyel fabrika dönüşümlerinden bireysel projelere kadar anahtar teslim hizmet sunuyoruz.",
