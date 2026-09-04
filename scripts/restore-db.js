@@ -22,6 +22,30 @@ try {
   // Ensure facebookUrl is removed
   delete mergedSettings.facebookUrl;
 
+  // Clean 7/24 & emergency wording from settings if present
+  if (mergedSettings.whyUsItem4Title === "7/24 Acil Müdahale" || !mergedSettings.whyUsItem4Title) {
+    mergedSettings.whyUsItem4Title = "Periyodik Bakım & Servis";
+    mergedSettings.whyUsItem4Desc = "Projelerinizin devreye alınmasından sonra da periyodik kontrol ve teknik servis desteği sağlıyoruz.";
+  }
+  if (mergedSettings.workingHours && mergedSettings.workingHours.includes("7/24")) {
+    mergedSettings.workingHours = "Pzt - Cmt: 08:30 - 19:00 (Pazar: Randevulu Keşif)";
+  }
+
+  // Update FAQ 6 if it contains emergency question
+  if (mergedSettings.faqs && Array.isArray(mergedSettings.faqs)) {
+    mergedSettings.faqs = mergedSettings.faqs.map((faq) => {
+      if (faq.id === "faq-6" || (faq.q && faq.q.includes("Acil durumlar"))) {
+        return {
+          id: "faq-6",
+          q: "Proje tamamlandıktan sonra periyodik bakım ve teknik servis desteği sağlıyor musunuz?",
+          a: "Evet. Ay Mühendislik olarak devreye aldığımız tüm endüstriyel tesisler, RMS istasyonları ve merkezi kazan sistemleri için periyodik muayene, sızdırmazlık testleri, brülör ayarları ve düzenli bakım hizmeti sunuyoruz.",
+          tag: "Bakım & Servis"
+        };
+      }
+      return faq;
+    });
+  }
+
   const mergedDb = {
     settings: mergedSettings,
     services: bakData.services && bakData.services.length > 0 ? bakData.services : currentData.services,
