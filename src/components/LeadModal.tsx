@@ -52,17 +52,20 @@ export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps)
   useEffect(() => {
     if (settings) {
       setModalSettings(settings);
-    } else if (isOpen && !modalSettings) {
+    }
+    if (isOpen) {
       fetch("/api/settings")
         .then((res) => res.json())
         .then((data) => {
-          if (data && data.phone) setModalSettings(data);
+          if (data && (data.phone || data.emergencyPhone)) {
+            setModalSettings(data);
+          }
         })
         .catch((err) => console.error("Error fetching modal settings:", err));
     }
-  }, [isOpen, settings, modalSettings]);
+  }, [isOpen, settings]);
 
-  const phoneDisplay = modalSettings?.phone || "0 (216) 456 78 90";
+  const phoneDisplay = modalSettings?.emergencyPhone || modalSettings?.phone || "0 (216) 456 78 90";
   const rawPhone = phoneDisplay.replace(/\D/g, "");
   const phoneTel = rawPhone.startsWith("90") ? `+${rawPhone}` : (rawPhone.startsWith("0") ? rawPhone : `0${rawPhone}`);
 
