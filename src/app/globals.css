@@ -102,10 +102,10 @@ body {
 /* ── Marquee ── */
 @keyframes marquee {
   0% { transform: translateX(0%); }
-  100% { transform: translateX(-33.33%); }
+  100% { transform: translateX(-25%); }
 }
 .animate-marquee {
-  animation: marquee 50s linear infinite;
+  animation: marquee 45s linear infinite;
 }
 
 /* ── Floating animation ── */
