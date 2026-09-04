@@ -74,9 +74,13 @@ export const metadata: Metadata = {
 
 import MobileQuickBar from "@/components/MobileQuickBar";
 import { getSettings } from "@/lib/db";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { Locale } from "@/lib/i18n/translations";
+import { getSessionAdmin } from "@/lib/auth";
+import MaintenanceView from "@/components/MaintenanceView";
+import Link from "next/link";
+import { AlertTriangle } from "lucide-react";
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const settings = getSettings();
@@ -84,17 +88,51 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const cookieLang = cookieStore.get("ay_lang")?.value;
   const initialLocale: Locale = cookieLang === "en" ? "en" : "tr";
 
+  const headersList = await headers();
+  const pathname = headersList.get("x-pathname") || "";
+
+  const isAdminRoute = pathname.startsWith("/admin");
+  const isApiRoute = pathname.startsWith("/api");
+  const isUploadRoute = pathname.startsWith("/uploads");
+  const isPreviewMaintenance = pathname === "/bakimda";
+  const isMaintenanceActive = Boolean(settings?.maintenanceMode);
+
+  const session = await getSessionAdmin();
+  const isAdmin = Boolean(session);
+
+  const showMaintenance = (isMaintenanceActive && !isAdmin && !isAdminRoute && !isApiRoute && !isUploadRoute) || isPreviewMaintenance;
+
   return (
     <html lang={initialLocale} className="h-full" data-scroll-behavior="smooth">
       <body
-        className="min-h-full flex flex-col bg-brand-50 text-ink-900 antialiased pb-16 lg:pb-0"
+        className={`min-h-full flex flex-col ${
+          showMaintenance ? "bg-[#0a0e17] text-white" : "bg-brand-50 text-ink-900 pb-16 lg:pb-0"
+        } antialiased`}
         style={{ fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}
       >
         <LanguageProvider initialLocale={initialLocale}>
-          <PageTransition>
-            {children}
-          </PageTransition>
-          <MobileQuickBar phone={settings.phone} whatsapp={settings.whatsapp} />
+          {showMaintenance ? (
+            <MaintenanceView settings={settings} />
+          ) : (
+            <>
+              {isMaintenanceActive && isAdmin && !isAdminRoute && (
+                <div className="bg-amber-500 text-ink-950 px-4 py-2 text-xs font-bold flex flex-wrap items-center justify-between gap-2 shadow-md z-50 sticky top-0">
+                  <div className="flex items-center gap-2">
+                    <AlertTriangle className="w-4 h-4 text-ink-950 shrink-0" />
+                    <span>BAKIM MODU AKTİF — Site ziyaretçilere kapalıdır. Yönetici oturumunuz açık olduğu için sayfaları görüntülüyorsunuz.</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Link href="/admin/ayarlar" className="underline hover:text-white transition-colors">Ayarları Yönet</Link>
+                    <Link href="/bakimda" target="_blank" className="bg-ink-900 text-white px-2.5 py-1 rounded text-[11px] hover:bg-ink-800 transition-colors">Bakım Sayfasını Gör</Link>
+                  </div>
+                </div>
+              )}
+              <PageTransition>
+                {children}
+              </PageTransition>
+              {!isAdminRoute && <MobileQuickBar phone={settings.phone} whatsapp={settings.whatsapp} />}
+            </>
+          )}
         </LanguageProvider>
       </body>
     </html>

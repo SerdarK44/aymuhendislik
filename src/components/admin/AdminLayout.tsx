@@ -29,12 +29,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [counts, setCounts] = useState({ talepler: 0, mail: 0 });
+  const [maintenanceMode, setMaintenanceMode] = useState(false);
   const [user, setUser] = useState<{ name: string; username: string } | null>(null);
 
   useEffect(() => {
     fetch("/api/admin/counts")
       .then(res => res.json())
-      .then(data => setCounts(data))
+      .then(data => {
+        setCounts({ talepler: data.talepler || 0, mail: data.mail || 0 });
+        if (data?.maintenanceMode !== undefined) setMaintenanceMode(data.maintenanceMode);
+      })
       .catch(() => {});
 
     fetch("/api/auth/me")
@@ -188,6 +192,29 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </div>
 
           <div className="flex items-center gap-3">
+            {maintenanceMode ? (
+              <Link
+                href="/admin/ayarlar"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-100 border border-amber-300 text-amber-900 text-xs font-bold hover:bg-amber-200 transition-all shadow-xs"
+                title="Bakım Modu Aktif! Ziyaretçiler bakım sayfasını görüyor. Ayarları düzenlemek için tıklayın."
+              >
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
+                </span>
+                <span>Bakım Modu Aktif</span>
+              </Link>
+            ) : (
+              <Link
+                href="/admin/ayarlar"
+                className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-semibold hover:bg-emerald-100 transition-colors"
+                title="Site Yayında - Bakım modunu açmak için tıklayın"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                <span>Site Yayında</span>
+              </Link>
+            )}
+
             <Link 
               href="/admin/talepler"
               className="relative p-2 rounded-xl bg-stone-100 text-stone-600 hover:text-ink-900 hover:bg-stone-200/70 transition-colors"

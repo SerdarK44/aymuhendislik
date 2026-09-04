@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { SiteSettings } from "@/lib/types";
-import { Save, CheckCircle2, Plus, Trash2 } from "lucide-react";
+import { Save, CheckCircle2, Plus, Trash2, Wrench, ExternalLink, Clock } from "lucide-react";
 
 export default function AdminSettingsPage() {
   const [settings, setSettings] = useState<SiteSettings | null>(null);
@@ -85,6 +86,113 @@ export default function AdminSettingsPage() {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-8 text-xs max-w-4xl">
+        {/* Maintenance Mode Control Card */}
+        <div className={`p-6 rounded-2xl border-2 transition-all shadow-sm ${
+          settings.maintenanceMode 
+            ? "bg-amber-500/10 border-amber-500/50 shadow-amber-500/5" 
+            : "bg-white border-stone-200"
+        }`}>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-stone-200/80">
+            <div className="flex items-center gap-3">
+              <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm shrink-0 shadow-xs ${
+                settings.maintenanceMode 
+                  ? "bg-amber-500 text-ink-950" 
+                  : "bg-stone-100 text-stone-600"
+              }`}>
+                <Wrench className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <h3 className="text-sm font-bold text-ink-900 uppercase font-mono tracking-wider">
+                    Site Bakım Modu (Maintenance Mode)
+                  </h3>
+                  <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase font-mono tracking-wide ${
+                    settings.maintenanceMode 
+                      ? "bg-amber-500 text-ink-950 animate-pulse" 
+                      : "bg-emerald-100 text-emerald-800"
+                  }`}>
+                    {settings.maintenanceMode ? "BAKIMDA (ZİYARETÇİLERE KAPALI)" : "SİTE YAYINDA (AÇIK)"}
+                  </span>
+                </div>
+                <p className="text-xs text-stone-500 mt-0.5">
+                  Bakım modunu açtığınızda normal ziyaretçiler sadece bakım ekranını görür; siz ise yönetici olarak siteyi görüntülemeye devam edebilirsiniz.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 shrink-0">
+              <Link
+                href="/bakimda"
+                target="_blank"
+                className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white border border-stone-300 hover:bg-stone-50 text-ink-800 font-bold text-xs transition-colors shadow-2xs"
+              >
+                <ExternalLink className="w-3.5 h-3.5 text-stone-500" />
+                <span>Bakım Sayfasını Gör</span>
+              </Link>
+
+              <button
+                type="button"
+                onClick={() => setSettings({ ...settings, maintenanceMode: !settings.maintenanceMode })}
+                className={`px-4 py-2 rounded-xl font-bold text-xs transition-all shadow-xs flex items-center gap-1.5 ${
+                  settings.maintenanceMode
+                    ? "bg-emerald-600 hover:bg-emerald-700 text-white"
+                    : "bg-amber-500 hover:bg-amber-600 text-ink-950 font-black"
+                }`}
+              >
+                {settings.maintenanceMode ? (
+                  <>
+                    <CheckCircle2 className="w-4 h-4" />
+                    <span>Bakım Modunu Kapat</span>
+                  </>
+                ) : (
+                  <>
+                    <Wrench className="w-4 h-4" />
+                    <span>Bakım Modunu Aç</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+
+          {/* Maintenance Customization Fields */}
+          <div className="pt-4 space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block font-semibold text-ink-800 mb-1">Bakım Ekranı Başlığı</label>
+                <input
+                  type="text"
+                  value={settings.maintenanceTitle || ""}
+                  onChange={(e) => setSettings({ ...settings, maintenanceTitle: e.target.value })}
+                  placeholder="Daha İyi Bir Deneyim İçin Bakımdayız"
+                  className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-ink-900 focus:outline-none focus:border-brand-500"
+                />
+              </div>
+
+              <div>
+                <label className="block font-semibold text-ink-800 mb-1">Tahmini Tamamlanma Süresi (Opsiyonel)</label>
+                <input
+                  type="text"
+                  value={settings.maintenanceEstimatedTime || ""}
+                  onChange={(e) => setSettings({ ...settings, maintenanceEstimatedTime: e.target.value })}
+                  placeholder="Örn: 1 Saat İçinde / Bugün 21:00"
+                  className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-ink-900 focus:outline-none focus:border-brand-500"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block font-semibold text-ink-800 mb-1">Bakım Ekranı Açıklama Metni</label>
+              <textarea
+                rows={2}
+                value={settings.maintenanceMessage || ""}
+                onChange={(e) => setSettings({ ...settings, maintenanceMessage: e.target.value })}
+                placeholder="Sizlere daha hızlı, güvenli ve üstün standartlarda hizmet sunmak amacıyla altyapımızı güncelliyoruz..."
+                className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-ink-900 focus:outline-none focus:border-brand-500"
+              />
+            </div>
+          </div>
+        </div>
+
         {/* Company info */}
         <div className="p-6 rounded-xl bg-white border border-stone-200 space-y-4">
           <h3 className="text-sm font-bold text-ink-900 uppercase font-mono tracking-wider">Temel Şirket Bilgileri</h3>

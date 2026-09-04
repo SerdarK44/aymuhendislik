@@ -150,6 +150,18 @@ export interface Translations {
     contactOfficeTitle: string;
     directionsBtn: string;
   };
+  maintenance: {
+    badge: string;
+    defaultTitle: string;
+    defaultMessage: string;
+    estimatedTime: string;
+    contactTitle: string;
+    phoneLabel: string;
+    whatsappLabel: string;
+    emailLabel: string;
+    adminLogin: string;
+    rights: string;
+  };
 }
 
 export const translations: Record<Locale, Translations> = {
@@ -302,6 +314,18 @@ export const translations: Record<Locale, Translations> = {
       contactEmailTitle: "Kurumsal E-Posta",
       contactOfficeTitle: "Merkez Adres",
       directionsBtn: "Haritada Yol Tarifi Al"
+    },
+    maintenance: {
+      badge: "Planlı Bakım & Güncelleme",
+      defaultTitle: "Daha İyi Bir Deneyim İçin Bakımdayız",
+      defaultMessage: "Sizlere daha hızlı, güvenli ve üstün standartlarda mühendislik hizmeti sunabilmek amacıyla sistemlerimizde altyapı çalışması yürütülmektedir. Çok kısa bir süre içerisinde yeniden yayında olacağız.",
+      estimatedTime: "Tahmini Tamamlanma:",
+      contactTitle: "Acil Keşif & Danışmanlık İçin Bize Ulaşın:",
+      phoneLabel: "Santral / Keşif Hattı",
+      whatsappLabel: "WhatsApp Danışma",
+      emailLabel: "Kurumsal E-Posta",
+      adminLogin: "Yetkili Girişi",
+      rights: "Tüm hakları saklıdır.",
     }
   },
   en: {
@@ -453,6 +477,18 @@ export const translations: Record<Locale, Translations> = {
       contactEmailTitle: "Corporate Email",
       contactOfficeTitle: "Headquarters Address",
       directionsBtn: "Get Directions on Google Maps"
+    },
+    maintenance: {
+      badge: "Scheduled Maintenance & Upgrade",
+      defaultTitle: "We Are Currently Under Maintenance",
+      defaultMessage: "We are upgrading our digital infrastructure to deliver superior engineering solutions. We will be back online shortly. For urgent inquiries, please contact our team directly.",
+      estimatedTime: "Estimated Completion:",
+      contactTitle: "For Urgent Inquiries & Engineering Support:",
+      phoneLabel: "Direct / Discovery Line",
+      whatsappLabel: "WhatsApp Advisory",
+      emailLabel: "Corporate Email",
+      adminLogin: "Authorized Staff Login",
+      rights: "All rights reserved.",
     }
   }
 };

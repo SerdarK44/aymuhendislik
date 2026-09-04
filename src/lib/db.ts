@@ -39,7 +39,11 @@ function ensureDbFile(): DatabaseSchema {
         certifiedStaff: 24,
         googleMapsUrl: "https://maps.app.goo.gl/bpbn5Dzx6ezDK5mD9",
         instagramUrl: "https://instagram.com/aymuhendislik",
-        linkedinUrl: "https://linkedin.com/company/aymuhendislik"
+        linkedinUrl: "https://linkedin.com/company/aymuhendislik",
+        maintenanceMode: false,
+        maintenanceTitle: "Daha İyi Bir Deneyim İçin Bakımdayız",
+        maintenanceMessage: "Sizlere daha hızlı, güvenli ve üstün standartlarda mühendislik hizmeti sunabilmek amacıyla altyapı çalışmalarımızı yürütüyoruz. Çok kısa bir süre içerisinde yeniden yayında olacağız.",
+        maintenanceEstimatedTime: "Kısa Süre İçinde"
       },
       services: [],
       projects: [],

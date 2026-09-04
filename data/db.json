@@ -38,6 +38,10 @@
     "faqCtaSubtitle": "Uzman makine mühendislerimiz projenizi yerinde inceleyip tüm teknik detayları ücretsiz yanıtlasın.",
     "ctaTitle": "Projenizi Birlikte Planlayalım",
     "ctaSubtitle": "Ücretsiz keşif ve teknik değerlendirme için hemen bize ulaşın. Yetkili mühendislerimiz 24 saat içinde dönüş yapar.",
+    "maintenanceMode": false,
+    "maintenanceTitle": "Daha İyi Bir Deneyim İçin Bakımdayız",
+    "maintenanceMessage": "Sizlere daha hızlı, güvenli ve üstün standartlarda mühendislik hizmeti sunabilmek amacıyla altyapı çalışmalarımızı yürütüyoruz. Çok kısa bir süre içerisinde yeniden yayında olacağız.",
+    "maintenanceEstimatedTime": "Kısa Süre İçinde",
     "faqs": [
       {
         "id": "faq-1",

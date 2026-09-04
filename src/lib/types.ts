@@ -40,6 +40,11 @@ export interface SiteSettings {
   ctaTitle?: string;
   ctaSubtitle?: string;
   faqs?: FaqItem[];
+  // Maintenance Mode fields
+  maintenanceMode?: boolean;
+  maintenanceTitle?: string;
+  maintenanceMessage?: string;
+  maintenanceEstimatedTime?: string;
 }
 
 export interface FaqItem {
