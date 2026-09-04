@@ -4,8 +4,10 @@ import { TestimonialItem } from "@/lib/types";
 import { Star, Quote } from "lucide-react";
 import FadeIn from "@/components/FadeIn";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function TestimonialsSection({ testimonials }: { testimonials: TestimonialItem[] }) {
+  const { t, isEn } = useLanguage();
   if (!testimonials?.length) return null;
   return (
     <section className="py-32 bg-white relative overflow-hidden">
@@ -17,12 +19,21 @@ export default function TestimonialsSection({ testimonials }: { testimonials: Te
           <div className="text-center max-w-lg mx-auto mb-16">
             <div className="flex items-center justify-center gap-3 mb-5">
               <div className="w-8 h-[2px] bg-brand-500" />
-              <p className="text-xs font-bold text-brand-600 uppercase tracking-[0.2em]">Müşteri Yorumları</p>
+              <p className="text-xs font-bold text-brand-600 uppercase tracking-[0.2em]">{t("home.testimonialsBadge")}</p>
               <div className="w-8 h-[2px] bg-brand-500" />
             </div>
             <h2 className="text-4xl sm:text-5xl font-black text-ink-900 tracking-tight">
-              Müşterilerimiz<br />
-              <span className="text-brand-500">Ne Dedi?</span>
+              {isEn ? (
+                <>
+                  What Our Clients<br />
+                  <span className="text-brand-500">Say About Us</span>
+                </>
+              ) : (
+                <>
+                  Müşterilerimiz<br />
+                  <span className="text-brand-500">Ne Dedi?</span>
+                </>
+              )}
             </h2>
           </div>
         </FadeIn>

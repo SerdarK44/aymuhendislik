@@ -4,43 +4,47 @@ import { ShieldCheck, Zap, Award, Clock } from "lucide-react";
 import FadeIn from "@/components/FadeIn";
 import { motion } from "framer-motion";
 import { SiteSettings } from "@/lib/types";
+import { useLanguage } from "@/context/LanguageContext";
+import { whyUsEn } from "@/lib/i18n/contentTranslations";
 
 export default function WhyUs({ settings }: { settings?: Partial<SiteSettings> }) {
+  const { isEn } = useLanguage();
+
   const points = [
     {
       icon: ShieldCheck,
-      title: settings?.whyUsItem1Title || "EPDK & İGDAŞ Yetkili",
-      desc: settings?.whyUsItem1Desc || "Tüm projeler yetkili makine mühendislerimiz tarafından onaylı çizilir, sıfır hata ile resmi kabul teslimi yapılır.",
+      title: isEn ? whyUsEn.items[0].title : (settings?.whyUsItem1Title || "EPDK & İGDAŞ Yetkili"),
+      desc: isEn ? whyUsEn.items[0].desc : (settings?.whyUsItem1Desc || "Tüm projeler yetkili makine mühendislerimiz tarafından onaylı çizilir, sıfır hata ile resmi kabul teslimi yapılır."),
       number: "01"
     },
     {
       icon: Zap,
-      title: settings?.whyUsItem2Title || "Hızlı Gaz Açımı",
-      desc: settings?.whyUsItem2Desc || "Proje onayından gaz açma randevusuna kadar tüm süreci hızlandırılmış dijital takiple yönetiyoruz.",
+      title: isEn ? whyUsEn.items[1].title : (settings?.whyUsItem2Title || "Hızlı Gaz Açımı"),
+      desc: isEn ? whyUsEn.items[1].desc : (settings?.whyUsItem2Desc || "Proje onayından gaz açma randevusuna kadar tüm süreci hızlandırılmış dijital takiple yönetiyoruz."),
       number: "02"
     },
     {
       icon: Award,
-      title: settings?.whyUsItem3Title || (settings?.yearsExperience ? `${settings.yearsExperience}+ Yıl Saha Deneyimi` : "16+ Yıl Saha Deneyimi"),
-      desc: settings?.whyUsItem3Desc || "Türkiye'nin öncü sanayi kuruluşlarına ve binlerce konuta teslim ettiğimiz proje referansları.",
+      title: isEn ? whyUsEn.items[2].title : (settings?.whyUsItem3Title || (settings?.yearsExperience ? `${settings.yearsExperience}+ Yıl Saha Deneyimi` : "16+ Yıl Saha Deneyimi")),
+      desc: isEn ? whyUsEn.items[2].desc : (settings?.whyUsItem3Desc || "Türkiye'nin öncü sanayi kuruluşlarına ve binlerce konuta teslim ettiğimiz proje referansları."),
       number: "03"
     },
     {
       icon: Clock,
-      title: settings?.whyUsItem4Title || "7/24 Acil Müdahale",
-      desc: settings?.whyUsItem4Desc || "Gaz kaçakları ve kritik arızalarda 7 gün 24 saat sahada hazır sertifikalı teknik ekip.",
+      title: isEn ? whyUsEn.items[3].title : (settings?.whyUsItem4Title || "7/24 Acil Müdahale"),
+      desc: isEn ? whyUsEn.items[3].desc : (settings?.whyUsItem4Desc || "Gaz kaçakları ve kritik arızalarda 7 gün 24 saat sahada hazır sertifikalı teknik ekip."),
       number: "04"
     },
   ];
 
-  const badge = settings?.whyUsBadge || "Neden Biz";
-  const title = settings?.whyUsTitle || "Güvenli, Onaylı ve Hızlı Tesisat";
-  const subtitle = settings?.whyUsSubtitle || "Doğalgaz hata kabul etmez. Sertifikalı mühendislik güvencesiyle, her projeyi TSE ve EPDK standartlarında teslim ediyoruz.";
+  const badge = isEn ? whyUsEn.badge : (settings?.whyUsBadge || "Neden Biz");
+  const title = isEn ? whyUsEn.title : (settings?.whyUsTitle || "Güvenli, Onaylı ve Hızlı Tesisat");
+  const subtitle = isEn ? whyUsEn.subtitle : (settings?.whyUsSubtitle || "Doğalgaz hata kabul etmez. Sertifikalı mühendislik güvencesiyle, her projeyi TSE ve EPDK standartlarında teslim ediyoruz.");
 
   const stats = [
-    { num: `${settings?.yearsExperience || 16}+`, label: "Yıl Deneyim" },
-    { num: `${(settings?.completedProjects || 1450).toLocaleString("tr-TR")}+`, label: "Proje Teslimi" },
-    { num: "100%", label: "Resmi Onay" },
+    { num: `${settings?.yearsExperience || 16}+`, label: isEn ? "Years Experience" : "Yıl Deneyim" },
+    { num: `${(settings?.completedProjects || 1450).toLocaleString(isEn ? "en-US" : "tr-TR")}+`, label: isEn ? "Projects Delivered" : "Proje Teslimi" },
+    { num: "100%", label: isEn ? "Official Approval" : "Resmi Onay" },
   ];
 
   return (

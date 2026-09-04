@@ -1,7 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import { Flame, Phone, Mail, MapPin, ShieldCheck, CheckCircle2 } from "lucide-react";
 import FloatingWhatsApp from "./FloatingWhatsApp";
 import { SiteSettings, ServiceItem } from "@/lib/types";
+import { useLanguage } from "@/context/LanguageContext";
+import { servicesEnMap } from "@/lib/i18n/contentTranslations";
 
 interface FooterServiceLink {
   id: string;
@@ -42,7 +46,8 @@ const DEFAULT_FOOTER_SERVICES: FooterServiceLink[] = [
   }
 ];
 
-export default function Footer({ settings, services }: { settings?: SiteSettings; services?: ServiceItem[] }) {
+export default function Footer({ settings, services }: { settings?: Partial<SiteSettings>; services?: FooterServiceLink[] }) {
+  const { t, isEn } = useLanguage();
   const year = new Date().getFullYear();
   const phone = settings?.phone || "0 (216) 456 78 90";
   const rawPhone = phone.replace(/\D/g, "");
@@ -70,7 +75,7 @@ export default function Footer({ settings, services }: { settings?: SiteSettings
               />
             </Link>
             <p className="text-sm leading-relaxed text-ink-300">
-              EPDK ve Gaz Dağıtım Yetkili Mühendislik Firması. Tüm Türkiye genelinde büyük sanayi tesislerinden konutlara anahtar teslim doğalgaz mühendisliği.
+              {t("footer.companyDesc")}
             </p>
             <div className="flex items-center gap-4 pt-2">
               {settings?.facebookUrl && (
@@ -95,31 +100,34 @@ export default function Footer({ settings, services }: { settings?: SiteSettings
           </div>
 
           <div>
-            <h4 className="text-[11px] font-semibold text-white uppercase tracking-widest mb-5">Hizmetlerimiz</h4>
+            <h4 className="text-[11px] font-semibold text-white uppercase tracking-widest mb-5">{t("footer.servicesTitle")}</h4>
             <div className="space-y-3">
-              {displayServices.slice(0, 6).map(srv => (
-                <Link key={srv.id} href={`/hizmetler/${srv.slug}`} className="block text-sm hover:text-white transition-colors text-ink-300">
-                  {srv.title}
-                </Link>
-              ))}
+              {displayServices.slice(0, 6).map(srv => {
+                const srvTitle = (isEn && servicesEnMap[srv.slug]) ? servicesEnMap[srv.slug].title : srv.title;
+                return (
+                  <Link key={srv.id} href={`/hizmetler/${srv.slug}`} className="block text-sm hover:text-white transition-colors text-ink-300">
+                    {srvTitle}
+                  </Link>
+                );
+              })}
             </div>
           </div>
 
           <div>
-            <h4 className="text-[11px] font-semibold text-white uppercase tracking-widest mb-5">Kurumsal & Yasal</h4>
+            <h4 className="text-[11px] font-semibold text-white uppercase tracking-widest mb-5">{t("footer.corporateTitle")}</h4>
             <div className="space-y-3">
-              <Link href="/hakkimizda" className="block text-sm hover:text-white transition-colors text-ink-300">Hakkımızda</Link>
-              <Link href="/projeler" className="block text-sm hover:text-white transition-colors text-ink-300">Referanslarımız</Link>
-              <Link href="/blog" className="block text-sm hover:text-white transition-colors text-ink-300">Doğalgaz Rehberi</Link>
-              <Link href="/iletisim" className="block text-sm hover:text-white transition-colors text-ink-300">İletişim</Link>
-              <Link href="/gizlilik-politikasi" className="block text-sm hover:text-white transition-colors text-ink-300">Gizlilik & KVKK</Link>
-              <Link href="/sartlar-ve-kosullar" className="block text-sm hover:text-white transition-colors text-ink-300">Şartlar & Koşullar</Link>
-              <Link href="/cerez-politikasi" className="block text-sm hover:text-white transition-colors text-ink-300">Çerez Politikası</Link>
+              <Link href="/hakkimizda" className="block text-sm hover:text-white transition-colors text-ink-300">{t("footer.about")}</Link>
+              <Link href="/projeler" className="block text-sm hover:text-white transition-colors text-ink-300">{t("footer.projects")}</Link>
+              <Link href="/blog" className="block text-sm hover:text-white transition-colors text-ink-300">{t("footer.blog")}</Link>
+              <Link href="/iletisim" className="block text-sm hover:text-white transition-colors text-ink-300">{t("footer.contact")}</Link>
+              <Link href="/gizlilik-politikasi" className="block text-sm hover:text-white transition-colors text-ink-300">{t("footer.privacy")}</Link>
+              <Link href="/sartlar-ve-kosullar" className="block text-sm hover:text-white transition-colors text-ink-300">{t("footer.terms")}</Link>
+              <Link href="/cerez-politikasi" className="block text-sm hover:text-white transition-colors text-ink-300">{t("footer.cookies")}</Link>
             </div>
           </div>
 
           <div>
-            <h4 className="text-[11px] font-semibold text-white uppercase tracking-widest mb-5">İletişim</h4>
+            <h4 className="text-[11px] font-semibold text-white uppercase tracking-widest mb-5">{t("footer.contactTitle")}</h4>
             <div className="space-y-4 text-ink-300">
               <div className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-brand-500 shrink-0 mt-0.5" />
@@ -150,9 +158,9 @@ export default function Footer({ settings, services }: { settings?: SiteSettings
 
         <div className="mt-12 pt-8 border-t border-ink-800 flex flex-col md:flex-row items-center justify-between text-xs text-ink-400 gap-4">
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 text-center md:text-left">
-            <p>© {year} Ay Mühendislik. Tüm hakları saklıdır.</p>
+            <p>© {year} Ay Mühendislik. {t("common.rightsReserved")}</p>
             <span className="hidden md:inline text-ink-700">•</span>
-            <p className="text-brand-400 font-semibold">EPDK & İGDAŞ Yetkili Mühendislik Firması</p>
+            <p className="text-brand-400 font-semibold">{t("common.authorizedFirm")}</p>
             <span className="hidden md:inline text-ink-700">•</span>
             <a
               href="https://www.linkedin.com/in/serdar-kulek/"
@@ -160,14 +168,14 @@ export default function Footer({ settings, services }: { settings?: SiteSettings
               rel="noopener noreferrer"
               className="text-stone-300 hover:text-brand-400 transition-colors inline-flex items-center gap-1 font-medium group"
             >
-              <span>Serdar KÜLEK tarafından geliştirildi</span>
+              <span>{t("common.developedBy")}</span>
             </a>
           </div>
           <div className="flex items-center gap-4">
             <Link href="/gizlilik-politikasi" className="hover:text-ink-200 transition-colors">KVKK</Link>
-            <Link href="/sartlar-ve-kosullar" className="hover:text-ink-200 transition-colors">Şartlar</Link>
-            <Link href="/cerez-politikasi" className="hover:text-ink-200 transition-colors">Çerezler</Link>
-            <Link href="/admin" className="hover:text-ink-200 transition-colors">Yönetici Girişi</Link>
+            <Link href="/sartlar-ve-kosullar" className="hover:text-ink-200 transition-colors">{t("footer.terms")}</Link>
+            <Link href="/cerez-politikasi" className="hover:text-ink-200 transition-colors">{t("footer.cookies")}</Link>
+            <Link href="/admin" className="hover:text-ink-200 transition-colors">{t("footer.adminLogin")}</Link>
           </div>
         </div>
       </div>

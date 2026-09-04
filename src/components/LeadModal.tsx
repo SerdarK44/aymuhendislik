@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SiteSettings } from "@/lib/types";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface LeadModalProps {
   isOpen: boolean;
@@ -16,27 +17,8 @@ interface LeadModalProps {
   settings?: Partial<SiteSettings>;
 }
 
-const serviceOptions = [
-  { id: "Endüstriyel Doğalgaz & RMS", icon: Factory, desc: "Fabrika, Atölye, Fırın & Sanayi" },
-  { id: "CAD Projelendirme & Gaz Açma", icon: FileCheck2, desc: "Resmi Onay, Tadilat, Güç Artırımı" },
-  { id: "Merkezi Isıtma & Kaskad Kazan", icon: Flame, desc: "Kazan Dairesi & Boyler Sistemleri" },
-  { id: "Bireysel Kombi & Konut", icon: Home, desc: "Daire, Villa & Yerden Isıtma" },
-  { id: "Ticari İşletme & Mutfak Tesisatı", icon: UtensilsCrossed, desc: "Restoran, Cafe, Fırın, Otel, AVM" },
-  { id: "Radyant Isıtma Sistemleri", icon: Sparkles, desc: "Fabrika & Kafe Alan Isıtma" },
-  { id: "Periyodik Bakım & Kaçak Tespiti", icon: Wrench, desc: "Yetkili Test & Sızdırmazlık" },
-  { id: "Diğer / Özel Mühendislik", icon: HelpCircle, desc: "Özel Proje & Danışmanlık" },
-];
-
-const buildingTypes = [
-  { id: "Sanayi & Fabrika / OSB", icon: Factory, label: "Fabrika, Depo, Atölye" },
-  { id: "Ticari İşletme (Restoran, Cafe, Otel, AVM)", icon: Store, label: "Restoran, Cafe, Mağaza" },
-  { id: "Toplu Konut & Site / Plaza", icon: Building, label: "Site Yönetimi, Apartman, Plaza" },
-  { id: "Müstakil / Bireysel Konut", icon: Home, label: "Daire, Villa, Müstakil Ev" },
-  { id: "Kamu & Kurumsal Yapı", icon: Landmark, label: "Okul, Hastane, Resmi Kurum" },
-  { id: "Diğer Yapı Türü", icon: HelpCircle, label: "Diğer Özel Yapılar" },
-];
-
 export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps) {
+  const { t, isEn } = useLanguage();
   const [modalSettings, setModalSettings] = useState<Partial<SiteSettings> | null>(settings || null);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -48,6 +30,26 @@ export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps)
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
+  const serviceOptions = [
+    { id: "Endüstriyel Doğalgaz & RMS", icon: Factory, label: isEn ? "Industrial Natural Gas & RMS" : "Endüstriyel Doğalgaz & RMS", desc: isEn ? "Factories, Plants & Furnaces" : "Fabrika, Atölye, Fırın & Sanayi" },
+    { id: "CAD Projelendirme & Gaz Açma", icon: FileCheck2, label: isEn ? "CAD Engineering & Gas Approval" : "CAD Projelendirme & Gaz Açma", desc: isEn ? "Official Permits & Commissioning" : "Resmi Onay, Tadilat, Güç Artırımı" },
+    { id: "Merkezi Isıtma & Kaskad Kazan", icon: Flame, label: isEn ? "Central Heating & Cascade Boilers" : "Merkezi Isıtma & Kaskad Kazan", desc: isEn ? "Commercial Boiler Rooms & Storage" : "Kazan Dairesi & Boyler Sistemleri" },
+    { id: "Bireysel Kombi & Konut", icon: Home, label: isEn ? "Residential Heating & Boilers" : "Bireysel Kombi & Konut", desc: isEn ? "Apartments, Villas & Underfloor" : "Daire, Villa & Yerden Isıtma" },
+    { id: "Ticari İşletme & Mutfak Tesisatı", icon: UtensilsCrossed, label: isEn ? "Commercial Gas & Kitchens" : "Ticari İşletme & Mutfak Tesisatı", desc: isEn ? "Restaurants, Hotels, Malls" : "Restoran, Cafe, Fırın, Otel, AVM" },
+    { id: "Radyant Isıtma Sistemleri", icon: Sparkles, label: isEn ? "Radiant & Tube Heating" : "Radyant Isıtma Sistemleri", desc: isEn ? "Industrial Space & Patio Heating" : "Fabrika & Kafe Alan Isıtma" },
+    { id: "Periyodik Bakım & Kaçak Tespiti", icon: Wrench, label: isEn ? "Preventive Maintenance & Leaks" : "Periyodik Bakım & Kaçak Tespiti", desc: isEn ? "Certified Safety Inspections" : "Yetkili Test & Sızdırmazlık" },
+    { id: "Diğer / Özel Mühendislik", icon: HelpCircle, label: isEn ? "Custom / Other Engineering" : "Diğer / Özel Mühendislik", desc: isEn ? "Special Projects & Consulting" : "Özel Proje & Danışmanlık" },
+  ];
+
+  const buildingTypes = [
+    { id: "Sanayi & Fabrika / OSB", icon: Factory, label: isEn ? "Industrial & Factory / Plant" : "Fabrika, Depo, Atölye" },
+    { id: "Ticari İşletme (Restoran, Cafe, Otel, AVM)", icon: Store, label: isEn ? "Commercial (Restaurant, Hotel, Mall)" : "Restoran, Cafe, Mağaza" },
+    { id: "Toplu Konut & Site / Plaza", icon: Building, label: isEn ? "Residential Estate / Commercial Tower" : "Site Yönetimi, Apartman, Plaza" },
+    { id: "Müstakil / Bireysel Konut", icon: Home, label: isEn ? "Private Residence / Apartment" : "Daire, Villa, Müstakil Ev" },
+    { id: "Kamu & Kurumsal Yapı", icon: Landmark, label: isEn ? "Public & Institutional Building" : "Okul, Hastane, Resmi Kurum" },
+    { id: "Diğer Yapı Türü", icon: HelpCircle, label: isEn ? "Other Facility Types" : "Diğer Özel Yapılar" },
+  ];
 
   useEffect(() => {
     if (settings) {
@@ -163,13 +165,13 @@ export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps)
                 <div>
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-500/20 text-brand-300 text-xs font-bold font-mono mb-4 border border-brand-500/30">
                     <Sparkles className="w-3.5 h-3.5 text-brand-400" />
-                    <span>Ücretsiz Yerinde Keşif</span>
+                    <span>{t("modal.badge")}</span>
                   </div>
                   <h3 className="text-2xl font-black tracking-tight text-white leading-tight">
-                    Doğalgaz Projeniz İçin Hızlı Teklif Alın
+                    {t("modal.title")}
                   </h3>
                   <p className="text-xs text-stone-300 mt-2 leading-relaxed">
-                    Formu doldurun, yetkili makine mühendislerimiz en geç <strong>24 saat içinde</strong> projenizi inceleyip yerinde keşif planlasın.
+                    {t("modal.subtitle")}
                   </p>
                 </div>
 
@@ -179,8 +181,12 @@ export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps)
                       <ShieldCheck className="w-4 h-4" />
                     </div>
                     <div>
-                      <h4 className="text-xs font-bold text-white uppercase tracking-wider">İGDAŞ & EPDK Yetkili</h4>
-                      <p className="text-[11px] text-ink-200 mt-0.5">Sıfır hata ile %100 resmi gaz açım güvencesi.</p>
+                      <h4 className="text-xs font-bold text-white uppercase tracking-wider">
+                        {isEn ? "Authority Certified" : "İGDAŞ & EPDK Yetkili"}
+                      </h4>
+                      <p className="text-[11px] text-ink-200 mt-0.5">
+                        {isEn ? "100% official compliance and gas release assurance." : "Sıfır hata ile %100 resmi gaz açım güvencesi."}
+                      </p>
                     </div>
                   </div>
 
@@ -189,8 +195,12 @@ export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps)
                       <Clock className="w-4 h-4" />
                     </div>
                     <div>
-                      <h4 className="text-xs font-bold text-white uppercase tracking-wider">24 Saat İçinde Dönüş</h4>
-                      <p className="text-[11px] text-ink-200 mt-0.5">Mühendislerimiz aynı gün içinde keşif planlar.</p>
+                      <h4 className="text-xs font-bold text-white uppercase tracking-wider">
+                        {isEn ? "24-Hour Evaluation" : "24 Saat İçinde Dönüş"}
+                      </h4>
+                      <p className="text-[11px] text-ink-200 mt-0.5">
+                        {isEn ? "Our engineers schedule an on-site survey promptly." : "Mühendislerimiz aynı gün içinde keşif planlar."}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -199,7 +209,9 @@ export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps)
               {/* Bottom Support Line */}
               <div className="relative z-10 pt-5 mt-6 border-t border-white/10 flex items-center justify-between">
                 <div>
-                  <span className="block text-[10px] uppercase font-bold text-ink-400 tracking-wider">Acil Keşif & Danışma</span>
+                  <span className="block text-[10px] uppercase font-bold text-ink-400 tracking-wider">
+                    {t("common.emergencyLine")}
+                  </span>
                   <a href={`tel:${phoneTel}`} className="text-sm font-bold text-white hover:text-brand-400 transition-colors">
                     {phoneDisplay}
                   </a>
@@ -221,19 +233,25 @@ export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps)
                     <CheckCircle2 className="w-10 h-10 text-emerald-600" />
                   </motion.div>
                   
-                  <h4 className="text-2xl font-black text-ink-900 mb-2">Talebiniz Başarıyla Alındı!</h4>
+                  <h4 className="text-2xl font-black text-ink-900 mb-2">
+                    {t("modal.successTitle")}
+                  </h4>
                   <p className="text-stone-600 text-xs sm:text-sm leading-relaxed mb-6 max-w-sm">
-                    Sayın <strong>{name}</strong>, talebiniz nöbetçi makine mühendisimize iletildi. En kısa sürede telefonla keşif randevusu için aranacaksınız.
+                    {isEn
+                      ? `Dear ${name}, your request has been delivered to our engineering duty desk. You will be contacted shortly for an on-site survey.`
+                      : `Sayın ${name}, talebiniz nöbetçi makine mühendisimize iletildi. En kısa sürede telefonla keşif randevusu için aranacaksınız.`}
                   </p>
 
                   {/* Smart WhatsApp Handoff Shortcut */}
                   <div className="w-full max-w-md space-y-3 mb-6 p-5 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 text-left">
                     <div className="text-xs font-bold text-emerald-900 flex items-center gap-1.5">
                       <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-                      <span>Hızlı Fiyatlandırma İpucu:</span>
+                      <span>{isEn ? "Quick Estimation Tip:" : "Hızlı Fiyatlandırma İpucu:"}</span>
                     </div>
                     <p className="text-xs text-emerald-800 leading-relaxed">
-                      Projenizin, şantiyenizin veya kazan dairenizin fotoğraflarını WhatsApp üzerinden ileterek anında ön inceleme yaptırabilirsiniz.
+                      {isEn
+                        ? "You can share blueprints, sketches, or facility photos directly via WhatsApp for immediate preliminary evaluation."
+                        : "Projenizin, şantiyenizin veya kazan dairenizin fotoğraflarını WhatsApp üzerinden ileterek anında ön inceleme yaptırabilirsiniz."}
                     </p>
                     <a
                       href={`https://wa.me/${cleanWa}?text=${whatsappMessage}`}
@@ -242,7 +260,7 @@ export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps)
                       className="w-full py-3 px-4 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 shadow-md shadow-[#25D366]/25"
                     >
                       <MessageSquare className="w-4 h-4" />
-                      <span>WhatsApp ile Fotoğraf / Plan Gönder</span>
+                      <span>{isEn ? "Send Plans / Photos via WhatsApp" : "WhatsApp ile Fotoğraf / Plan Gönder"}</span>
                     </a>
                   </div>
                   
@@ -251,7 +269,7 @@ export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps)
                       onClick={handleResetAndClose} 
                       className="w-full bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold py-3 rounded-xl transition-colors text-xs cursor-pointer"
                     >
-                      Pencereyi Kapat
+                      {t("common.close")}
                     </button>
                   </div>
                 </div>
@@ -260,16 +278,16 @@ export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps)
                   {/* Mobile Header */}
                   <div className="md:hidden pr-8">
                     <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-50 text-brand-700 text-xs font-bold mb-2">
-                      <Sparkles className="w-3.5 h-3.5" /> Ücretsiz Keşif
+                      <Sparkles className="w-3.5 h-3.5" /> {t("common.freeDiscovery")}
                     </div>
-                    <h3 className="text-xl font-bold text-ink-900">Teklif Alın</h3>
-                    <p className="text-xs text-stone-500 mt-1">Mühendislerimiz talebinizi hızla yanıtlar.</p>
+                    <h3 className="text-xl font-bold text-ink-900">{t("nav.getQuote")}</h3>
+                    <p className="text-xs text-stone-500 mt-1">{t("modal.subtitle")}</p>
                   </div>
 
                   {/* 1. Service Selection Chips */}
                   <div>
                     <label className="block text-xs font-bold text-ink-900 uppercase tracking-wider mb-2.5">
-                      1. İhtiyacınız Olan Hizmet Türü
+                      {isEn ? "1. Required Engineering Service" : "1. İhtiyacınız Olan Hizmet Türü"}
                     </label>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                       {serviceOptions.map((srv) => {
@@ -291,7 +309,7 @@ export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps)
                               {isSelected && <Check className="w-4 h-4 text-white" />}
                             </div>
                             <div>
-                              <div className="font-bold text-xs leading-tight mb-0.5">{srv.id}</div>
+                              <div className="font-bold text-xs leading-tight mb-0.5">{srv.label}</div>
                               <div className={`text-[10px] line-clamp-1 ${isSelected ? "text-white/80" : "text-stone-400"}`}>
                                 {srv.desc}
                               </div>
@@ -309,7 +327,7 @@ export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps)
                           required
                           value={customService}
                           onChange={(e) => setCustomService(e.target.value)}
-                          placeholder="Lütfen ihtiyacınız olan özel mühendislik hizmetini yazın..."
+                          placeholder={isEn ? "Please specify your custom engineering needs..." : "Lütfen ihtiyacınız olan özel mühendislik hizmetini yazın..."}
                           className="w-full px-4 py-2.5 rounded-xl border border-brand-300 bg-brand-50/40 text-xs font-semibold text-ink-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500"
                         />
                       </motion.div>
@@ -319,7 +337,7 @@ export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps)
                   {/* 2. Building / Property Type */}
                   <div>
                     <label className="block text-xs font-bold text-ink-900 uppercase tracking-wider mb-2.5">
-                      2. Yapı / Tesis Türü
+                      {isEn ? "2. Building / Property Type" : "2. Yapı / Tesis Türü"}
                     </label>
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                       {buildingTypes.map((b) => {
@@ -351,7 +369,7 @@ export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps)
                           required
                           value={customBuilding}
                           onChange={(e) => setCustomBuilding(e.target.value)}
-                          placeholder="Lütfen yapı / bina türünü belirtin (örn: Sera, Spor Tesisi vb.)..."
+                          placeholder={isEn ? "Please specify facility type (e.g. Greenhouse, Warehouse)..." : "Lütfen yapı / bina türünü belirtin (örn: Sera, Spor Tesisi vb.)..."}
                           className="w-full px-4 py-2.5 rounded-xl border border-stone-300 bg-stone-50 text-xs font-semibold text-ink-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500"
                         />
                       </motion.div>
@@ -362,7 +380,7 @@ export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps)
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div className="sm:col-span-1">
                       <label className="block text-xs font-bold text-ink-900 uppercase tracking-wider mb-1.5">
-                        Adınız Soyadınız *
+                        {t("modal.nameLabel")} *
                       </label>
                       <div className="relative">
                         <User className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -371,7 +389,7 @@ export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps)
                           required
                           value={name}
                           onChange={(e) => setName(e.target.value)}
-                          placeholder="Ad Soyad"
+                          placeholder={t("modal.namePlaceholder")}
                           className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-stone-200 bg-stone-50 text-xs text-ink-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500"
                         />
                       </div>
@@ -379,7 +397,7 @@ export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps)
 
                     <div className="sm:col-span-1">
                       <label className="block text-xs font-bold text-ink-900 uppercase tracking-wider mb-1.5">
-                        Telefon Numaranız *
+                        {t("modal.phoneLabel")} *
                       </label>
                       <div className="relative">
                         <Phone className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -388,7 +406,7 @@ export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps)
                           required
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
-                          placeholder="05XX XXX XX XX"
+                          placeholder={t("modal.phonePlaceholder")}
                           className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-stone-200 bg-stone-50 text-xs text-ink-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 font-mono"
                         />
                       </div>
@@ -396,7 +414,7 @@ export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps)
 
                     <div className="sm:col-span-1">
                       <label className="block text-xs font-bold text-ink-900 uppercase tracking-wider mb-1.5">
-                        Yaklaşık Alan (m²)
+                        {isEn ? "Approx. Area (m²)" : "Yaklaşık Alan (m²)"}
                       </label>
                       <div className="relative">
                         <Ruler className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -404,7 +422,7 @@ export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps)
                           type="text"
                           value={squareMeters}
                           onChange={(e) => setSquareMeters(e.target.value)}
-                          placeholder="Örn: 450 m²"
+                          placeholder={isEn ? "e.g. 450 m²" : "Örn: 450 m²"}
                           className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-stone-200 bg-stone-50 text-xs text-ink-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500"
                         />
                       </div>
@@ -414,13 +432,13 @@ export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps)
                   {/* 4. Message / Note */}
                   <div>
                     <label className="block text-xs font-bold text-ink-900 uppercase tracking-wider mb-1.5">
-                      Proje Notu / Özel İstekleriniz (Opsiyonel)
+                      {t("modal.noteLabel")}
                     </label>
                     <textarea
                       rows={2}
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
-                      placeholder="Şantiye konumu, mevcut cihazlar, keşif için uygun saatleriniz vb..."
+                      placeholder={t("modal.notePlaceholder")}
                       className="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 bg-stone-50 text-xs text-ink-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500 leading-relaxed"
                     />
                   </div>
@@ -428,7 +446,7 @@ export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps)
                   {/* Submit Button */}
                   <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-stone-100">
                     <span className="text-[11px] text-stone-400">
-                      * Bilgileriniz KVKK kapsamında korunur ve 3. şahıslarla paylaşılmaz.
+                      {t("modal.privacyNotice")}
                     </span>
                     <button
                       type="submit"
@@ -436,7 +454,7 @@ export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps)
                       className="w-full sm:w-auto px-8 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-brand-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                     >
                       <Send className="w-4 h-4" />
-                      <span>{loading ? "Gönderiliyor..." : "Ücretsiz Keşif Talebi Gönder"}</span>
+                      <span>{loading ? t("modal.submittingBtn") : t("modal.submitBtn")}</span>
                     </button>
                   </div>
                 </form>

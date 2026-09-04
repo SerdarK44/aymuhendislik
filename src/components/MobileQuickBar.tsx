@@ -4,8 +4,11 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { Phone, MessageSquare } from "lucide-react";
 
+import { useLanguage } from "@/context/LanguageContext";
+
 export default function MobileQuickBar({ phone, whatsapp }: { phone?: string; whatsapp?: string }) {
   const pathname = usePathname();
+  const { t, isEn } = useLanguage();
   const [activePhone, setActivePhone] = useState(phone || "");
   const [activeWhatsapp, setActiveWhatsapp] = useState(whatsapp || "");
 
@@ -45,7 +48,9 @@ export default function MobileQuickBar({ phone, whatsapp }: { phone?: string; wh
   }
 
   const whatsappMessage = encodeURIComponent(
-    "Merhaba, Ay Mühendislik web sitenizden ulaşıyorum. Doğalgaz projemiz için ücretsiz keşif ve teklif almak istiyorum."
+    isEn
+      ? "Hello, I am reaching out from your website. I would like to request a free survey and quote for our natural gas project."
+      : "Merhaba, Ay Mühendislik web sitenizden ulaşıyorum. Doğalgaz projemiz için ücretsiz keşif ve teklif almak istiyorum."
   );
 
   return (
@@ -57,7 +62,7 @@ export default function MobileQuickBar({ phone, whatsapp }: { phone?: string; wh
           className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-brand-600 active:bg-brand-700 text-white font-bold text-xs uppercase tracking-wider shadow-md shadow-brand-600/20 transition-transform active:scale-95 cursor-pointer"
         >
           <Phone className="w-4 h-4" />
-          <span>Hemen Ara</span>
+          <span>{t("quickBar.call")}</span>
         </a>
 
         {/* WhatsApp Button */}
@@ -68,7 +73,7 @@ export default function MobileQuickBar({ phone, whatsapp }: { phone?: string; wh
           className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#25D366] active:bg-[#20bd5a] text-white font-bold text-xs uppercase tracking-wider shadow-md shadow-[#25D366]/20 transition-transform active:scale-95 cursor-pointer"
         >
           <MessageSquare className="w-4 h-4" />
-          <span>WhatsApp Teklif</span>
+          <span>{t("quickBar.whatsapp")}</span>
         </a>
       </div>
     </div>

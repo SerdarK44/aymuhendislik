@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { Send, CheckCircle2, MessageSquare, Phone, Sparkles } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function ContactForm({ whatsapp = "905329998877" }: { whatsapp?: string }) {
+  const { t, isEn } = useLanguage();
   const [formData, setFormData] = useState({ name: "", phone: "", email: "", message: "" });
   const [lastSubmittedName, setLastSubmittedName] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -16,7 +18,7 @@ export default function ContactForm({ whatsapp = "905329998877" }: { whatsapp?: 
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, serviceType: "İletişim Formu" })
+        body: JSON.stringify({ ...formData, serviceType: isEn ? "Contact Form" : "İletişim Formu" })
       });
       if (res.ok) {
         setLastSubmittedName(formData.name);
@@ -31,7 +33,9 @@ export default function ContactForm({ whatsapp = "905329998877" }: { whatsapp?: 
   };
 
   const whatsappText = encodeURIComponent(
-    `Merhaba, ben ${lastSubmittedName || "web sitesi ziyaretçisi"}. Sitenizden iletişim formu gönderdim, detaylı bilgi ve teklif almak istiyorum.`
+    isEn
+      ? `Hello, my name is ${lastSubmittedName || "website visitor"}. I submitted a contact inquiry from your website and would like to request detailed engineering information.`
+      : `Merhaba, ben ${lastSubmittedName || "web sitesi ziyaretçisi"}. Sitenizden iletişim formu gönderdim, detaylı bilgi ve teklif almak istiyorum.`
   );
 
   if (success) {
@@ -42,9 +46,11 @@ export default function ContactForm({ whatsapp = "905329998877" }: { whatsapp?: 
         </div>
         
         <div>
-          <h3 className="text-xl font-bold text-ink-900 mb-1.5">Mesajınız Başarıyla Alındı!</h3>
+          <h3 className="text-xl font-bold text-ink-900 mb-1.5">{t("modal.successTitle")}</h3>
           <p className="text-xs sm:text-sm text-stone-600 max-w-sm mx-auto leading-relaxed">
-            Yetkili makine mühendislerimiz mesajınızı inceleyerek en kısa sürede telefonla geri dönüş yapacaktır.
+            {isEn
+              ? "Our licensed mechanical engineers will review your inquiry and contact you shortly."
+              : "Yetkili makine mühendislerimiz mesajınızı inceleyerek en kısa sürede telefonla geri dönüş yapacaktır."}
           </p>
         </div>
 
@@ -52,10 +58,12 @@ export default function ContactForm({ whatsapp = "905329998877" }: { whatsapp?: 
         <div className="p-4 rounded-2xl bg-white border border-emerald-200/80 text-left space-y-2.5 shadow-xs">
           <div className="text-xs font-bold text-emerald-900 flex items-center gap-1.5">
             <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-            <span>Hızlı İletişim:</span>
+            <span>{isEn ? "Direct Contact Shortcut:" : "Hızlı İletişim:"}</span>
           </div>
           <p className="text-xs text-stone-600">
-            Dilerseniz tesisinizin veya kazan dairenizin fotoğraflarını doğrudan WhatsApp üzerinden gönderebilirsiniz.
+            {isEn
+              ? "You can also send blueprints or facility photos directly via WhatsApp."
+              : "Dilerseniz tesisinizin veya kazan dairenizin fotoğraflarını doğrudan WhatsApp üzerinden gönderebilirsiniz."}
           </p>
           <a
             href={`https://wa.me/${whatsapp}?text=${whatsappText}`}
@@ -64,15 +72,15 @@ export default function ContactForm({ whatsapp = "905329998877" }: { whatsapp?: 
             className="w-full py-3 px-4 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 shadow-md shadow-[#25D366]/20"
           >
             <MessageSquare className="w-4 h-4" />
-            <span>WhatsApp ile Fotoğraf Gönder</span>
+            <span>{isEn ? "Send Photos via WhatsApp" : "WhatsApp ile Fotoğraf Gönder"}</span>
           </a>
         </div>
 
         <button 
           onClick={() => setSuccess(false)} 
-          className="text-xs font-bold text-stone-500 hover:text-ink-900 transition-colors"
+          className="text-xs font-bold text-stone-500 hover:text-ink-900 transition-colors cursor-pointer"
         >
-          Yeni Bir Mesaj Gönder
+          {isEn ? "Send Another Message" : "Yeni Bir Mesaj Gönder"}
         </button>
       </div>
     );
@@ -82,7 +90,7 @@ export default function ContactForm({ whatsapp = "905329998877" }: { whatsapp?: 
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
         <label className="block text-xs font-bold text-ink-900 mb-1.5 uppercase tracking-wider">
-          Ad Soyad *
+          {t("contactForm.nameLabel")}
         </label>
         <input 
           required 
@@ -90,49 +98,49 @@ export default function ContactForm({ whatsapp = "905329998877" }: { whatsapp?: 
           value={formData.name} 
           onChange={e => setFormData({...formData, name: e.target.value})} 
           className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-sm text-ink-900 placeholder-stone-400 focus:outline-none focus:bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all" 
-          placeholder="Adınız Soyadınız / Firma Adı" 
+          placeholder={t("contactForm.namePlaceholder")} 
         />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-bold text-ink-900 mb-1.5 uppercase tracking-wider">
-            Telefon Numarası *
+            {t("contactForm.phoneLabel")}
           </label>
           <input 
             required 
             type="tel" 
             value={formData.phone} 
             onChange={e => setFormData({...formData, phone: e.target.value})} 
-            className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-sm text-ink-900 placeholder-stone-400 focus:outline-none focus:bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all" 
-            placeholder="05XX XXX XX XX" 
+            className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-sm text-ink-900 placeholder-stone-400 focus:outline-none focus:bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all font-mono" 
+            placeholder={t("contactForm.phonePlaceholder")} 
           />
         </div>
         <div>
           <label className="block text-xs font-bold text-ink-900 mb-1.5 uppercase tracking-wider">
-            E-Posta Adresi
+            {t("contactForm.emailLabel")}
           </label>
           <input 
             type="email" 
             value={formData.email} 
             onChange={e => setFormData({...formData, email: e.target.value})} 
             className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-sm text-ink-900 placeholder-stone-400 focus:outline-none focus:bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all" 
-            placeholder="ornek@firma.com" 
+            placeholder={t("contactForm.emailPlaceholder")} 
           />
         </div>
       </div>
 
       <div>
         <label className="block text-xs font-bold text-ink-900 mb-1.5 uppercase tracking-wider">
-          Mesajınız & Proje Detayı *
+          {t("contactForm.messageLabel")}
         </label>
         <textarea 
           required 
           rows={4} 
           value={formData.message} 
           onChange={e => setFormData({...formData, message: e.target.value})} 
-          className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-sm text-ink-900 placeholder-stone-400 focus:outline-none focus:bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all resize-none" 
-          placeholder="Doğalgaz projeniz, keşif adresi veya talebiniz..." 
+          className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-sm text-ink-900 placeholder-stone-400 focus:outline-none focus:bg-white focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all resize-none leading-relaxed" 
+          placeholder={t("contactForm.messagePlaceholder")} 
         />
       </div>
 
@@ -141,12 +149,12 @@ export default function ContactForm({ whatsapp = "905329998877" }: { whatsapp?: 
         type="submit" 
         className="w-full bg-brand-600 hover:bg-brand-500 text-white font-bold px-6 py-3.5 rounded-xl shadow-lg shadow-brand-600/25 transition-all flex items-center justify-center gap-2 mt-2 disabled:opacity-70 cursor-pointer"
       >
-        <span>{submitting ? "Gönderiliyor..." : "Mesajı ve Keşif Talebini Gönder"}</span>
+        <span>{submitting ? t("contactForm.submittingBtn") : t("contactForm.submitBtn")}</span>
         <Send className="w-4 h-4" />
       </button>
 
       <p className="text-center text-[10px] text-stone-400 mt-2">
-        🔒 Bilgileriniz 6698 sayılı KVKK kapsamında güvendedir.
+        {t("modal.privacyNotice")}
       </p>
     </form>
   );

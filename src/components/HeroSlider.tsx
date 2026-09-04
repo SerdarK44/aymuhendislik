@@ -5,8 +5,9 @@ import Image from "next/image";
 import { ArrowRight, ChevronLeft, ChevronRight, ShieldCheck } from "lucide-react";
 import { SiteSettings, SliderItem } from "@/lib/types";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
-const defaultSlides: SliderItem[] = [
+const defaultSlidesTr: SliderItem[] = [
   {
     id: "s1",
     image: "/images/1.png",
@@ -49,14 +50,59 @@ const defaultSlides: SliderItem[] = [
   },
 ];
 
+const defaultSlidesEn: SliderItem[] = [
+  {
+    id: "s1",
+    image: "/images/1.png",
+    label: "Industrial Gas Engineering",
+    headline: "Factories &\nIndustrial Plants",
+    sub: "Turnkey RMS pressure regulating stations, high-pressure welded steel lines, and factory energy retrofits.",
+    order: 1
+  },
+  {
+    id: "s2",
+    image: "/images/2.png",
+    label: "Statutory Engineering",
+    headline: "Certified CAD\nDesign & Approvals",
+    sub: "Official digital blueprints drafted by licensed mechanical engineers with expedited commissioning.",
+    order: 2
+  },
+  {
+    id: "s3",
+    image: "/images/6.png",
+    label: "Radiant Space Heating",
+    headline: "Industrial Plant &\nHangar Radiant Systems",
+    sub: "High-efficiency overhead infrared and tube radiant solutions delivering up to 50% fuel economy.",
+    order: 3
+  },
+  {
+    id: "s4",
+    image: "/images/7.png",
+    label: "Central Cascade Boilers",
+    headline: "Commercial Boilers &\nEnergy Conversion",
+    sub: "High-efficiency condensing cascade boiler rooms with automated weather compensation for towers and estates.",
+    order: 4
+  },
+  {
+    id: "s5",
+    image: "/images/4.jpg",
+    label: "Residential Infrastructure",
+    headline: "Domestic Gas &\nBoiler Installations",
+    sub: "Turnkey residential gas riser networks, individual condensing units, and fast official gas release.",
+    order: 5
+  },
+];
+
 interface HeroSliderProps {
   settings?: SiteSettings;
   slides?: SliderItem[];
   onOpenQuote?: () => void;
 }
 
-export default function HeroSlider({ settings, slides = defaultSlides, onOpenQuote }: HeroSliderProps) {
-  const activeSlides = slides && slides.length > 0 ? slides : defaultSlides;
+export default function HeroSlider({ settings, slides, onOpenQuote }: HeroSliderProps) {
+  const { t, isEn } = useLanguage();
+  const defaultSlides = isEn ? defaultSlidesEn : defaultSlidesTr;
+  const activeSlides = slides && slides.length > 0 && !isEn ? slides : defaultSlides;
   const [current, setCurrent] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -166,7 +212,7 @@ export default function HeroSlider({ settings, slides = defaultSlides, onOpenQuo
                 className="group relative overflow-hidden bg-brand-600 hover:bg-brand-500 text-white font-bold px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl shadow-2xl shadow-brand-600/30 transition-all flex items-center gap-2.5 sm:gap-3 text-xs sm:text-sm uppercase tracking-wider cursor-pointer"
               >
                 <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
-                <span className="relative z-10">Ücretsiz Keşif Al</span>
+                <span className="relative z-10">{t("common.freeDiscovery")}</span>
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
               </button>
               
@@ -174,7 +220,7 @@ export default function HeroSlider({ settings, slides = defaultSlides, onOpenQuo
                 <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0 text-emerald-400">
                   <ShieldCheck className="w-4 h-4" />
                 </div>
-                <span>EPDK & İGDAŞ Onaylı</span>
+                <span>{isEn ? "EPDK & Authority Certified" : "EPDK & İGDAŞ Onaylı"}</span>
               </div>
             </motion.div>
           </motion.div>
@@ -185,15 +231,15 @@ export default function HeroSlider({ settings, slides = defaultSlides, onOpenQuo
       <div className="absolute z-30 bottom-16 sm:bottom-12 right-4 sm:right-12 flex items-center gap-2 sm:gap-3">
         <button
           onClick={prev}
-          className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/20 bg-ink-900/50 backdrop-blur-md flex items-center justify-center text-white hover:bg-brand-600 hover:border-brand-600 transition-all active:scale-95"
-          aria-label="Önceki Slayt"
+          className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/20 bg-ink-900/50 backdrop-blur-md flex items-center justify-center text-white hover:bg-brand-600 hover:border-brand-600 transition-all active:scale-95 cursor-pointer"
+          aria-label={isEn ? "Previous Slide" : "Önceki Slayt"}
         >
           <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
         </button>
         <button
           onClick={next}
-          className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/20 bg-ink-900/50 backdrop-blur-md flex items-center justify-center text-white hover:bg-brand-600 hover:border-brand-600 transition-all active:scale-95"
-          aria-label="Sonraki Slayt"
+          className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/20 bg-ink-900/50 backdrop-blur-md flex items-center justify-center text-white hover:bg-brand-600 hover:border-brand-600 transition-all active:scale-95 cursor-pointer"
+          aria-label={isEn ? "Next Slide" : "Sonraki Slayt"}
         >
           <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
         </button>

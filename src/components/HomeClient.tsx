@@ -19,6 +19,7 @@ const LeadModal = dynamic(() => import("@/components/LeadModal"), { ssr: false }
 import { SiteSettings, ServiceItem, ProjectItem, BlogPost, TestimonialItem, SliderItem, ReferenceItem } from "@/lib/types";
 import { MessageCircle, ArrowRight, Phone } from "lucide-react";
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface HomeClientProps {
   settings: SiteSettings;
@@ -31,6 +32,7 @@ interface HomeClientProps {
 }
 
 export default function HomeClient({ settings, services, projects, blogPosts, testimonials, slides, references }: HomeClientProps) {
+  const { t, isEn } = useLanguage();
   const [isQuoteOpen, setIsQuoteOpen] = useState(false);
   const whatsappNum = settings.whatsapp || "905329998877";
   const phone = settings.phone || "0 (216) 456 78 90";
@@ -66,14 +68,18 @@ export default function HomeClient({ settings, services, projects, blogPosts, te
             <FadeIn>
               <div className="flex items-center justify-center gap-3 mb-6 sm:mb-8">
                 <div className="w-8 h-[2px] bg-brand-500" />
-                <p className="text-xs font-bold text-brand-400 uppercase tracking-[0.2em]">İletişim & Keşif</p>
+                <p className="text-xs font-bold text-brand-400 uppercase tracking-[0.2em]">
+                  {t("home.ctaBadge")}
+                </p>
                 <div className="w-8 h-[2px] bg-brand-500" />
               </div>
               <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-white mb-4 sm:mb-6 tracking-tight leading-[1.15]">
-                {settings.ctaTitle || "Projenizi Birlikte Planlayalım"}
+                {isEn ? "Let's Plan Your Project Together" : (settings.ctaTitle || "Projenizi Birlikte Planlayalım")}
               </h2>
               <p className="text-ink-200 text-sm sm:text-base lg:text-lg leading-relaxed mb-8 sm:mb-12 max-w-lg mx-auto">
-                {settings.ctaSubtitle || "Ücretsiz keşif ve teknik değerlendirme için hemen bize ulaşın. Yetkili mühendislerimiz 24 saat içinde dönüş yapar."}
+                {isEn
+                  ? "Contact us today for a complimentary on-site inspection and technical evaluation. Our engineers respond within 24 hours."
+                  : (settings.ctaSubtitle || "Ücretsiz keşif ve teknik değerlendirme için hemen bize ulaşın. Yetkili mühendislerimiz 24 saat içinde dönüş yapar.")}
               </p>
               
               <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 max-w-md sm:max-w-none mx-auto">
@@ -82,11 +88,11 @@ export default function HomeClient({ settings, services, projects, blogPosts, te
                   className="w-full sm:w-auto group relative overflow-hidden bg-brand-600 hover:bg-brand-500 text-white font-bold px-6 sm:px-8 py-4 rounded-xl shadow-2xl shadow-brand-600/30 transition-all flex items-center justify-center gap-3 text-xs sm:text-sm uppercase tracking-wider cursor-pointer"
                 >
                   <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
-                  <span className="relative z-10">Ücretsiz Keşif Al</span>
+                  <span className="relative z-10">{t("home.ctaButton")}</span>
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
                 </button>
                 <a
-                  href={`https://wa.me/${(settings.whatsapp || "905329998877").replace(/\D/g, "")}?text=${encodeURIComponent("Merhaba, web sitenizden ulaşıyorum. Doğalgaz projemiz için ücretsiz keşif ve teklif almak istiyorum.")}`}
+                  href={`https://wa.me/${(settings.whatsapp || "905329998877").replace(/\D/g, "")}?text=${encodeURIComponent(isEn ? "Hello, reaching out from your website. I would like to request a free survey and quote." : "Merhaba, web sitenizden ulaşıyorum. Doğalgaz projemiz için ücretsiz keşif ve teklif almak istiyorum.")}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto bg-white/5 hover:bg-[#25D366]/20 text-white font-bold px-6 sm:px-8 py-4 rounded-xl transition-all flex items-center justify-center gap-3 border border-white/10 hover:border-[#25D366]/40 backdrop-blur-sm text-xs sm:text-sm uppercase tracking-wider"
@@ -99,7 +105,7 @@ export default function HomeClient({ settings, services, projects, blogPosts, te
                   className="w-full sm:w-auto bg-white/5 hover:bg-white/10 text-white font-bold px-6 sm:px-8 py-4 rounded-xl transition-all flex items-center justify-center gap-3 border border-white/10 hover:border-white/20 backdrop-blur-sm text-xs sm:text-sm uppercase tracking-wider"
                 >
                   <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-brand-400" />
-                  <span>Hemen Ara</span>
+                  <span>{t("home.ctaPhoneButton")}</span>
                 </a>
               </div>
             </FadeIn>

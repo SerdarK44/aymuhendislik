@@ -39,6 +39,8 @@ export const FAQ_DATA = [
 ];
 
 import { SiteSettings } from "@/lib/types";
+import { useLanguage } from "@/context/LanguageContext";
+import { faqsEn } from "@/lib/i18n/contentTranslations";
 
 export default function FaqSection({ 
   onOpenQuote, 
@@ -49,13 +51,18 @@ export default function FaqSection({
   phone?: string;
   settings?: Partial<SiteSettings>;
 }) {
+  const { t, isEn } = useLanguage();
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const currentPhone = settings?.phone || phone || "0 (216) 456 78 90";
   const cleanPhone = currentPhone.replace(/\D/g, "");
-  const badge = settings?.faqCtaBadge || "Özel Proje Danışmanlığı";
-  const title = settings?.faqCtaTitle || "Başka bir sorunuz veya özel bir projeniz mi var?";
-  const subtitle = settings?.faqCtaSubtitle || "Uzman makine mühendislerimiz projenizi yerinde inceleyip tüm teknik detayları ücretsiz yanıtlasın.";
-  const faqList = (settings?.faqs && settings.faqs.length > 0) ? settings.faqs : FAQ_DATA;
+
+  const badge = isEn ? "Custom Project Consultation" : (settings?.faqCtaBadge || "Özel Proje Danışmanlığı");
+  const title = isEn ? "Have another question or a specialized project?" : (settings?.faqCtaTitle || "Başka bir sorunuz veya özel bir projeniz mi var?");
+  const subtitle = isEn ? "Our certified mechanical engineers will inspect your facility on-site and answer all technical aspects free of charge." : (settings?.faqCtaSubtitle || "Uzman makine mühendislerimiz projenizi yerinde inceleyip tüm teknik detayları ücretsiz yanıtlasın.");
+
+  const faqList = isEn 
+    ? faqsEn 
+    : ((settings?.faqs && settings.faqs.length > 0) ? settings.faqs : FAQ_DATA);
 
   const toggleFaq = (idx: number) => {
     setOpenIndex(openIndex === idx ? null : idx);
@@ -72,14 +79,19 @@ export default function FaqSection({
           <FadeIn>
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-bold uppercase tracking-wider mb-4">
               <HelpCircle className="w-4 h-4 text-brand-600" />
-              Merak Edilenler & Sıkça Sorulan Sorular
+              {isEn ? "Frequently Asked Questions" : "Merak Edilenler & Sıkça Sorulan Sorular"}
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-ink-900 tracking-tight mb-4">
-              Doğalgaz & Mühendislik Hakkında <br className="hidden sm:block" />
-              <span className="text-brand-600">Sık Sorulan Sorular</span>
+              {isEn ? (
+                <>Gas & Engineering <br className="hidden sm:block" /><span className="text-brand-600">Frequently Asked Questions</span></>
+              ) : (
+                <>Doğalgaz & Mühendislik Hakkında <br className="hidden sm:block" /><span className="text-brand-600">Sık Sorulan Sorular</span></>
+              )}
             </h2>
             <p className="text-stone-500 text-base max-w-2xl mx-auto">
-              Projelendirme süreleri, maliyetler, yasal standartlar ve gaz açma adımları hakkında en çok sorulan soruları derledik.
+              {isEn
+                ? "Answers to most common questions regarding engineering timelines, RMS skids, permits, and official commissioning."
+                : "Projelendirme süreleri, maliyetler, yasal standartlar ve gaz açma adımları hakkında en çok sorulan soruları derledik."}
             </p>
           </FadeIn>
         </div>
@@ -160,7 +172,7 @@ export default function FaqSection({
                 onClick={onOpenQuote}
                 className="px-6 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-sm shadow-lg shadow-brand-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
-                <span>Hemen Teklif Al</span>
+                <span>{isEn ? "Get Quote Now" : "Hemen Teklif Al"}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
               <a

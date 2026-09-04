@@ -6,8 +6,10 @@ import { BlogPost } from "@/lib/types";
 import { ArrowRight, Clock, ArrowUpRight } from "lucide-react";
 import FadeIn from "@/components/FadeIn";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function BlogSection({ posts }: { posts: BlogPost[] }) {
+  const { t, isEn } = useLanguage();
   if (!posts?.length) return null;
   
   return (
@@ -18,12 +20,12 @@ export default function BlogSection({ posts }: { posts: BlogPost[] }) {
             <div>
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-12 h-[2px] bg-brand-500" />
-                <p className="text-xs font-bold text-brand-600 uppercase tracking-[0.2em]">Blog</p>
+                <p className="text-xs font-bold text-brand-600 uppercase tracking-[0.2em]">{t("home.blogBadge")}</p>
               </div>
-              <h2 className="text-4xl sm:text-5xl font-black text-ink-900 tracking-tight">Mühendislik Rehberi</h2>
+              <h2 className="text-4xl sm:text-5xl font-black text-ink-900 tracking-tight">{t("home.blogTitle")}</h2>
             </div>
             <Link href="/blog" className="hidden sm:flex text-sm font-bold text-ink-900 hover:text-brand-600 transition-colors items-center gap-2 group">
-              Tümünü Gör 
+              {isEn ? "View All" : "Tümünü Gör"} 
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
@@ -70,7 +72,7 @@ export default function BlogSection({ posts }: { posts: BlogPost[] }) {
         {/* Mobile "see all" link */}
         <div className="sm:hidden mt-10 text-center">
           <Link href="/blog" className="text-sm font-bold text-ink-900 hover:text-brand-600 transition-colors inline-flex items-center gap-2">
-            Tümünü Gör <ArrowRight className="w-4 h-4" />
+            {isEn ? "View All" : "Tümünü Gör"} <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </div>

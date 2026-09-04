@@ -74,20 +74,28 @@ export const metadata: Metadata = {
 
 import MobileQuickBar from "@/components/MobileQuickBar";
 import { getSettings } from "@/lib/db";
+import { cookies } from "next/headers";
+import { LanguageProvider } from "@/context/LanguageContext";
+import { Locale } from "@/lib/i18n/translations";
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const settings = getSettings();
+  const cookieStore = await cookies();
+  const cookieLang = cookieStore.get("ay_lang")?.value;
+  const initialLocale: Locale = cookieLang === "en" ? "en" : "tr";
 
   return (
-    <html lang="tr" className="h-full" data-scroll-behavior="smooth">
+    <html lang={initialLocale} className="h-full" data-scroll-behavior="smooth">
       <body
         className="min-h-full flex flex-col bg-brand-50 text-ink-900 antialiased pb-16 lg:pb-0"
         style={{ fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}
       >
-        <PageTransition>
-          {children}
-        </PageTransition>
-        <MobileQuickBar phone={settings.phone} whatsapp={settings.whatsapp} />
+        <LanguageProvider initialLocale={initialLocale}>
+          <PageTransition>
+            {children}
+          </PageTransition>
+          <MobileQuickBar phone={settings.phone} whatsapp={settings.whatsapp} />
+        </LanguageProvider>
       </body>
     </html>
   );
