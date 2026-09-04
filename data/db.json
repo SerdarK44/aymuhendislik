@@ -22,7 +22,23 @@
     "googleMapsUrl": "https://maps.app.goo.gl/bpbn5Dzx6ezDK5mD9",
     "facebookUrl": "https://facebook.com/aymuhendislik",
     "instagramUrl": "https://instagram.com/aymuhendislik",
-    "linkedinUrl": "https://linkedin.com/company/aymuhendislik"
+    "linkedinUrl": "https://linkedin.com/company/aymuhendislik",
+    "whyUsBadge": "Neden Biz",
+    "whyUsTitle": "Güvenli, Onaylı ve Hızlı Tesisat",
+    "whyUsSubtitle": "Doğalgaz hata kabul etmez. Sertifikalı mühendislik güvencesiyle, her projeyi TSE ve EPDK standartlarında teslim ediyoruz.",
+    "whyUsItem1Title": "EPDK & İGDAŞ Yetkili",
+    "whyUsItem1Desc": "Tüm projeler yetkili makine mühendislerimiz tarafından onaylı çizilir, sıfır hata ile resmi kabul teslimi yapılır.",
+    "whyUsItem2Title": "Hızlı Gaz Açımı",
+    "whyUsItem2Desc": "Proje onayından gaz açma randevusuna kadar tüm süreci hızlandırılmış dijital takiple yönetiyoruz.",
+    "whyUsItem3Title": "Yıllık Saha Deneyimi",
+    "whyUsItem3Desc": "Türkiye'nin öncü sanayi kuruluşlarına ve binlerce konuta teslim ettiğimiz proje referansları.",
+    "whyUsItem4Title": "7/24 Acil Müdahale",
+    "whyUsItem4Desc": "Gaz kaçakları ve kritik arızalarda 7 gün 24 saat sahada hazır sertifikalı teknik ekip.",
+    "faqCtaBadge": "Özel Proje Danışmanlığı",
+    "faqCtaTitle": "Başka bir sorunuz veya özel bir projeniz mi var?",
+    "faqCtaSubtitle": "Uzman makine mühendislerimiz projenizi yerinde inceleyip tüm teknik detayları ücretsiz yanıtlasın.",
+    "ctaTitle": "Projenizi Birlikte Planlayalım",
+    "ctaSubtitle": "Ücretsiz keşif ve teknik değerlendirme için hemen bize ulaşın. Yetkili mühendislerimiz 24 saat içinde dönüş yapar."
   },
   "services": [
     {

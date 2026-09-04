@@ -3,33 +3,44 @@
 import { ShieldCheck, Zap, Award, Clock } from "lucide-react";
 import FadeIn from "@/components/FadeIn";
 import { motion } from "framer-motion";
+import { SiteSettings } from "@/lib/types";
 
-export default function WhyUs() {
+export default function WhyUs({ settings }: { settings?: Partial<SiteSettings> }) {
   const points = [
     {
       icon: ShieldCheck,
-      title: "EPDK & İGDAŞ Yetkili",
-      desc: "Tüm projeler yetkili makine mühendislerimiz tarafından onaylı çizilir, sıfır hata ile resmi kabul teslimi yapılır.",
+      title: settings?.whyUsItem1Title || "EPDK & İGDAŞ Yetkili",
+      desc: settings?.whyUsItem1Desc || "Tüm projeler yetkili makine mühendislerimiz tarafından onaylı çizilir, sıfır hata ile resmi kabul teslimi yapılır.",
       number: "01"
     },
     {
       icon: Zap,
-      title: "Hızlı Gaz Açımı",
-      desc: "Proje onayından gaz açma randevusuna kadar tüm süreci hızlandırılmış dijital takiple yönetiyoruz.",
+      title: settings?.whyUsItem2Title || "Hızlı Gaz Açımı",
+      desc: settings?.whyUsItem2Desc || "Proje onayından gaz açma randevusuna kadar tüm süreci hızlandırılmış dijital takiple yönetiyoruz.",
       number: "02"
     },
     {
       icon: Award,
-      title: "16+ Yıl Saha Deneyimi",
-      desc: "Türkiye'nin öncü sanayi kuruluşlarına ve binlerce konuta teslim ettiğimiz proje referansları.",
+      title: settings?.whyUsItem3Title || (settings?.yearsExperience ? `${settings.yearsExperience}+ Yıl Saha Deneyimi` : "16+ Yıl Saha Deneyimi"),
+      desc: settings?.whyUsItem3Desc || "Türkiye'nin öncü sanayi kuruluşlarına ve binlerce konuta teslim ettiğimiz proje referansları.",
       number: "03"
     },
     {
       icon: Clock,
-      title: "7/24 Acil Müdahale",
-      desc: "Gaz kaçakları ve kritik arızalarda 7 gün 24 saat sahada hazır sertifikalı teknik ekip.",
+      title: settings?.whyUsItem4Title || "7/24 Acil Müdahale",
+      desc: settings?.whyUsItem4Desc || "Gaz kaçakları ve kritik arızalarda 7 gün 24 saat sahada hazır sertifikalı teknik ekip.",
       number: "04"
     },
+  ];
+
+  const badge = settings?.whyUsBadge || "Neden Biz";
+  const title = settings?.whyUsTitle || "Güvenli, Onaylı ve Hızlı Tesisat";
+  const subtitle = settings?.whyUsSubtitle || "Doğalgaz hata kabul etmez. Sertifikalı mühendislik güvencesiyle, her projeyi TSE ve EPDK standartlarında teslim ediyoruz.";
+
+  const stats = [
+    { num: `${settings?.yearsExperience || 16}+`, label: "Yıl Deneyim" },
+    { num: `${(settings?.completedProjects || 1450).toLocaleString("tr-TR")}+`, label: "Proje Teslimi" },
+    { num: "100%", label: "Resmi Onay" },
   ];
 
   return (
@@ -50,23 +61,18 @@ export default function WhyUs() {
             <div className="space-y-6 sm:space-y-8">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-[2px] bg-brand-500" />
-                <p className="text-xs font-bold text-brand-400 uppercase tracking-[0.2em]">Neden Biz</p>
+                <p className="text-xs font-bold text-brand-400 uppercase tracking-[0.2em]">{badge}</p>
               </div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-[1.15] tracking-tight">
-                Güvenli,<br className="hidden sm:inline" /> Onaylı ve<br className="hidden sm:inline" />
-                <span className="text-brand-500"> Hızlı Tesisat</span>
+                {title}
               </h2>
               <p className="text-ink-200 text-sm sm:text-base lg:text-lg leading-relaxed max-w-md">
-                Doğalgaz hata kabul etmez. Sertifikalı mühendislik güvencesiyle, her projeyi TSE ve EPDK standartlarında teslim ediyoruz.
+                {subtitle}
               </p>
               
               {/* Stats counter row - Responsive on 320px+ */}
               <div className="grid grid-cols-3 gap-2 sm:gap-6 pt-4 border-t border-ink-800">
-                {[
-                  { num: "16+", label: "Yıl Deneyim" },
-                  { num: "1.450+", label: "Proje Teslimi" },
-                  { num: "100%", label: "Resmi Onay" },
-                ].map((stat, idx) => (
+                {stats.map((stat, idx) => (
                   <FadeIn key={idx} delay={0.3 + idx * 0.15} direction="up">
                     <div className="text-center sm:text-left">
                       <div className="text-2xl sm:text-3xl font-black text-brand-500 mb-0.5">{stat.num}</div>

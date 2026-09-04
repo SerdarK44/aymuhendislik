@@ -1,0 +1,16 @@
+User-Agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+User-Agent: GPTBot
+User-Agent: ChatGPT-User
+User-Agent: PerplexityBot
+User-Agent: ClaudeBot
+User-Agent: Google-Extended
+User-Agent: Applebot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+Sitemap: https://aymuhendislik.com.tr/sitemap.xml

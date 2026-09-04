@@ -22,6 +22,24 @@ export interface SiteSettings {
   facebookUrl?: string;
   instagramUrl?: string;
   linkedinUrl?: string;
+  // Why Us section fields
+  whyUsBadge?: string;
+  whyUsTitle?: string;
+  whyUsSubtitle?: string;
+  whyUsItem1Title?: string;
+  whyUsItem1Desc?: string;
+  whyUsItem2Title?: string;
+  whyUsItem2Desc?: string;
+  whyUsItem3Title?: string;
+  whyUsItem3Desc?: string;
+  whyUsItem4Title?: string;
+  whyUsItem4Desc?: string;
+  // CTA & Special Project Consultation fields
+  faqCtaBadge?: string;
+  faqCtaTitle?: string;
+  faqCtaSubtitle?: string;
+  ctaTitle?: string;
+  ctaSubtitle?: string;
 }
 
 export interface SliderItem {

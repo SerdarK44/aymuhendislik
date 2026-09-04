@@ -44,11 +44,11 @@ export default function HomeClient({ settings, services, projects, blogPosts, te
         <HeroSlider settings={settings} slides={slides} onOpenQuote={() => setIsQuoteOpen(true)} />
         <ServicesSection services={services} />
         <LogoTicker references={references} />
-        <WhyUs />
+        <WhyUs settings={settings} />
         <ProjectsSection projects={projects} />
         <TestimonialsSection testimonials={testimonials} />
         <BlogSection posts={blogPosts} />
-        <FaqSection onOpenQuote={() => setIsQuoteOpen(true)} phone={phone} />
+        <FaqSection onOpenQuote={() => setIsQuoteOpen(true)} phone={phone} settings={settings} />
 
         {/* CTA Banner — Premium gradient design */}
         <section className="py-20 sm:py-32 relative overflow-hidden noise-overlay">
@@ -70,11 +70,10 @@ export default function HomeClient({ settings, services, projects, blogPosts, te
                 <div className="w-8 h-[2px] bg-brand-500" />
               </div>
               <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-white mb-4 sm:mb-6 tracking-tight leading-[1.15]">
-                Projenizi Birlikte<br />
-                <span className="text-brand-500">Planlayalım</span>
+                {settings.ctaTitle || "Projenizi Birlikte Planlayalım"}
               </h2>
               <p className="text-ink-200 text-sm sm:text-base lg:text-lg leading-relaxed mb-8 sm:mb-12 max-w-lg mx-auto">
-                Ücretsiz keşif ve teknik değerlendirme için hemen bize ulaşın. Yetkili mühendislerimiz 24 saat içinde dönüş yapar.
+                {settings.ctaSubtitle || "Ücretsiz keşif ve teknik değerlendirme için hemen bize ulaşın. Yetkili mühendislerimiz 24 saat içinde dönüş yapar."}
               </p>
               
               <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 max-w-md sm:max-w-none mx-auto">
@@ -87,7 +86,7 @@ export default function HomeClient({ settings, services, projects, blogPosts, te
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
                 </button>
                 <a
-                  href={`https://wa.me/${whatsappNum}`}
+                  href={`https://wa.me/${(settings.whatsapp || "905329998877").replace(/\D/g, "")}?text=${encodeURIComponent("Merhaba, web sitenizden ulaşıyorum. Doğalgaz projemiz için ücretsiz keşif ve teklif almak istiyorum.")}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full sm:w-auto bg-white/5 hover:bg-[#25D366]/20 text-white font-bold px-6 sm:px-8 py-4 rounded-xl transition-all flex items-center justify-center gap-3 border border-white/10 hover:border-[#25D366]/40 backdrop-blur-sm text-xs sm:text-sm uppercase tracking-wider"
@@ -96,7 +95,7 @@ export default function HomeClient({ settings, services, projects, blogPosts, te
                   <span>WhatsApp</span>
                 </a>
                 <a
-                  href={`tel:${phone.replace(/\s+/g, "")}`}
+                  href={`tel:${(settings.phone || "0 (216) 456 78 90").replace(/\D/g, "")}`}
                   className="w-full sm:w-auto bg-white/5 hover:bg-white/10 text-white font-bold px-6 sm:px-8 py-4 rounded-xl transition-all flex items-center justify-center gap-3 border border-white/10 hover:border-white/20 backdrop-blur-sm text-xs sm:text-sm uppercase tracking-wider"
                 >
                   <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-brand-400" />

@@ -13,7 +13,7 @@ import { SiteSettings } from "@/lib/types";
 interface LeadModalProps {
   isOpen: boolean;
   onClose: () => void;
-  settings?: SiteSettings;
+  settings?: Partial<SiteSettings>;
 }
 
 const serviceOptions = [
@@ -37,7 +37,7 @@ const buildingTypes = [
 ];
 
 export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps) {
-  const [modalSettings, setModalSettings] = useState<SiteSettings | null>(settings || null);
+  const [modalSettings, setModalSettings] = useState<Partial<SiteSettings> | null>(settings || null);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [serviceType, setServiceType] = useState("Endüstriyel Doğalgaz & RMS");
@@ -63,8 +63,12 @@ export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps)
   }, [isOpen, settings, modalSettings]);
 
   const phoneDisplay = modalSettings?.phone || "0 (216) 456 78 90";
-  const phoneTel = phoneDisplay.replace(/\s+/g, "").replace(/[()]/g, "");
-  const whatsappNum = modalSettings?.whatsapp || "905329998877";
+  const rawPhone = phoneDisplay.replace(/\D/g, "");
+  const phoneTel = rawPhone.startsWith("90") ? `+${rawPhone}` : (rawPhone.startsWith("0") ? rawPhone : `0${rawPhone}`);
+
+  let cleanWa = (modalSettings?.whatsapp || "905329998877").replace(/\D/g, "");
+  if (cleanWa.startsWith("0")) cleanWa = "9" + cleanWa;
+  if (!cleanWa.startsWith("90") && cleanWa.length === 10) cleanWa = "90" + cleanWa;
 
   const finalServiceType = serviceType === "Diğer / Özel Mühendislik" && customService.trim()
     ? `Diğer: ${customService.trim()}`
@@ -229,7 +233,7 @@ export default function LeadModal({ isOpen, onClose, settings }: LeadModalProps)
                       Projenizin, şantiyenizin veya kazan dairenizin fotoğraflarını WhatsApp üzerinden ileterek anında ön inceleme yaptırabilirsiniz.
                     </p>
                     <a
-                      href={`https://wa.me/${whatsappNum}?text=${whatsappMessage}`}
+                      href={`https://wa.me/${cleanWa}?text=${whatsappMessage}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-full py-3 px-4 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 shadow-md shadow-[#25D366]/25"

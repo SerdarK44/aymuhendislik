@@ -73,8 +73,11 @@ export const metadata: Metadata = {
 };
 
 import MobileQuickBar from "@/components/MobileQuickBar";
+import { getSettings } from "@/lib/db";
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const settings = getSettings();
+
   return (
     <html lang="tr" className="h-full" data-scroll-behavior="smooth">
       <body
@@ -84,7 +87,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <PageTransition>
           {children}
         </PageTransition>
-        <MobileQuickBar />
+        <MobileQuickBar phone={settings.phone} whatsapp={settings.whatsapp} />
       </body>
     </html>
   );

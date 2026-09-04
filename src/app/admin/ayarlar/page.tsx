@@ -225,9 +225,211 @@ export default function AdminSettingsPage() {
           </div>
         </div>
 
+        {/* Why Us Section Management */}
+        <div className="p-6 rounded-xl bg-white border border-stone-200 space-y-4">
+          <div className="flex items-center justify-between">
+            <h3 className="text-sm font-bold text-ink-900 uppercase font-mono tracking-wider">
+              &quot;Neden Biz?&quot; Bölümü Yönetimi
+            </h3>
+            <span className="text-[10px] text-stone-400 font-mono">Ana Sayfa Vitrin</span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label className="block font-semibold text-ink-800 mb-1">Üst Rozet Metni</label>
+              <input
+                type="text"
+                value={settings.whyUsBadge || ""}
+                onChange={(e) => setSettings({ ...settings, whyUsBadge: e.target.value })}
+                placeholder="Neden Biz"
+                className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-ink-900 focus:outline-none focus:border-brand-500"
+              />
+            </div>
+            <div className="sm:col-span-2">
+              <label className="block font-semibold text-ink-800 mb-1">Ana Başlık</label>
+              <input
+                type="text"
+                value={settings.whyUsTitle || ""}
+                onChange={(e) => setSettings({ ...settings, whyUsTitle: e.target.value })}
+                placeholder="Güvenli, Onaylı ve Hızlı Tesisat"
+                className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-ink-900 focus:outline-none focus:border-brand-500"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block font-semibold text-ink-800 mb-1">Açıklama Paragrafı</label>
+            <textarea
+              rows={2}
+              value={settings.whyUsSubtitle || ""}
+              onChange={(e) => setSettings({ ...settings, whyUsSubtitle: e.target.value })}
+              placeholder="Doğalgaz hata kabul etmez..."
+              className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-ink-900 focus:outline-none focus:border-brand-500"
+            />
+          </div>
+
+          <div className="pt-2 border-t border-stone-100">
+            <h4 className="text-xs font-bold text-stone-700 uppercase tracking-wider mb-3">4 Avantaj Maddesi</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Item 1 */}
+              <div className="p-3.5 rounded-lg bg-stone-50 border border-stone-200 space-y-2">
+                <div className="text-[11px] font-bold text-brand-600 font-mono">1. Madde</div>
+                <input
+                  type="text"
+                  value={settings.whyUsItem1Title || ""}
+                  onChange={(e) => setSettings({ ...settings, whyUsItem1Title: e.target.value })}
+                  placeholder="Madde Başlığı (Örn: EPDK & İGDAŞ Yetkili)"
+                  className="w-full px-2.5 py-1.5 rounded bg-white border border-stone-200 text-ink-900 font-semibold focus:outline-none focus:border-brand-500"
+                />
+                <textarea
+                  rows={2}
+                  value={settings.whyUsItem1Desc || ""}
+                  onChange={(e) => setSettings({ ...settings, whyUsItem1Desc: e.target.value })}
+                  placeholder="Madde Açıklaması..."
+                  className="w-full px-2.5 py-1.5 rounded bg-white border border-stone-200 text-ink-900 text-[11px] focus:outline-none focus:border-brand-500"
+                />
+              </div>
+
+              {/* Item 2 */}
+              <div className="p-3.5 rounded-lg bg-stone-50 border border-stone-200 space-y-2">
+                <div className="text-[11px] font-bold text-brand-600 font-mono">2. Madde</div>
+                <input
+                  type="text"
+                  value={settings.whyUsItem2Title || ""}
+                  onChange={(e) => setSettings({ ...settings, whyUsItem2Title: e.target.value })}
+                  placeholder="Madde Başlığı (Örn: Hızlı Gaz Açımı)"
+                  className="w-full px-2.5 py-1.5 rounded bg-white border border-stone-200 text-ink-900 font-semibold focus:outline-none focus:border-brand-500"
+                />
+                <textarea
+                  rows={2}
+                  value={settings.whyUsItem2Desc || ""}
+                  onChange={(e) => setSettings({ ...settings, whyUsItem2Desc: e.target.value })}
+                  placeholder="Madde Açıklaması..."
+                  className="w-full px-2.5 py-1.5 rounded bg-white border border-stone-200 text-ink-900 text-[11px] focus:outline-none focus:border-brand-500"
+                />
+              </div>
+
+              {/* Item 3 */}
+              <div className="p-3.5 rounded-lg bg-stone-50 border border-stone-200 space-y-2">
+                <div className="text-[11px] font-bold text-brand-600 font-mono">3. Madde</div>
+                <input
+                  type="text"
+                  value={settings.whyUsItem3Title || ""}
+                  onChange={(e) => setSettings({ ...settings, whyUsItem3Title: e.target.value })}
+                  placeholder="Madde Başlığı (Örn: Yıllık Saha Deneyimi)"
+                  className="w-full px-2.5 py-1.5 rounded bg-white border border-stone-200 text-ink-900 font-semibold focus:outline-none focus:border-brand-500"
+                />
+                <textarea
+                  rows={2}
+                  value={settings.whyUsItem3Desc || ""}
+                  onChange={(e) => setSettings({ ...settings, whyUsItem3Desc: e.target.value })}
+                  placeholder="Madde Açıklaması..."
+                  className="w-full px-2.5 py-1.5 rounded bg-white border border-stone-200 text-ink-900 text-[11px] focus:outline-none focus:border-brand-500"
+                />
+              </div>
+
+              {/* Item 4 */}
+              <div className="p-3.5 rounded-lg bg-stone-50 border border-stone-200 space-y-2">
+                <div className="text-[11px] font-bold text-brand-600 font-mono">4. Madde</div>
+                <input
+                  type="text"
+                  value={settings.whyUsItem4Title || ""}
+                  onChange={(e) => setSettings({ ...settings, whyUsItem4Title: e.target.value })}
+                  placeholder="Madde Başlığı (Örn: 7/24 Acil Müdahale)"
+                  className="w-full px-2.5 py-1.5 rounded bg-white border border-stone-200 text-ink-900 font-semibold focus:outline-none focus:border-brand-500"
+                />
+                <textarea
+                  rows={2}
+                  value={settings.whyUsItem4Desc || ""}
+                  onChange={(e) => setSettings({ ...settings, whyUsItem4Desc: e.target.value })}
+                  placeholder="Madde Açıklaması..."
+                  className="w-full px-2.5 py-1.5 rounded bg-white border border-stone-200 text-ink-900 text-[11px] focus:outline-none focus:border-brand-500"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Special Project Consultation & CTA Banners */}
+        <div className="p-6 rounded-xl bg-white border border-stone-200 space-y-4">
+          <h3 className="text-sm font-bold text-ink-900 uppercase font-mono tracking-wider">
+            Özel Proje Danışmanlığı & Çağrı (CTA) Bantları
+          </h3>
+
+          <div className="space-y-4 pt-2">
+            {/* FAQ Bottom Callout */}
+            <div className="p-4 rounded-lg bg-stone-50 border border-stone-200 space-y-3">
+              <div className="font-bold text-ink-900 text-xs flex items-center justify-between">
+                <span>1. SSS Altı &quot;Özel Proje Danışmanlığı&quot; Kartı</span>
+                <span className="text-[10px] text-stone-400 font-mono">SSS Bölümü</span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label className="block font-semibold text-ink-800 mb-1">Rozet Metni</label>
+                  <input
+                    type="text"
+                    value={settings.faqCtaBadge || ""}
+                    onChange={(e) => setSettings({ ...settings, faqCtaBadge: e.target.value })}
+                    placeholder="Özel Proje Danışmanlığı"
+                    className="w-full px-3 py-2 rounded-lg bg-white border border-stone-200 text-ink-900 focus:outline-none focus:border-brand-500"
+                  />
+                </div>
+                <div className="sm:col-span-2">
+                  <label className="block font-semibold text-ink-800 mb-1">Başlık</label>
+                  <input
+                    type="text"
+                    value={settings.faqCtaTitle || ""}
+                    onChange={(e) => setSettings({ ...settings, faqCtaTitle: e.target.value })}
+                    placeholder="Başka bir sorunuz veya özel bir projeniz mi var?"
+                    className="w-full px-3 py-2 rounded-lg bg-white border border-stone-200 text-ink-900 focus:outline-none focus:border-brand-500"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="block font-semibold text-ink-800 mb-1">Açıklama</label>
+                <textarea
+                  rows={2}
+                  value={settings.faqCtaSubtitle || ""}
+                  onChange={(e) => setSettings({ ...settings, faqCtaSubtitle: e.target.value })}
+                  placeholder="Uzman makine mühendislerimiz projenizi yerinde inceleyip..."
+                  className="w-full px-3 py-2 rounded-lg bg-white border border-stone-200 text-ink-900 focus:outline-none focus:border-brand-500"
+                />
+              </div>
+            </div>
+
+            {/* Main Page Bottom CTA */}
+            <div className="p-4 rounded-lg bg-stone-50 border border-stone-200 space-y-3">
+              <div className="font-bold text-ink-900 text-xs flex items-center justify-between">
+                <span>2. Ana Sayfa Alt Çağrı Bannerı (Büyük Keşif Bandı)</span>
+                <span className="text-[10px] text-stone-400 font-mono">Footer Öncesi</span>
+              </div>
+              <div>
+                <label className="block font-semibold text-ink-800 mb-1">Ana Başlık</label>
+                <input
+                  type="text"
+                  value={settings.ctaTitle || ""}
+                  onChange={(e) => setSettings({ ...settings, ctaTitle: e.target.value })}
+                  placeholder="Projenizi Birlikte Planlayalım"
+                  className="w-full px-3 py-2 rounded-lg bg-white border border-stone-200 text-ink-900 focus:outline-none focus:border-brand-500"
+                />
+              </div>
+              <div>
+                <label className="block font-semibold text-ink-800 mb-1">Açıklama Metni</label>
+                <textarea
+                  rows={2}
+                  value={settings.ctaSubtitle || ""}
+                  onChange={(e) => setSettings({ ...settings, ctaSubtitle: e.target.value })}
+                  placeholder="Ücretsiz keşif ve teknik değerlendirme için hemen bize ulaşın..."
+                  className="w-full px-3 py-2 rounded-lg bg-white border border-stone-200 text-ink-900 focus:outline-none focus:border-brand-500"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
         <button
           type="submit"
-          className="px-6 py-3 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-brand-600/30 flex items-center space-x-2 transition"
+          className="px-6 py-3 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-brand-600/30 flex items-center space-x-2 transition cursor-pointer"
         >
           <Save className="w-4 h-4" />
           <span>Tüm Ayarları Kaydet</span>

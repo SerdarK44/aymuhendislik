@@ -28,6 +28,8 @@ export default function Navbar({ settings, onOpenQuote }: NavbarProps) {
   }, []);
 
   const phone = settings?.phone || "0 (216) 456 78 90";
+  const rawPhone = phone.replace(/\D/g, "");
+  const cleanPhone = rawPhone.startsWith("90") ? `+${rawPhone}` : (rawPhone.startsWith("0") ? rawPhone : `0${rawPhone}`);
   const isDarkText = scrolled || !isHome;
 
   const handleQuoteClick = () => {
@@ -68,7 +70,7 @@ export default function Navbar({ settings, onOpenQuote }: NavbarProps) {
           {/* CTA */}
           <div className="hidden md:flex items-center gap-3">
             <a
-              href={`tel:${phone.replace(/\s+/g, "")}`}
+              href={`tel:${cleanPhone}`}
               className={`text-sm font-semibold transition-colors ${isDarkText ? "text-stone-600 hover:text-stone-900" : "text-white/80 hover:text-white"}`}
             >
               {phone}
@@ -123,7 +125,7 @@ export default function Navbar({ settings, onOpenQuote }: NavbarProps) {
           <div className="mt-auto pt-8">
             <div className="bg-stone-50 rounded-2xl p-4 mb-3 border border-stone-100">
               <div className="text-xs text-stone-500 mb-1">Müşteri Hizmetleri & Keşif</div>
-              <a href={`tel:${phone.replace(/\s+/g, "")}`} className="text-lg font-bold text-ink-900 flex items-center gap-2">
+              <a href={`tel:${cleanPhone}`} className="text-lg font-bold text-ink-900 flex items-center gap-2">
                 <Phone className="w-4 h-4 text-brand-600" /> {phone}
               </a>
             </div>

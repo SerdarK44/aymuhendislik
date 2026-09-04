@@ -1,11 +1,33 @@
 "use client";
 
+import { useState, useEffect } from "react";
+
 export default function FloatingWhatsApp({ phone }: { phone?: string }) {
-  const whatsappNum = phone || "905329998877";
+  const [waNum, setWaNum] = useState(phone || "");
+
+  useEffect(() => {
+    if (phone) {
+      setWaNum(phone);
+    } else {
+      fetch("/api/settings")
+        .then((r) => r.json())
+        .then((data) => {
+          if (data?.whatsapp) setWaNum(data.whatsapp);
+        })
+        .catch(() => {});
+    }
+  }, [phone]);
+
+  let cleanWa = (waNum || "905329998877").replace(/\D/g, "");
+  if (cleanWa.startsWith("0")) {
+    cleanWa = "9" + cleanWa;
+  } else if (!cleanWa.startsWith("90") && cleanWa.length === 10) {
+    cleanWa = "90" + cleanWa;
+  }
 
   return (
     <a 
-      href={`https://wa.me/${whatsappNum}`}
+      href={`https://wa.me/${cleanWa}`}
       target="_blank"
       rel="noopener noreferrer"
       className="hidden lg:flex fixed bottom-6 right-6 z-50 bg-[#25D366] text-white w-14 h-14 sm:w-16 sm:h-16 rounded-full shadow-lg shadow-[#25D366]/40 items-center justify-center hover:scale-110 hover:bg-[#20bd5a] transition-all"

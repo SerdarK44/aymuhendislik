@@ -38,9 +38,23 @@ export const FAQ_DATA = [
   },
 ];
 
-export default function FaqSection({ onOpenQuote, phone = "0 (216) 456 78 90" }: { onOpenQuote?: () => void; phone?: string }) {
+import { SiteSettings } from "@/lib/types";
+
+export default function FaqSection({ 
+  onOpenQuote, 
+  phone,
+  settings 
+}: { 
+  onOpenQuote?: () => void; 
+  phone?: string;
+  settings?: Partial<SiteSettings>;
+}) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
-  const cleanPhone = phone.replace(/\s+/g, "").replace(/[()]/g, "");
+  const currentPhone = settings?.phone || phone || "0 (216) 456 78 90";
+  const cleanPhone = currentPhone.replace(/\D/g, "");
+  const badge = settings?.faqCtaBadge || "Özel Proje Danışmanlığı";
+  const title = settings?.faqCtaTitle || "Başka bir sorunuz veya özel bir projeniz mi var?";
+  const subtitle = settings?.faqCtaSubtitle || "Uzman makine mühendislerimiz projenizi yerinde inceleyip tüm teknik detayları ücretsiz yanıtlasın.";
 
   const toggleFaq = (idx: number) => {
     setOpenIndex(openIndex === idx ? null : idx);
@@ -130,20 +144,20 @@ export default function FaqSection({ onOpenQuote, phone = "0 (216) 456 78 90" }:
             <div className="relative z-10 max-w-xl">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-500/20 text-brand-400 text-xs font-bold uppercase tracking-wider mb-3 border border-brand-500/30">
                 <Sparkles className="w-3.5 h-3.5 text-brand-400" />
-                Özel Proje Danışmanlığı
+                {badge}
               </div>
               <h4 className="text-xl sm:text-2xl font-black text-white mb-2 tracking-tight">
-                Başka bir sorunuz veya özel bir projeniz mi var?
+                {title}
               </h4>
               <p className="text-stone-300 text-sm leading-relaxed">
-                Uzman makine mühendislerimiz projenizi yerinde inceleyip tüm teknik detayları ücretsiz yanıtlasın.
+                {subtitle}
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto shrink-0 relative z-10">
               <button
                 onClick={onOpenQuote}
-                className="px-6 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-sm shadow-lg shadow-brand-600/30 transition-all flex items-center justify-center gap-2"
+                className="px-6 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-sm shadow-lg shadow-brand-600/30 transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>Hemen Teklif Al</span>
                 <ArrowRight className="w-4 h-4" />
@@ -153,7 +167,7 @@ export default function FaqSection({ onOpenQuote, phone = "0 (216) 456 78 90" }:
                 className="px-6 py-3.5 rounded-xl bg-[#162032] hover:bg-[#1f2d44] text-white font-bold text-sm border border-stone-700 transition-colors flex items-center justify-center gap-2"
               >
                 <Phone className="w-4 h-4 text-brand-400" />
-                <span>{phone}</span>
+                <span>{currentPhone}</span>
               </a>
             </div>
           </div>
