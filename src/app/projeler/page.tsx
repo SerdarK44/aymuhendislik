@@ -48,7 +48,7 @@ export default function ProjectsPage() {
             <div className="text-center max-w-2xl mx-auto mb-16">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-800 text-xs font-bold font-mono mb-3">
                 <FolderGit2 className="w-3.5 h-3.5 text-emerald-600" />
-                <span>1.450+ Başarılı Proje Teslimi</span>
+                <span>{(settings.completedProjects ? settings.completedProjects.toLocaleString("tr-TR") : "1.450")}+ Başarılı Proje Teslimi</span>
               </div>
               <h1 className="text-4xl sm:text-5xl font-extrabold text-ink-900 tracking-tight mb-4">Referans Projelerimiz</h1>
               <p className="text-stone-600 text-base sm:text-lg leading-relaxed">

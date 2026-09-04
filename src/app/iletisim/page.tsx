@@ -98,9 +98,9 @@ export default function ContactPage() {
                       </div>
                       <div>
                         <h3 className="font-bold text-ink-900 text-sm mb-1">Telefon & Santral</h3>
-                        <a href={`tel:${settings.phone.replace(/\s+/g, "")}`} className="block text-stone-600 text-xs sm:text-sm hover:text-brand-600 transition-colors mb-1 font-semibold">{settings.phone}</a>
+                        <a href={`tel:${(settings.phone || "").replace(/[^\d+]/g, "")}`} className="block text-stone-600 text-xs sm:text-sm hover:text-brand-600 transition-colors mb-1 font-semibold">{settings.phone}</a>
                         {settings.emergencyPhone && (
-                          <a href={`tel:${settings.emergencyPhone.replace(/\s+/g, "")}`} className="block text-brand-600 text-xs font-bold hover:text-brand-700 transition-colors">
+                          <a href={`tel:${settings.emergencyPhone.replace(/[^\d+]/g, "")}`} className="block text-brand-600 text-xs font-bold hover:text-brand-700 transition-colors">
                             7/24 Acil & Keşif: {settings.emergencyPhone}
                           </a>
                         )}

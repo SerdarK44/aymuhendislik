@@ -38,7 +38,45 @@
     "faqCtaTitle": "Başka bir sorunuz veya özel bir projeniz mi var?",
     "faqCtaSubtitle": "Uzman makine mühendislerimiz projenizi yerinde inceleyip tüm teknik detayları ücretsiz yanıtlasın.",
     "ctaTitle": "Projenizi Birlikte Planlayalım",
-    "ctaSubtitle": "Ücretsiz keşif ve teknik değerlendirme için hemen bize ulaşın. Yetkili mühendislerimiz 24 saat içinde dönüş yapar."
+    "ctaSubtitle": "Ücretsiz keşif ve teknik değerlendirme için hemen bize ulaşın. Yetkili mühendislerimiz 24 saat içinde dönüş yapar.",
+    "faqs": [
+      {
+        "id": "faq-1",
+        "q": "Doğalgaz projesi çizimi ve İGDAŞ gaz açma süreci kaç gün sürer?",
+        "a": "Ay Mühendislik yetkili makine mühendisleri tarafından sahada rölöve alındıktan sonra 24 saat içinde 3D CAD projeniz dijital ortamda çizilir ve ilgili gaz dağıtım idaresine (İGDAŞ vb.) onaylatılır. Onayın ardından sertifikalı ekiplerimiz tesisat montajını tamamlar ve ortalama 3 ile 5 iş günü içinde resmi gaz açım randevusu gerçekleştirilerek gazınız kullanıma açılır.",
+        "tag": "Projelendirme"
+      },
+      {
+        "id": "faq-2",
+        "q": "Endüstriyel tesis ve fabrikalarda RMS istasyonu kurulumu zorunlu mudur?",
+        "a": "Evet. Şebekeden yüksek basınçla (4-19 bar) gelen doğalgazın; fabrika içi fırın, kurutma tesisi, buhar kazanı veya boylerlerde güvenle kullanılabilmesi için basıncın 300 mbar veya 21 mbar seviyesine düşürülmesi, filtrelenmesi ve ölçülmesi yasal ve teknik bir zorunluluktur. Firmamız RMS-B ve RMS-C istasyonlarını anahtar teslim kurmaktadır.",
+        "tag": "Endüstriyel"
+      },
+      {
+        "id": "faq-3",
+        "q": "Merkezi kaskad kazan sistemi ile bireysel kombi arasındaki tasarruf farkı nedir?",
+        "a": "Sitelerde ve toplu konutlarda yoğuşmalı kaskad kazan daireleri, dış hava kompanzasyon paneli sayesinde sadece ihtiyaç duyulan ısı kadar modülasyon yapar. Bu sayede daire başı yakıt tüketimi bireysel kombilere göre %30 ila %35 oranında daha düşük gerçekleşir. Ayrıca ilk yatırım ve bakım maliyetleri çok daha ekonomiktir.",
+        "tag": "Tasarruf & Kaskad"
+      },
+      {
+        "id": "faq-4",
+        "q": "Yetkili makine mühendislik firması olmadan doğalgaz tesisatı yapılabilir mi?",
+        "a": "Kesinlikle hayır. EPDK ve yerel gaz dağıtım kuruluşları (İGDAŞ vb.) yetki belgesi olmayan şahıs veya firmaların doğalgaz hattına müdahale etmesi yasalara göre suçtur ve tespit edildiğinde bina gazı süresiz kesilir. Ay Mühendislik, resmi yetki belgeli uzman kadrosuyla %100 onay garantili hizmet sunar.",
+        "tag": "Yasal Zorunluluk"
+      },
+      {
+        "id": "faq-5",
+        "q": "Hangi bölgelere hizmet veriyorsunuz? Şehir dışı büyük projelere destek sağlıyor musunuz?",
+        "a": "Merkezimiz İstanbul Esenler Tekstilkent'te bulunmakta olup, Tüm Türkiye genelinde (81 il) hizmet vermekteyiz. Büyük ölçekli organize sanayi fabrikaları, enerji santralleri, RMS istasyonları ve endüstriyel tesislerin yanı sıra; toplu konut, ticari bina, restoran ve bireysel doğalgaz projelerinde de anahtar teslim mühendislik ve taahhüt sağlamaktayız.",
+        "tag": "Tüm Türkiye Hizmeti"
+      },
+      {
+        "id": "faq-6",
+        "q": "Acil durumlar ve gaz kaçaklarında teknik müdahale sağlıyor musunuz?",
+        "a": "Evet. Devreye aldığımız tüm endüstriyel tesisler ve konut projeleri için 7/24 acil teknik destek hattımız mevcuttur. Selenoid vana arızaları, regülatör basınç problemleri veya gaz alarm santrali kontrolleri uzman teknisyenlerimizce anında giderilir.",
+        "tag": "7/24 Destek"
+      }
+    ]
   },
   "services": [
     {

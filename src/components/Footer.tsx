@@ -123,7 +123,18 @@ export default function Footer({ settings, services }: { settings?: SiteSettings
             <div className="space-y-4 text-ink-300">
               <div className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-brand-500 shrink-0 mt-0.5" />
-                <span className="text-sm">{address}</span>
+                {settings?.googleMapsUrl ? (
+                  <a
+                    href={settings.googleMapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm hover:text-white transition-colors"
+                  >
+                    {address}
+                  </a>
+                ) : (
+                  <span className="text-sm">{address}</span>
+                )}
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-brand-500 shrink-0" />

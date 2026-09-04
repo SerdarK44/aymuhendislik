@@ -40,6 +40,14 @@ export interface SiteSettings {
   faqCtaSubtitle?: string;
   ctaTitle?: string;
   ctaSubtitle?: string;
+  faqs?: FaqItem[];
+}
+
+export interface FaqItem {
+  id: string;
+  q: string;
+  a: string;
+  tag?: string;
 }
 
 export interface SliderItem {

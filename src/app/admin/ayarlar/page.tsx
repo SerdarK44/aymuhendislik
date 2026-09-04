@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { SiteSettings } from "@/lib/types";
-import { Save, CheckCircle2 } from "lucide-react";
+import { Save, CheckCircle2, Plus, Trash2 } from "lucide-react";
 
 export default function AdminSettingsPage() {
   const [settings, setSettings] = useState<SiteSettings | null>(null);
@@ -18,6 +18,30 @@ export default function AdminSettingsPage() {
         setLoading(false);
       });
   }, []);
+
+  const handleAddFaq = () => {
+    if (!settings) return;
+    const newFaq = {
+      id: "faq-" + Date.now(),
+      q: "Yeni Soru Başlığı",
+      a: "Bu sorunun detaylı açıklaması...",
+      tag: "Genel"
+    };
+    setSettings({ ...settings, faqs: [...(settings.faqs || []), newFaq] });
+  };
+
+  const handleUpdateFaq = (idx: number, field: string, value: string) => {
+    if (!settings) return;
+    const updated = [...(settings.faqs || [])];
+    updated[idx] = { ...updated[idx], [field]: value };
+    setSettings({ ...settings, faqs: updated });
+  };
+
+  const handleDeleteFaq = (idx: number) => {
+    if (!settings) return;
+    const updated = (settings.faqs || []).filter((_, i) => i !== idx);
+    setSettings({ ...settings, faqs: updated });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -108,6 +132,39 @@ export default function AdminSettingsPage() {
           </div>
         </div>
 
+        {/* About Us & Story */}
+        <div className="p-6 rounded-xl bg-white border border-stone-200 space-y-4">
+          <div className="flex items-center justify-between">
+            <h3 className="text-sm font-bold text-ink-900 uppercase font-mono tracking-wider">
+              Kurumsal Hikaye & Hakkımızda Metinleri
+            </h3>
+            <span className="text-[10px] text-stone-400 font-mono">/hakkimizda Sayfası</span>
+          </div>
+
+          <div>
+            <label className="block font-semibold text-ink-800 mb-1">Kısa Tanıtım Özeti (Alt Bilgi ve Giriş İçin)</label>
+            <textarea
+              rows={2}
+              value={settings.aboutShort || ""}
+              onChange={(e) => setSettings({ ...settings, aboutShort: e.target.value })}
+              placeholder="Ay Mühendislik; 16 yılı aşkın tecrübesi..."
+              className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-ink-900 focus:outline-none focus:border-brand-500"
+            />
+          </div>
+
+          <div>
+            <label className="block font-semibold text-ink-800 mb-1">Detaylı Kurumsal Hikaye (Hakkımızda Sayfası Ana Metni)</label>
+            <textarea
+              rows={5}
+              value={settings.aboutFull || ""}
+              onChange={(e) => setSettings({ ...settings, aboutFull: e.target.value })}
+              placeholder="Ay Mühendislik olarak kurulduğumuz günden bu yana..."
+              className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-ink-900 focus:outline-none focus:border-brand-500 leading-relaxed"
+            />
+            <p className="text-[10px] text-stone-400 mt-1">Paragraflar arasında bir satır boşluk bırakabilirsiniz.</p>
+          </div>
+        </div>
+
         {/* Contact info */}
         <div className="p-6 rounded-xl bg-white border border-stone-200 space-y-4">
           <h3 className="text-sm font-bold text-ink-900 uppercase font-mono tracking-wider">İletişim & Acil Hatlar</h3>
@@ -175,6 +232,62 @@ export default function AdminSettingsPage() {
               onChange={(e) => setSettings({ ...settings, address: e.target.value })}
               className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-ink-900 focus:outline-none focus:border-brand-500"
             />
+          </div>
+        </div>
+
+        {/* Social Media & Maps */}
+        <div className="p-6 rounded-xl bg-white border border-stone-200 space-y-4">
+          <div className="flex items-center justify-between">
+            <h3 className="text-sm font-bold text-ink-900 uppercase font-mono tracking-wider">
+              Sosyal Medya & Harita Bağlantıları
+            </h3>
+            <span className="text-[10px] text-stone-400 font-mono">Footer & İletişim</span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block font-semibold text-ink-800 mb-1">Google Haritalar Yol Tarifi / Paylaşım URL</label>
+              <input
+                type="url"
+                value={settings.googleMapsUrl || ""}
+                onChange={(e) => setSettings({ ...settings, googleMapsUrl: e.target.value })}
+                placeholder="https://maps.app.goo.gl/..."
+                className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-ink-900 focus:outline-none focus:border-brand-500"
+              />
+            </div>
+
+            <div>
+              <label className="block font-semibold text-ink-800 mb-1">LinkedIn Profil / Şirket URL</label>
+              <input
+                type="url"
+                value={settings.linkedinUrl || ""}
+                onChange={(e) => setSettings({ ...settings, linkedinUrl: e.target.value })}
+                placeholder="https://linkedin.com/in/..."
+                className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-ink-900 focus:outline-none focus:border-brand-500"
+              />
+            </div>
+
+            <div>
+              <label className="block font-semibold text-ink-800 mb-1">Instagram URL</label>
+              <input
+                type="url"
+                value={settings.instagramUrl || ""}
+                onChange={(e) => setSettings({ ...settings, instagramUrl: e.target.value })}
+                placeholder="https://instagram.com/..."
+                className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-ink-900 focus:outline-none focus:border-brand-500"
+              />
+            </div>
+
+            <div>
+              <label className="block font-semibold text-ink-800 mb-1">Facebook URL</label>
+              <input
+                type="url"
+                value={settings.facebookUrl || ""}
+                onChange={(e) => setSettings({ ...settings, facebookUrl: e.target.value })}
+                placeholder="https://facebook.com/..."
+                className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-ink-900 focus:outline-none focus:border-brand-500"
+              />
+            </div>
           </div>
         </div>
 
@@ -424,6 +537,80 @@ export default function AdminSettingsPage() {
                 />
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* FAQ Management Card */}
+        <div className="p-6 rounded-xl bg-white border border-stone-200 space-y-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-sm font-bold text-ink-900 uppercase font-mono tracking-wider">
+                Sıkça Sorulan Sorular (SSS) Yönetimi
+              </h3>
+              <p className="text-[11px] text-stone-500 mt-0.5">Ana sayfada yayınlanan soru & cevapları anlık olarak düzenleyin</p>
+            </div>
+            <button
+              type="button"
+              onClick={handleAddFaq}
+              className="px-3 py-1.5 rounded-lg bg-brand-50 hover:bg-brand-100 text-brand-700 font-bold text-xs flex items-center gap-1.5 border border-brand-200 transition cursor-pointer"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              <span>Yeni Soru Ekle</span>
+            </button>
+          </div>
+
+          <div className="space-y-3 pt-2">
+            {(settings.faqs || []).map((faq, idx) => (
+              <div key={faq.id || idx} className="p-4 rounded-xl bg-stone-50 border border-stone-200 space-y-2.5 relative group">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2 flex-1">
+                    <span className="w-6 h-6 rounded-full bg-stone-200 text-stone-700 font-mono text-[10px] font-bold flex items-center justify-center shrink-0">
+                      {idx + 1}
+                    </span>
+                    <input
+                      type="text"
+                      value={faq.q}
+                      onChange={(e) => handleUpdateFaq(idx, "q", e.target.value)}
+                      placeholder="Soru başlığı..."
+                      className="w-full px-3 py-1.5 rounded-lg bg-white border border-stone-200 text-xs font-bold text-ink-900 focus:outline-none focus:border-brand-500"
+                    />
+                  </div>
+                  <div className="w-32 shrink-0">
+                    <input
+                      type="text"
+                      value={faq.tag || ""}
+                      onChange={(e) => handleUpdateFaq(idx, "tag", e.target.value)}
+                      placeholder="Etiket (örn: İGDAŞ)"
+                      className="w-full px-2.5 py-1.5 rounded-lg bg-white border border-stone-200 text-[11px] font-mono text-stone-600 focus:outline-none focus:border-brand-500"
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteFaq(idx)}
+                    className="p-1.5 rounded-lg text-rose-500 hover:bg-rose-50 hover:text-rose-700 transition cursor-pointer shrink-0"
+                    title="Soruyu Sil"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+
+                <div>
+                  <textarea
+                    rows={2}
+                    value={faq.a}
+                    onChange={(e) => handleUpdateFaq(idx, "a", e.target.value)}
+                    placeholder="Detaylı cevap açıklaması..."
+                    className="w-full px-3 py-2 rounded-lg bg-white border border-stone-200 text-xs text-ink-900 focus:outline-none focus:border-brand-500 leading-relaxed"
+                  />
+                </div>
+              </div>
+            ))}
+
+            {(!settings.faqs || settings.faqs.length === 0) && (
+              <div className="text-center py-6 text-stone-400 text-xs">
+                Kayıtlı soru bulunmuyor. &quot;Yeni Soru Ekle&quot; butonuna basarak ilk sorunuzu ekleyebilirsiniz.
+              </div>
+            )}
           </div>
         </div>
 

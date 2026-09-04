@@ -59,6 +59,11 @@ export default async function BlogPostPage({ params }: Props) {
     { name: post.title, path: `/blog/${post.slug}` }
   ];
 
+  let cleanWa = (settings.whatsapp || "905329998877").replace(/\D/g, "");
+  if (cleanWa.startsWith("0")) cleanWa = "9" + cleanWa;
+  if (!cleanWa.startsWith("90") && cleanWa.length === 10) cleanWa = "90" + cleanWa;
+  const cleanPhone = (settings.phone || "02164567890").replace(/[^\d+]/g, "");
+
   return (
     <div className="min-h-screen bg-brand-50 flex flex-col">
       <StructuredData data={breadcrumbJsonLd(breadcrumbs)} />
@@ -212,7 +217,7 @@ export default async function BlogPostPage({ params }: Props) {
 
                 <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
                   <a
-                    href={`https://wa.me/${settings.whatsapp || "905329998877"}?text=${encodeURIComponent(`Merhaba, "${post.title}" makalenizi okudum. Doğalgaz projemiz için ücretsiz keşif ve teklif almak istiyorum.`)}`}
+                    href={`https://wa.me/${cleanWa}?text=${encodeURIComponent(`Merhaba, "${post.title}" makalenizi okudum. Doğalgaz projemiz için ücretsiz keşif ve teklif almak istiyorum.`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/30"
@@ -221,7 +226,7 @@ export default async function BlogPostPage({ params }: Props) {
                     <span>WhatsApp&apos;tan Yazın</span>
                   </a>
                   <a
-                    href={`tel:${(settings.phone || "02164567890").replace(/\s+/g, "")}`}
+                    href={`tel:${cleanPhone}`}
                     className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 shadow-lg shadow-brand-600/30"
                   >
                     <Phone className="w-4 h-4" />

@@ -55,6 +55,7 @@ export default function FaqSection({
   const badge = settings?.faqCtaBadge || "Özel Proje Danışmanlığı";
   const title = settings?.faqCtaTitle || "Başka bir sorunuz veya özel bir projeniz mi var?";
   const subtitle = settings?.faqCtaSubtitle || "Uzman makine mühendislerimiz projenizi yerinde inceleyip tüm teknik detayları ücretsiz yanıtlasın.";
+  const faqList = (settings?.faqs && settings.faqs.length > 0) ? settings.faqs : FAQ_DATA;
 
   const toggleFaq = (idx: number) => {
     setOpenIndex(openIndex === idx ? null : idx);
@@ -85,7 +86,7 @@ export default function FaqSection({
 
         {/* FAQ Accordion List */}
         <div className="space-y-4 mb-16">
-          {FAQ_DATA.map((item, idx) => {
+          {faqList.map((item, idx) => {
             const isOpen = openIndex === idx;
             return (
               <FadeIn key={idx} delay={idx * 0.08}>

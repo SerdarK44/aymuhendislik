@@ -1,14 +1,14 @@
 [
   {
     "route": "/",
-    "firstLoadUncompressedJsBytes": 686519,
+    "firstLoadUncompressedJsBytes": 686718,
     "firstLoadChunkPaths": [
       ".next\\static\\chunks\\1xmx94tbnjmsx.js",
       ".next\\static\\chunks\\210gvwbbohdlg.js",
       ".next\\static\\chunks\\0axdrs6tow-4n.js",
       ".next\\static\\chunks\\3o5dv3em9hwwc.js",
       ".next\\static\\chunks\\0yesgr9vsr0fl.js",
-      ".next\\static\\chunks\\3t2pj4aacl9k3.js",
+      ".next\\static\\chunks\\3nxtp62ns6dxa.js",
       ".next\\static\\chunks\\3s6nzrbk-8mnv.js",
       ".next\\static\\chunks\\2mmpezlrfmbu5.js",
       ".next\\static\\chunks\\1mkbuudhndal5.js",
@@ -105,6 +105,21 @@
       ".next\\static\\chunks\\0axdrs6tow-4n.js",
       ".next\\static\\chunks\\2bvcz_z_uls_3.js",
       ".next\\static\\chunks\\27pf9xly_0xt8.js",
+      ".next\\static\\chunks\\3s6nzrbk-8mnv.js",
+      ".next\\static\\chunks\\2mmpezlrfmbu5.js",
+      ".next\\static\\chunks\\1mkbuudhndal5.js",
+      ".next\\static\\chunks\\398e4um-lsjrr.js",
+      ".next\\static\\chunks\\turbopack-1kuc6dfq8w7o5.js"
+    ]
+  },
+  {
+    "route": "/admin/ayarlar",
+    "firstLoadUncompressedJsBytes": 632282,
+    "firstLoadChunkPaths": [
+      ".next\\static\\chunks\\1xmx94tbnjmsx.js",
+      ".next\\static\\chunks\\210gvwbbohdlg.js",
+      ".next\\static\\chunks\\0axdrs6tow-4n.js",
+      ".next\\static\\chunks\\0o44lb2ytqqe_.js",
       ".next\\static\\chunks\\3s6nzrbk-8mnv.js",
       ".next\\static\\chunks\\2mmpezlrfmbu5.js",
       ".next\\static\\chunks\\1mkbuudhndal5.js",
@@ -217,21 +232,6 @@
       ".next\\static\\chunks\\0axdrs6tow-4n.js",
       ".next\\static\\chunks\\02v4d1khwx78g.js",
       ".next\\static\\chunks\\0yesgr9vsr0fl.js",
-      ".next\\static\\chunks\\3s6nzrbk-8mnv.js",
-      ".next\\static\\chunks\\2mmpezlrfmbu5.js",
-      ".next\\static\\chunks\\1mkbuudhndal5.js",
-      ".next\\static\\chunks\\398e4um-lsjrr.js",
-      ".next\\static\\chunks\\turbopack-1kuc6dfq8w7o5.js"
-    ]
-  },
-  {
-    "route": "/admin/ayarlar",
-    "firstLoadUncompressedJsBytes": 625060,
-    "firstLoadChunkPaths": [
-      ".next\\static\\chunks\\1xmx94tbnjmsx.js",
-      ".next\\static\\chunks\\210gvwbbohdlg.js",
-      ".next\\static\\chunks\\0axdrs6tow-4n.js",
-      ".next\\static\\chunks\\0i65e5-tak1ct.js",
       ".next\\static\\chunks\\3s6nzrbk-8mnv.js",
       ".next\\static\\chunks\\2mmpezlrfmbu5.js",
       ".next\\static\\chunks\\1mkbuudhndal5.js",
