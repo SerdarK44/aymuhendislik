@@ -67,11 +67,11 @@ export default function Footer({ settings, services }: { settings?: Partial<Site
       <div className="max-w-6xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           <div className="md:col-span-1 space-y-5">
-            <Link href="/" className="inline-block scale-110 sm:scale-120 origin-left mb-3 shrink-0">
+            <Link href="/" className="inline-block mb-3 shrink-0">
               <img 
                 src="/logo/logo_tam.png" 
                 alt="Ay Mühendislik" 
-                className="h-20 sm:h-26 w-auto max-w-none shrink-0 object-contain brightness-0 invert opacity-95 transition-all"
+                className="h-11 sm:h-12 w-auto object-contain brightness-0 invert opacity-95 transition-all"
               />
             </Link>
             <p className="text-sm leading-relaxed text-ink-300">

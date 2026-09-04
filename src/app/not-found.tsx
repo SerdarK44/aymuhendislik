@@ -6,11 +6,11 @@ export default function NotFound() {
     <div className="min-h-screen bg-brand-50 flex flex-col justify-between text-ink-900 font-sans antialiased">
       {/* Header */}
       <header className="py-6 px-6 max-w-6xl mx-auto w-full flex items-center justify-between">
-        <Link href="/" className="inline-block scale-105 origin-left">
+        <Link href="/" className="inline-block">
           <img 
             src="/logo/logo_tam.png" 
             alt="Ay Mühendislik" 
-            className="h-12 sm:h-14 w-auto object-contain"
+            className="h-10 sm:h-12 w-auto object-contain"
           />
         </Link>
         <Link

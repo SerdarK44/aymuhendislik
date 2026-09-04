@@ -48,7 +48,7 @@ export default function MaintenanceView({ settings }: { settings?: Partial<SiteS
           <img 
             src="/logo/logo_tam.png" 
             alt="Ay Mühendislik" 
-            className="h-14 sm:h-18 w-auto object-contain brightness-0 invert opacity-95 transition-all"
+            className="h-10 sm:h-12 w-auto object-contain brightness-0 invert opacity-95 transition-all"
           />
         </div>
 

@@ -37,6 +37,16 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://aymuhendislik.com.tr",
   },
+  icons: {
+    icon: [
+      { url: "/icon.png", type: "image/png" },
+      { url: "/favicon.ico" }
+    ],
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" }
+    ],
+    shortcut: "/icon.png",
+  },
   robots: {
     index: true,
     follow: true,

@@ -47,17 +47,26 @@ export default function Navbar({ settings, onOpenQuote }: NavbarProps) {
     <>
       <header
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-          scrolled ? "bg-white/95 backdrop-blur-md shadow-sm py-2" : "bg-gradient-to-b from-ink-950/85 via-ink-950/40 to-transparent py-3 sm:py-4"
+          scrolled || !isHome 
+            ? "bg-white/95 backdrop-blur-md shadow-sm py-2" 
+            : "bg-gradient-to-b from-ink-950/85 via-ink-950/40 to-transparent py-3 sm:py-4"
         }`}
       >
         <nav className="max-w-6xl mx-auto px-5 sm:px-6 flex items-center justify-between">
 
-          {/* Logo - Ideal Sweet-Spot Size */}
-          <Link href="/" className="flex items-center group relative z-10 shrink-0 scale-110 sm:scale-120 origin-left my-0.5">
+          {/* Logo */}
+          <Link 
+            href="/" 
+            className={`flex items-center group relative z-10 shrink-0 transition-all duration-300 ${
+              !isDarkText 
+                ? "bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-2xl shadow-sm border border-white/60 hover:bg-white" 
+                : "hover:opacity-95"
+            }`}
+          >
             <img 
               src="/logo/logo_tam.png" 
               alt="Ay Mühendislik" 
-              className={`h-15 sm:h-20 lg:h-24 w-auto max-w-none shrink-0 object-contain transition-all duration-300 ${!isDarkText ? "drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]" : "drop-shadow-xs"}`}
+              className="h-9 sm:h-11 lg:h-12 w-auto object-contain transition-transform group-hover:scale-[1.02]"
             />
           </Link>
 
@@ -112,11 +121,11 @@ export default function Navbar({ settings, onOpenQuote }: NavbarProps) {
         <div className="pt-20 px-6 pb-6 flex-1 overflow-y-auto flex flex-col">
           {/* Mobile Drawer Header Logo */}
           <div className="pb-6 mb-6 border-b border-stone-100 flex items-center justify-between">
-            <Link href="/" onClick={() => setMobileOpen(false)} className="inline-block scale-125 origin-left">
+            <Link href="/" onClick={() => setMobileOpen(false)} className="inline-block">
               <img 
                 src="/logo/logo_tam.png" 
                 alt="Ay Mühendislik" 
-                className="h-16 w-auto object-contain"
+                className="h-10 sm:h-11 w-auto object-contain"
               />
             </Link>
           </div>
