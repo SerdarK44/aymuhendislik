@@ -170,7 +170,6 @@ export default function Footer({ settings, services }: { settings?: Partial<Site
             <Link href="/gizlilik-politikasi" className="hover:text-ink-200 transition-colors">KVKK</Link>
             <Link href="/sartlar-ve-kosullar" className="hover:text-ink-200 transition-colors">{t("footer.terms")}</Link>
             <Link href="/cerez-politikasi" className="hover:text-ink-200 transition-colors">{t("footer.cookies")}</Link>
-            <Link href="/admin" className="hover:text-ink-200 transition-colors">{t("footer.adminLogin")}</Link>
           </div>
         </div>
       </div>
