@@ -91,7 +91,6 @@ export default function JsonLd({ settings, services = [] }: JsonLdProps) {
           }
         ],
         "sameAs": [
-          settings.facebookUrl || "https://facebook.com/aymuhendislik",
           settings.instagramUrl || "https://instagram.com/aymuhendislik",
           settings.linkedinUrl || "https://linkedin.com/company/aymuhendislik"
         ],

@@ -38,7 +38,6 @@ function ensureDbFile(): DatabaseSchema {
         happyClients: 3200,
         certifiedStaff: 24,
         googleMapsUrl: "https://maps.app.goo.gl/bpbn5Dzx6ezDK5mD9",
-        facebookUrl: "https://facebook.com/aymuhendislik",
         instagramUrl: "https://instagram.com/aymuhendislik",
         linkedinUrl: "https://linkedin.com/company/aymuhendislik"
       },

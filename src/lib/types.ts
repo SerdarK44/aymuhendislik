@@ -19,7 +19,6 @@ export interface SiteSettings {
   happyClients: number;
   certifiedStaff: number;
   googleMapsUrl: string;
-  facebookUrl?: string;
   instagramUrl?: string;
   linkedinUrl?: string;
   // Why Us section fields

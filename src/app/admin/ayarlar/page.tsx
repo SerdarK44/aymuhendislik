@@ -277,17 +277,6 @@ export default function AdminSettingsPage() {
                 className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-ink-900 focus:outline-none focus:border-brand-500"
               />
             </div>
-
-            <div>
-              <label className="block font-semibold text-ink-800 mb-1">Facebook URL</label>
-              <input
-                type="url"
-                value={settings.facebookUrl || ""}
-                onChange={(e) => setSettings({ ...settings, facebookUrl: e.target.value })}
-                placeholder="https://facebook.com/..."
-                className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-ink-900 focus:outline-none focus:border-brand-500"
-              />
-            </div>
           </div>
         </div>
 

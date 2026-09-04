@@ -1,6 +1,6 @@
 "use client";
 
-import { MapPin, Phone, Mail, Navigation, Clock, Link as LinkIcon, Share2, Headphones } from "lucide-react";
+import { MapPin, Phone, Mail, Navigation, Clock, Share2, Headphones } from "lucide-react";
 import FadeIn from "@/components/FadeIn";
 import ContactForm from "@/components/ContactForm";
 import { SiteSettings } from "@/lib/types";
@@ -183,15 +183,6 @@ export default function ContactClient({ settings }: { settings: SiteSettings }) 
                   aria-label="Instagram"
                 >
                   <Share2 className="w-5 h-5" />
-                </a>
-                <a
-                  href={settings.facebookUrl || "https://facebook.com/aymuhendislik"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-2xl bg-brand-50 border border-brand-200/60 flex items-center justify-center text-brand-600 hover:bg-[#1877F2] hover:text-white hover:border-[#1877F2] transition-all transform hover:scale-110"
-                  aria-label="Facebook"
-                >
-                  <LinkIcon className="w-5 h-5" />
                 </a>
               </div>
             </div>
