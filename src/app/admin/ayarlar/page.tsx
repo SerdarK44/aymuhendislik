@@ -20,6 +20,27 @@ export default function AdminSettingsPage() {
       });
   }, []);
 
+  const handleToggleMaintenance = async () => {
+    if (!settings) return;
+    const newMode = !settings.maintenanceMode;
+    const updated = { ...settings, maintenanceMode: newMode };
+    setSettings(updated);
+
+    try {
+      const res = await fetch("/api/settings", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updated),
+      });
+      if (res.ok) {
+        setSaved(true);
+        setTimeout(() => setSaved(false), 3000);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const handleAddFaq = () => {
     if (!settings) return;
     const newFaq = {
@@ -132,7 +153,7 @@ export default function AdminSettingsPage() {
 
               <button
                 type="button"
-                onClick={() => setSettings({ ...settings, maintenanceMode: !settings.maintenanceMode })}
+                onClick={handleToggleMaintenance}
                 className={`px-4 py-2 rounded-xl font-bold text-xs transition-all shadow-xs flex items-center gap-1.5 ${
                   settings.maintenanceMode
                     ? "bg-emerald-600 hover:bg-emerald-700 text-white"

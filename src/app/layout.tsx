@@ -110,7 +110,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const session = await getSessionAdmin();
   const isAdmin = Boolean(session);
 
-  const showMaintenance = (isMaintenanceActive && !isAdmin && !isAdminRoute && !isApiRoute && !isUploadRoute) || isPreviewMaintenance;
+  const showMaintenance = (isMaintenanceActive && !isAdminRoute && !isApiRoute && !isUploadRoute) || isPreviewMaintenance;
 
   return (
     <html lang={initialLocale} className="h-full" data-scroll-behavior="smooth">
@@ -122,7 +122,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       >
         <LanguageProvider initialLocale={initialLocale}>
           {showMaintenance ? (
-            <MaintenanceView settings={settings} />
+            <MaintenanceView settings={settings} isAdmin={isAdmin} />
           ) : (
             <>
               {isMaintenanceActive && isAdmin && !isAdminRoute && (

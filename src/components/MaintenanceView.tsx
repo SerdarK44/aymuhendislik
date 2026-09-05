@@ -1,12 +1,39 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { Wrench, Phone, Mail, Clock, ShieldCheck, Lock } from "lucide-react";
+import { Wrench, Phone, Mail, Clock, ShieldCheck, Lock, AlertTriangle, ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
 import { SiteSettings } from "@/lib/types";
 import { useLanguage } from "@/context/LanguageContext";
 
-export default function MaintenanceView({ settings }: { settings?: Partial<SiteSettings> }) {
+export default function MaintenanceView({ 
+  settings, 
+  isAdmin 
+}: { 
+  settings?: Partial<SiteSettings>; 
+  isAdmin?: boolean; 
+}) {
   const { t, locale, setLocale, isEn } = useLanguage();
+  const [closing, setClosing] = useState(false);
+
+  const handleTurnOffMaintenance = async () => {
+    setClosing(true);
+    try {
+      const res = await fetch("/api/settings", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...settings, maintenanceMode: false }),
+      });
+      if (res.ok) {
+        window.location.href = "/";
+      } else {
+        setClosing(false);
+      }
+    } catch (e) {
+      console.error(e);
+      setClosing(false);
+    }
+  };
 
   const phone = settings?.emergencyPhone || settings?.phone || "0 (216) 456 78 90";
   const cleanPhone = phone.replace(/[^\d+]/g, "");
@@ -29,6 +56,45 @@ export default function MaintenanceView({ settings }: { settings?: Partial<SiteS
 
   return (
     <div className="min-h-screen w-full bg-[#0a0e17] text-white flex flex-col justify-between relative overflow-hidden selection:bg-brand-500 selection:text-ink-950">
+      {/* Admin Notice Bar */}
+      {isAdmin && (
+        <div className="relative z-50 w-full bg-amber-500 text-ink-950 px-4 py-2.5 text-xs font-bold flex flex-wrap items-center justify-between gap-3 shadow-xl border-b border-amber-600/50">
+          <div className="flex items-center gap-2">
+            <AlertTriangle className="w-4 h-4 shrink-0 text-ink-950" />
+            <span>
+              YÖNETİCİ MODU: Bakım modu AKTİF. Normal ziyaretçiler yalnızca bu ekranı görmektedir.
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/admin/ayarlar"
+              className="px-3 py-1 bg-ink-950 hover:bg-ink-900 text-white rounded-lg transition-colors inline-flex items-center gap-1.5 text-[11px]"
+            >
+              <span>Ayarlar & Panel</span>
+              <ArrowRight className="w-3 h-3" />
+            </Link>
+            <button
+              type="button"
+              onClick={handleTurnOffMaintenance}
+              disabled={closing}
+              className="px-3 py-1 bg-emerald-700 hover:bg-emerald-800 disabled:opacity-50 text-white rounded-lg transition-colors inline-flex items-center gap-1.5 text-[11px]"
+            >
+              {closing ? (
+                <>
+                  <Loader2 className="w-3 h-3 animate-spin" />
+                  <span>Kapatılıyor...</span>
+                </>
+              ) : (
+                <>
+                  <CheckCircle2 className="w-3 h-3" />
+                  <span>Bakım Modunu Kapat</span>
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Background ambient lighting */}
       <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-brand-500/10 rounded-full blur-[150px] pointer-events-none" />
       <div className="absolute -bottom-40 -right-40 w-[600px] h-[600px] bg-amber-500/10 rounded-full blur-[150px] pointer-events-none" />
