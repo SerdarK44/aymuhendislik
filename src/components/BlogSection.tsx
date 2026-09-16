@@ -32,41 +32,70 @@ export default function BlogSection({ posts }: { posts: BlogPost[] }) {
         </FadeIn>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {posts.slice(0, 3).map((post, i) => (
-            <FadeIn key={post.id} delay={i * 0.12}>
-              <article>
-                <Link href={`/blog/${post.slug}`} className="group block">
-                  <motion.div 
-                    whileHover={{ y: -4 }}
-                    transition={{ duration: 0.3, ease: "easeOut" }}
-                    className="relative"
-                  >
-                    <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-stone-100 mb-6">
-                      <Image
-                        src={post.coverImage || "/images/2.png"}
-                        alt={post.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        className="object-cover group-hover:scale-110 transition-transform duration-[1.2s] ease-out"
-                      />
-                      {/* Hover arrow icon */}
-                      <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 scale-75 group-hover:scale-100 transition-all duration-500 text-ink-900">
-                        <ArrowUpRight className="w-5 h-5" />
+          {posts.slice(0, 3).map((post, i) => {
+            const hasImage = Boolean(post.coverImage && post.coverImage.trim().length > 0);
+
+            return (
+              <FadeIn key={post.id} delay={i * 0.12}>
+                <article>
+                  <Link href={`/blog/${post.slug}`} className="group block h-full">
+                    <motion.div 
+                      whileHover={{ y: -4 }}
+                      transition={{ duration: 0.3, ease: "easeOut" }}
+                      className="relative h-full flex flex-col justify-between"
+                    >
+                      {hasImage ? (
+                        <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-stone-100 mb-6">
+                          <Image
+                            src={post.coverImage!}
+                            alt={post.title}
+                            fill
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                            className="object-cover group-hover:scale-110 transition-transform duration-[1.2s] ease-out"
+                          />
+                          {post.category && (
+                            <div className="absolute top-3 left-3 bg-ink-950/80 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[10px] font-bold text-white border border-white/10 font-mono">
+                              {post.category}
+                            </div>
+                          )}
+                          {/* Hover arrow icon */}
+                          <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 scale-75 group-hover:scale-100 transition-all duration-500 text-ink-900 shadow-sm">
+                            <ArrowUpRight className="w-4 h-4" />
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="aspect-[16/10] rounded-2xl bg-gradient-to-br from-brand-50 to-white border border-brand-200/80 p-5 flex flex-col justify-between mb-6 group-hover:border-brand-300 transition-colors shadow-2xs">
+                          <div className="flex items-center justify-between">
+                            <span className="px-2.5 py-0.5 rounded-full bg-brand-100/70 text-brand-800 text-[10px] font-bold font-mono">
+                              {post.category || (isEn ? "Guide" : "Rehber")}
+                            </span>
+                            <div className="w-8 h-8 rounded-full bg-white border border-brand-200 flex items-center justify-center text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition-colors">
+                              <ArrowUpRight className="w-4 h-4" />
+                            </div>
+                          </div>
+                          <p className="text-xs text-stone-600 line-clamp-3 leading-relaxed italic">
+                            &ldquo;{post.excerpt}&rdquo;
+                          </p>
+                        </div>
+                      )}
+                      
+                      <div>
+                        <div className="flex items-center gap-2 text-xs text-stone-400 mb-2.5 font-medium">
+                          <Clock className="w-3.5 h-3.5 text-brand-600" />
+                          <span>{post.readTime}</span>
+                          <span>•</span>
+                          <span>{post.publishDate}</span>
+                        </div>
+                        <h3 className="font-bold text-ink-900 group-hover:text-brand-600 transition-colors line-clamp-2 leading-snug text-base">
+                          {post.title}
+                        </h3>
                       </div>
-                    </div>
-                    
-                    <div className="flex items-center gap-2 text-xs text-stone-400 mb-3 font-medium">
-                      <Clock className="w-3.5 h-3.5" />
-                      {post.readTime}
-                    </div>
-                    <h3 className="font-bold text-ink-900 group-hover:text-brand-600 transition-colors line-clamp-2 leading-snug text-base">
-                      {post.title}
-                    </h3>
-                  </motion.div>
-                </Link>
-              </article>
-            </FadeIn>
-          ))}
+                    </motion.div>
+                  </Link>
+                </article>
+              </FadeIn>
+            );
+          })}
         </div>
 
         {/* Mobile "see all" link */}

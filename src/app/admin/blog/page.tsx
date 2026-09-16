@@ -15,13 +15,23 @@ export default function AdminBlogPage() {
 
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
+  const [category, setCategory] = useState("Doğalgaz Projesi");
+  const [selectedCategoryFilter, setSelectedCategoryFilter] = useState("Tümü");
   const [excerpt, setExcerpt] = useState("");
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("Müh. Serdar Ay");
   const [readTime, setReadTime] = useState("5 dk okuma");
-  const [coverImage, setCoverImage] = useState("/images/2.png");
+  const [coverImage, setCoverImage] = useState("");
   const [tags, setTags] = useState("Doğalgaz Projesi, Mühendislik, Gaz Açma");
   const [isPublished, setIsPublished] = useState(true);
+
+  const CATEGORY_OPTIONS = [
+    "Doğalgaz Projesi",
+    "Endüstriyel Tesisat",
+    "Kazan & Kaskad",
+    "Mevzuat & Standartlar",
+    "Genel"
+  ];
 
   const fetchPosts = async () => {
     try {
@@ -43,11 +53,12 @@ export default function AdminBlogPage() {
     setEditingPost(null);
     setTitle("");
     setSlug("");
+    setCategory("Doğalgaz Projesi");
     setExcerpt("");
     setContent("<h2>Giriş ve Mühendislik Esasları</h2>\n<p>Bu makalede doğalgaz projelendirme ve tesisat güvenlik standartlarını inceliyoruz...</p>");
     setAuthor("Müh. Serdar Ay");
     setReadTime("5 dk okuma");
-    setCoverImage("/images/2.png");
+    setCoverImage("");
     setTags("Doğalgaz, Mühendislik, İGDAŞ Onayı");
     setIsPublished(true);
     setModalOpen(true);
@@ -57,11 +68,12 @@ export default function AdminBlogPage() {
     setEditingPost(post);
     setTitle(post.title);
     setSlug(post.slug);
+    setCategory(post.category || "Doğalgaz Projesi");
     setExcerpt(post.excerpt);
     setContent(post.content);
     setAuthor(post.author);
     setReadTime(post.readTime);
-    setCoverImage(post.coverImage);
+    setCoverImage(post.coverImage || "");
     setTags(post.tags.join(", "));
     setIsPublished(post.isPublished);
     setModalOpen(true);
@@ -73,11 +85,12 @@ export default function AdminBlogPage() {
       id: editingPost ? editingPost.id : undefined,
       title,
       slug: slug || title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
+      category: category || "Genel",
       excerpt,
       content,
       author,
       readTime,
-      coverImage,
+      coverImage: coverImage ? coverImage.trim() : "",
       tags: tags.split(",").map((t) => t.trim()).filter(Boolean),
       isPublished
     };
@@ -125,12 +138,35 @@ export default function AdminBlogPage() {
         </button>
       </div>
 
+      {/* Category Filter Bar */}
+      <div className="flex flex-wrap items-center gap-2 mb-4">
+        <span className="text-xs font-bold text-stone-500 font-mono uppercase mr-1">Kategori Filtresi:</span>
+        {["Tümü", ...Array.from(new Set(posts.map(p => p.category || "Genel"))).filter(Boolean)].map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setSelectedCategoryFilter(cat)}
+            className={`px-3 py-1 rounded-lg text-xs font-semibold transition ${
+              selectedCategoryFilter === cat
+                ? "bg-brand-600 text-white shadow-xs"
+                : "bg-white border border-stone-200 text-stone-600 hover:bg-stone-50"
+            }`}
+          >
+            {cat}
+            <span className="ml-1.5 opacity-70 text-[10px]">
+              ({cat === "Tümü" ? posts.length : posts.filter(p => (p.category || "Genel") === cat).length})
+            </span>
+          </button>
+        ))}
+      </div>
+
       <div className="bg-white border border-stone-200 rounded-xl overflow-hidden shadow-xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead className="bg-stone-50 text-stone-500 font-mono uppercase text-[10px] border-b border-stone-200">
               <tr>
                 <th className="p-3.5">Makale Başlığı</th>
+                <th className="p-3.5">Kategori</th>
+                <th className="p-3.5">Görsel Durumu</th>
                 <th className="p-3.5">Yazar</th>
                 <th className="p-3.5">Tarih</th>
                 <th className="p-3.5">Durum</th>
@@ -138,9 +174,27 @@ export default function AdminBlogPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/60 text-ink-800">
-              {posts.map((post) => (
+              {posts
+                .filter(p => selectedCategoryFilter === "Tümü" || (p.category || "Genel") === selectedCategoryFilter)
+                .map((post) => (
                 <tr key={post.id} className="hover:bg-stone-50/40 transition">
                   <td className="p-3.5 font-bold text-ink-900 max-w-md">{post.title}</td>
+                  <td className="p-3.5">
+                    <span className="px-2 py-0.5 rounded bg-brand-50 border border-brand-200 text-brand-700 text-[10px] font-bold font-mono">
+                      {post.category || "Genel"}
+                    </span>
+                  </td>
+                  <td className="p-3.5">
+                    {post.coverImage ? (
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[10px] font-semibold">
+                        <span>Görselli</span>
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-stone-100 text-stone-600 text-[10px] font-semibold">
+                        <span>Resimsiz (Metin)</span>
+                      </span>
+                    )}
+                  </td>
                   <td className="p-3.5 text-ink-800">{post.author}</td>
                   <td className="p-3.5 font-mono text-stone-500">{post.publishDate}</td>
                   <td className="p-3.5">
@@ -191,15 +245,29 @@ export default function AdminBlogPage() {
             </div>
 
             <form onSubmit={handleSave} className="space-y-4 text-xs">
-              <div>
-                <label className="block font-semibold text-ink-800 mb-1">Makale Başlığı (SEO Uyumlu) *</label>
-                <input
-                  type="text"
-                  required
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-ink-900 focus:outline-none focus:border-brand-500"
-                />
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="sm:col-span-2">
+                  <label className="block font-semibold text-ink-800 mb-1">Makale Başlığı (SEO Uyumlu) *</label>
+                  <input
+                    type="text"
+                    required
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-ink-900 focus:outline-none focus:border-brand-500"
+                  />
+                </div>
+                <div>
+                  <label className="block font-semibold text-ink-800 mb-1">Kategori *</label>
+                  <select
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                    className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-ink-900 focus:outline-none focus:border-brand-500"
+                  >
+                    {CATEGORY_OPTIONS.map((c) => (
+                      <option key={c} value={c}>{c}</option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
@@ -247,20 +315,35 @@ export default function AdminBlogPage() {
 
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <label className="block font-semibold text-ink-800">Kapak Görseli *</label>
-                  <button
-                    type="button"
-                    onClick={() => setMediaPickerOpen(true)}
-                    className="text-brand-600 hover:text-brand-700 font-bold flex items-center gap-1 text-xs"
-                  >
-                    <FolderOpen className="w-3.5 h-3.5" />
-                    Galeriden Seç
-                  </button>
+                  <label className="block font-semibold text-ink-800">
+                    Kapak Görseli <span className="text-stone-400 font-normal">(İsteğe bağlı — Resim yoksa sitede sadece yazı olarak listelenir)</span>
+                  </label>
+                  <div className="flex items-center gap-2">
+                    {coverImage && (
+                      <button
+                        type="button"
+                        onClick={() => setCoverImage("")}
+                        className="text-rose-600 hover:text-rose-700 font-semibold text-xs flex items-center gap-1"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                        Görseli Kaldır (Resimsiz Yap)
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => setMediaPickerOpen(true)}
+                      className="text-brand-600 hover:text-brand-700 font-bold flex items-center gap-1 text-xs"
+                    >
+                      <FolderOpen className="w-3.5 h-3.5" />
+                      Galeriden Seç
+                    </button>
+                  </div>
                 </div>
                 <div className="flex gap-2">
                   <input
                     type="text"
                     value={coverImage}
+                    placeholder="Görsel URL veya boş bırakarak sadece metin olarak yayınlayın"
                     onChange={(e) => setCoverImage(e.target.value)}
                     className="flex-1 px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 text-ink-900 focus:outline-none focus:border-brand-500 font-mono text-xs"
                   />

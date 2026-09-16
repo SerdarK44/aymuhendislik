@@ -85,13 +85,23 @@ export default async function BlogPostPage({ params }: Props) {
         {/* Hero Header */}
         <div className="max-w-4xl mx-auto px-6 mb-10">
           <FadeIn>
-            <Link
-              href="/blog"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-stone-500 hover:text-brand-600 mb-6 transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span>Tüm Rehber ve Makalelere Dön</span>
-            </Link>
+            <div className="flex flex-wrap items-center gap-3 mb-6">
+              <Link
+                href="/blog"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-stone-500 hover:text-brand-600 transition-colors"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span>Tüm Rehber ve Makalelere Dön</span>
+              </Link>
+              {post.category && (
+                <>
+                  <span className="text-stone-300">•</span>
+                  <span className="px-2.5 py-0.5 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-[11px] font-bold font-mono">
+                    {post.category}
+                  </span>
+                </>
+              )}
+            </div>
 
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-ink-900 leading-tight tracking-tight mb-6">
               {post.title}
@@ -118,21 +128,23 @@ export default async function BlogPostPage({ params }: Props) {
           </FadeIn>
         </div>
 
-        {/* Featured Image */}
-        <div className="max-w-4xl mx-auto px-6 mb-12">
-          <FadeIn delay={0.1}>
-            <div className="relative h-72 sm:h-96 w-full rounded-3xl overflow-hidden border border-stone-200 shadow-lg bg-stone-100">
-              <Image
-                src={post.coverImage || "/images/2.png"}
-                alt={post.title}
-                fill
-                sizes="(max-width: 896px) 100vw, 896px"
-                className="object-cover"
-                priority
-              />
-            </div>
-          </FadeIn>
-        </div>
+        {/* Featured Image (Only when present) */}
+        {Boolean(post.coverImage && post.coverImage.trim().length > 0) && (
+          <div className="max-w-4xl mx-auto px-6 mb-12">
+            <FadeIn delay={0.1}>
+              <div className="relative h-72 sm:h-96 w-full rounded-3xl overflow-hidden border border-stone-200 shadow-lg bg-stone-100">
+                <Image
+                  src={post.coverImage!}
+                  alt={post.title}
+                  fill
+                  sizes="(max-width: 896px) 100vw, 896px"
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </FadeIn>
+          </div>
+        )}
 
         {/* Article Body & Internal Linking */}
         <div className="max-w-4xl mx-auto px-6 space-y-12">
